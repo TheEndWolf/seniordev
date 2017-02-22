@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="courseData.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  
   <head>
   <title>Home | Pascal</title>
   </head>
@@ -11,22 +16,155 @@
         <!-- <div class = "logo"> -->
           <h1 class="logo">Pascal</h1>
         <!-- </div> -->
-        <nav>
-          <ul>
+        <ul id="nav">
             <!-- <li><a calss="logo" href="index.html">Pascal</a></li> -->
-            <li><a class="active" href="index.html">Home</a></li>
-            <li><a href="course_data.html">Course Data</a></li>
-            <li><a href="admin.html">Admin</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="course_data.html">Course Data</a>
+                <ul>
+                    <li><a href="custom_stat.html">Custom Statistics</a></li>
+                    <li><a href="generate_report.html">Generate Report</a></li>
+                    <li><a href="enter_data.html">Enter Data</a></li>
+        	</ul>
+            </li>
+            <li><a href="admin.html">Admin</a>
+            <ul>
+                    <li><a href="upload_report.html">Upload Report</a></li>
+                    <li><a href="create_account.html">Create New Account</a></li>
+                    <li><a href="task_stream.html">Task Stream</a></li>
+            </ul>
+            </li>
             <li style="float:right"><a href="#log">Log Out</a></li>
             <li style="float:right"><a id="welcome" href="#welcome">Welcome, John Smith</a></li>
-          </ul>
-        </nav>
+            <li id="clear"></li>
+        </ul>
       </div>
     </header>
+        <div id="content">
+            <div class="tabPg">
+                <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'custom_stat')">Custom Statistics</a>
+                <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'generate_report')">Generate Report</a>
+                <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'enter_data')">Enter Data</a>
+            </div>
+            
+            <div id="custom_stat" class="tabcontent">
+                <form>
+                    <p>Class 
+                    <select name="class" class="form-control"> 
+                        <option value="one">Class 1</option>
+                        <option value="two">Class 2</option>
+                        <option value="three">Class 3</option>
+                        <option value="four">Class 4</option>
+                    </select></p> 
+                    
+                    <p>Section
+                    <select name="section" class="form-control">
+                        <option value="sec1">Section 1</option>
+                        <option value="sec2">Section 2</option>
+                        <option value="sec3">Section 3</option>
+                        <option value="sec4">Section 4</option>
+                    </select></p>
+                    
+                    <button class="btn btn-success">View Course Data</button>
 
-    <div id="content">
-      <p>content here</p>
-    </div>
+                    <p><b><br>Class Information:</b></p>
+                    <p>Program Name
+                    <select name="program" class="form-control">
+                        <option value="p1">Program 1</option>
+                        <option value="p2">Program 2</option>
+                    </select></p>
+                    
+                    <p>Course Name
+                    <select name="course" class="form-control">
+                        <option value="c1">Course 1</option>
+                        <option value="c2">Course 2</option>
+                    </select></p>
+                    
+                    <p>Term
+                    <select name="term" class="form-control">
+                        <option value="t1">Term 1</option>
+                        <option value="t2">Term 2</option>
+                    </select></p>
+                    
+                    <p>Over This
+                    <input type="text" class="form-control" value="80%" /></p>
+                    
+                    <p>Expected
+                    <input type="text" class="form-control" value="80%" /></p>
+                    
+                    <button class="btn btn-success">Show Statistic</button>
+                </form>
+            </div>
+            
+            <div id="generate_report" class="tabcontent">
+                <p>Class 
+                    <select name="class" class="form-control"> 
+                        <option value="one">Class 1</option>
+                        <option value="two">Class 2</option>
+                        <option value="three">Class 3</option>
+                        <option value="four">Class 4</option>
+                    </select></p> 
+                    
+                    <p>Section
+                    <select name="section" class="form-control">
+                        <option value="sec1">Section 1</option>
+                        <option value="sec2">Section 2</option>
+                        <option value="sec3">Section 3</option>
+                        <option value="sec4">Section 4</option>
+                    </select></p>
+                    
+                    <button class="btn btn-success">Add a Class</button>
+                    <button class="btn btn-success">Generate Report</button>
+                    
+                    <p><b><br>Class Information:</b></p>
+                    <p>Program Name
+                    <select name="program" class="form-control">
+                        <option value="p1">Program 1</option>
+                        <option value="p2">Program 2</option>
+                    </select></p>
+                    
+                    <p>Course Name
+                    <select name="course" class="form-control">
+                        <option value="c1">Course 1</option>
+                        <option value="c2">Course 2</option>
+                    </select></p>
+                    
+                    <p>Term
+                    <select name="term" class="form-control">
+                        <option value="t1">Term 1</option>
+                        <option value="t2">Term 2</option>
+                    </select></p>
+                    
+                    <button class="btn btn-success">Export</button>
+            </div>
+            
+            <div id="enter_data" class="tabcontent">
+                <p>Program Name
+                    <input type="text" class="form-control" /></p>
+                    
+                <p>Course Name
+                    <input type="text" class="form-control" /></p>
+                
+                <p>Program Objectives<br>
+			<textarea class="form-control" rows="4"></textarea></p>
+                
+                <p>Term
+                    <input type="text" class="form-control" /></p>
+                
+                <p>Over This %
+                    <input type="text" class="form-control" /></p>
+                    
+                <p>Expected %
+                    <input type="text" class="form-control" /></p>
+                
+                <p>Scores on CAI
+                    <input type="text" class="form-control" /></p>
+                
+                <p>Course Notes<br>
+			<textarea class="form-control" rows="4"></textarea></p>
+                
+                <button class="btn btn-success">Submit</button>
+            </div>
+        </div>
 
     <footer>
       <p>Copyright &copy; Team Pascal. All RIghts Reserved.</p>

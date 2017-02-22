@@ -23,6 +23,35 @@ header {
   margin-top: 2%;
 }
 
+div.tabPg {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+div.tabPg a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+div.tabPg a:hover, .tabPg a:focus, .active {
+    background-color: #6BD66E;
+    color: white;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
 footer {
 
 }
@@ -30,19 +59,24 @@ footer {
 /************************************
  *         Navigation Menu          *
  ***********************************/
-ul {
-    list-style-type: none;
+#nav {
+    list-style: none; 
+    padding-left: 0px;
+    margin-bottom: 0px; 
+}
+
+#nav ul {
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    /*background-color: #333;*/
+    overflow: initial;
 }
 
-li {
+#nav li {
     float: left;
+    position: relative;
 }
 
-li a {
+#nav li a {
     display: block;
     color: white;
     text-align: center;
@@ -50,14 +84,88 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+#nav li:hover > a {
     color: #095517;
 }
 
-.active {
-    color: #095517;
-    font-weight: bold;
+#nav li:hover > ul {
+    display: block;
 }
+
+#nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;    
+    display: none;
+    position: absolute;
+    top: 45px;
+    left: 10px;    
+    background-color: #6bd66e;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #095517;
+}
+
+#nav ul li {
+    float: none;
+    margin: 0;
+    padding: 0;
+    display: block;  
+    box-shadow: 0 1px 0 #095517;
+}
+
+#nav ul li:last-child { 
+    box-shadow: none;    
+}
+
+#nav ul a {    
+    padding: 6px;
+    height: inherit;
+    line-height: 1;
+    display: block;
+    white-space: nowrap;
+    float: none;
+    text-transform: none;
+}
+
+/*#nav ul a:hover {
+    background-color: #095517;
+}*/
+
+#nav ul li:first-child a {
+}
+
+#nav ul li:first-child a:after {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: -10px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 10px solid #095517;
+}
+
+#nav ul li:first-child a:hover:after {
+    border-bottom-color: #095517; 
+}
+
+#nav ul li:last-child a {
+    border-radius: 0 0 5px 5px;
+}
+
+#nav:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+
 /************************************/
 
 
