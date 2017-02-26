@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
   <head>
   <title>Home | Pascal</title>
   </head>
@@ -15,18 +17,18 @@
             <!-- <li><a calss="logo" href="index.html">Pascal</a></li> -->
             <li><a href="index.html">Home</a></li>
             <li><a href="course_data.html">Course Data</a>
-                <ul>
+<!--                <ul>
                     <li><a href="custom_stat.html">Custom Statistics</a></li>
                     <li><a href="generate_report.html">Generate Report</a></li>
                     <li><a href="enter_data.html">Enter Data</a></li>
-        	</ul>
+        	</ul>-->
             </li>
             <li><a href="admin.html">Admin</a>
-            <ul>
+<!--                <ul>
                     <li><a href="upload_report.html">Upload Report</a></li>
                     <li><a href="create_account.html">Create New Account</a></li>
                     <li><a href="task_stream.html">Task Stream</a></li>
-            </ul>
+                </ul>-->
             </li>
             <li style="float:right"><a href="#log">Log Out</a></li>
             <li style="float:right"><a id="welcome" href="#welcome">Welcome, John Smith</a></li>
@@ -36,8 +38,16 @@
     </header>
 
     <div id="content">
-      <div>
-          <p>log in form</p>
+      <div id="container">
+        <h3>System Login</h3>
+        <hr>
+        <form>
+            <p><input type="text" placeholder="Username or email" class="form-control" /></p>
+
+            <p><input type="text" placeholder="Password" class="form-control" /></p>
+
+            <button class="btn btn-success">Log in</button>
+        </form>
       </div>
 
       <div>

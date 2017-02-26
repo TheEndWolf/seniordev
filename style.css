@@ -52,6 +52,13 @@ div.tabPg a:hover, .tabPg a:focus, .active {
     border-top: none;
 }
 
+#container {
+    max-width: 400px;
+    margin: left;
+    border: 1px solid black;
+    padding: 2px 12px 15px 15px;
+}
+
 footer {
 
 }
