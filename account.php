@@ -8,17 +8,15 @@ class account{
 
 	/*
 	*	construct function	
-	*	Is called as soon as a instance of this class is made.
 	*	creates connection to a database.
 	*/
 	public function __construct()
 	{
-		 $this->db = new sqlDatabase("localhost","root","","pascal_final");
+		 $this->db = new sqlDatabase("localhost","root","","pascal_database");
 	}
 	
 	/*
 	*	Function to create new accounts
-	*	@param - username, password, email, role
 	*/
 	public function createAccount($username, $pass, $email, $role){
 		$checkUserName= $this->db->selectStmt_Arr("select username from program_user");
@@ -37,7 +35,6 @@ class account{
 
 	/**
 	*	function to login in
-	*	@param - username, password
 	*	checks username and password
 	*/
 	public function login($username, $password){
