@@ -1,13 +1,11 @@
 <?php
 
-
 class sqlDatabase{
-	//attribute
+	//connection attribute
 	private $db;
 
 	/*
-	*	function for select statements to the database
-	*	@param: select query(sql)
+	*	construct function
 	*/
 	public function __construct($host, $username, $password, $databaseName){
 		$this->db = mysqli_connect($host, $username, $password);
@@ -17,26 +15,23 @@ class sqlDatabase{
 	}
 
 	/*
-	*	function for select statements to the database
-	*	@param: select query(sql)
-	*	returns one field result;
+	*	function: select statement
+	*	returns: 1 result(one field)
 	*/
 	public function selectStmt_ID($query){
 			return $this->getOneField(mysqli_query($this->db, $query));
 	}
 
-		/*
-	*	function for select statements to the database
-	*	@param: select query(sql)
-	*	returns in a html table
+	/*
+	*	function: select statement
+	*	returns results in a html table
 	*/
 	public function selectStmt_Report($query){
 		return $this->viewReport(mysqli_query($this->db, $query));
 	}
 
-		/*
-	*	function for select statements to the database
-	*	@param: select query(sql)
+	/*
+	*	function: select statement
 	*	returns an associative array
 	*/
 	public function selectStmt_Assoc($query){
@@ -44,17 +39,15 @@ class sqlDatabase{
 	}
 
 	/*
-	*	function for select statements to the database
-	*	@param: select query(sql)
-	*	returns in an normal array(1 dimensional)
+	*	function select statement
+	*	returns an array
 	*/
 	public function selectStmt_Arr($query){
 		return $this->toArr(mysqli_query($this->db, $query));
 	}
 
 	/*
-	*	function for query statements to the database(update,delete,insert)
-	*	@param: query(sql)
+	*	function: query statements(update,delete,insert)
 	*/
 	public function queryStmt($query){
 	 	return mysqli_query($this->db, $query);
@@ -69,8 +62,8 @@ class sqlDatabase{
 
 //-----------------------------------------------------VIEW/OUTPUT METHODS---------------------------------------
 	/*
-	*	function to change resultset into array
-	*	@param: result set of sql query
+	*	param: sql resultset
+	*	returns associative array
 	*/
 	public function toAssocArray($res){
 		$arr = array();
@@ -83,14 +76,14 @@ class sqlDatabase{
 				}
 				array_push($arr, $temp);
 			}
-			print_r($arr);
+			//print_r($arr);
 			return $arr;
 		}
 	}
-
-		/*
-	*	@param - ResultSet from sql(array) 
-	*	returns an normal array(one dimansional)
+	
+	/*
+	*	param: sql resultset
+	*	returns an array
 	*/
 	public function toArr($res){
 		$arr = array();
@@ -102,15 +95,14 @@ class sqlDatabase{
 					    	array_push($arr, $st);
 					    }		    
 			}
-			print_r($arr);
+			//print_r($arr);
 			return $arr;
 		}
 	}
 
 	/*
-	*	@param - ResultSet from sql(array) 
-	*	returns just one row = 'id'
-	*	Used with enterGrades function() in enteringGrades.php
+	*	param: sql resultset
+	*	returns an 1 result(1 field)
 	*/
 	public function getOneField($res){
 		$arr = array();
@@ -131,8 +123,8 @@ class sqlDatabase{
 
 	/*
 	*	function to output resultset in html
-	*	@param: result set of sql query
-	*	 Used to get report1
+	*	param: result set of sql query
+	*	Used with showStatistics() method
 	*/
 	public function viewReport($res){
 		$arr = array();
