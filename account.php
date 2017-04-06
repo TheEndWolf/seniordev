@@ -3,25 +3,25 @@
 require_once ("sqlDatabase.php");
 
 class account{
-	
+
  private $db;
 
 	/*
-	*	construct function	
+	*	construct function
 	*	creates connection to a database.
 	*/
 	public function __construct()
 	{
 		 $this->db = new sqlDatabase("localhost","root","","pascal_database");
 	}
-	
+
 	/*
 	*	Function to create new accounts
 	*/
 	public function createAccount($username, $pass, $email, $role){
 		$checkUserName= $this->db->selectStmt_Arr("select username from program_user");
 		$count = count($checkUserName);
-		for ($i=0; $i < $count; $i++) { 
+		for ($i=0; $i < $count; $i++) {
 			if($username == $checkUserName[$i]){
 				die("Username already exists!");
 			}

@@ -52,11 +52,23 @@ div.tabPg a:hover, .tabPg a:focus, .active {
     border-top: none;
 }
 
-#container {
+#container-login {
     max-width: 400px;
-    margin: left;
+    float: left;
     border: 1px solid black;
     padding: 2px 12px 15px 15px;
+}
+
+#home-content {
+  max-width: 60%;
+  float: left;
+  /*border: 1px solid black;*/
+  padding: 2px 12px 15px 15px;
+  margin-left: 5%;
+}
+
+#clear {
+    clear: both;
 }
 
 footer {
@@ -67,9 +79,9 @@ footer {
  *         Navigation Menu          *
  ***********************************/
 #nav {
-    list-style: none; 
+    list-style: none;
     padding-left: 0px;
-    margin-bottom: 0px; 
+    margin-bottom: 0px;
 }
 
 #nav ul {
@@ -102,11 +114,11 @@ footer {
 #nav ul {
     list-style: none;
     margin: 0;
-    padding: 0;    
+    padding: 0;
     display: none;
     position: absolute;
     top: 45px;
-    left: 10px;    
+    left: 10px;
     background-color: #6bd66e;
     border-radius: 5px;
     border-width: 1px;
@@ -118,15 +130,15 @@ footer {
     float: none;
     margin: 0;
     padding: 0;
-    display: block;  
+    display: block;
     box-shadow: 0 1px 0 #095517;
 }
 
-#nav ul li:last-child { 
-    box-shadow: none;    
+#nav ul li:last-child {
+    box-shadow: none;
 }
 
-#nav ul a {    
+#nav ul a {
     padding: 6px;
     height: inherit;
     line-height: 1;
@@ -156,7 +168,7 @@ footer {
 }
 
 #nav ul li:first-child a:hover:after {
-    border-bottom-color: #095517; 
+    border-bottom-color: #095517;
 }
 
 #nav ul li:last-child a {
@@ -175,6 +187,15 @@ footer {
 
 /************************************/
 
+.form-control.log-in {
+  width: 100%;
+}
+
+/*.log-in-btn {
+  float: right;
+}*/
+
+/************************************/
 
 #logo {
   font-size: 50px;

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <link rel="stylesheet" type="text/css" href="style.css">
   <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
   <head>
   <title>Home | Pascal</title>
   </head>
@@ -38,21 +38,30 @@
     </header>
 
     <div id="content">
-      <div id="container">
+      <div id="container-login">
         <h3>System Login</h3>
         <hr>
         <form>
-            <p><input type="text" placeholder="Username or email" class="form-control" /></p>
-
-            <p><input type="text" placeholder="Password" class="form-control" /></p>
+            <p>
+              <label><b>Username</b></label>
+              <input type="text" placeholder="RIT Username (Do not include @rit.edu)" class="form-control log-in" />
+            </p>
+            <p>
+              <label><b>Password</b></label>
+              <input type="text" placeholder="Password" class="form-control log-in" />
+            </p>
 
             <button class="btn btn-success">Log in</button>
+
+            <a href="https://start.rit.edu/ForgotUsername?source=shib">Forgot Username?</a> |
+            <a href="https://start.rit.edu/ForgotPassword?source=shib">Forgot Password?</a>
+
         </form>
       </div>
-
-      <div>
-        <p>content here</p>
+      <div id="home-content">
+        <p>content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here </p>
       </div>
+      <div id="clear"></div>
     </div>
 
     <footer>
