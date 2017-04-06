@@ -41,8 +41,10 @@ div.tabPg a {
 }
 
 div.tabPg a:hover, .tabPg a:focus, .active {
-    background-color: #6BD66E;
-    color: white;
+    background-color: #12591D;
+    color: white !important;
+    font-weight: bold;
+    border-radius: 2px;
 }
 
 .tabcontent {
@@ -105,6 +107,7 @@ footer {
 
 #nav li:hover > a {
     color: #095517;
+    font-weight: bold;
 }
 
 #nav li:hover > ul {

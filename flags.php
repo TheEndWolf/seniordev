@@ -3,25 +3,25 @@
 require_once ("sqlDatabase.php");
 
 class flag{
-	
+
  private $db;
 
 	/*
-	*	construct function	
+	*	construct function
 	*	creates connection to a database.
 	*/
 	public function __construct()
 	{
 		 $this->db = new sqlDatabase("localhost","root","","pascal_database");
 	}
-	
+
 	/*
 	*	function that places a custom flag on a certain course
 	*/
 	public function setCustom_Flag($courseName){
 		$result = $this->db->queryStmt("update course set custom_flag = 1 where course_name = '".$courseName."'");
 	}
-	
+
 	/*
 	*	function that places a task stream flag on an assessment
 	*	param - course name
