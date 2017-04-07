@@ -213,3 +213,35 @@ footer {
 #welcome {
   font-weight: bold;
 }
+
+/************************************
+ *      Course Data and Admin       *
+ *         Form Properties          *
+ ***********************************/
+#custom_stat, #generate_report, #enter_data, #upload_report, #create_account, #task_stream {
+  padding: 2%;
+}
+
+#task_stream form {
+    display: table;
+}
+#task_stream input, #task_stream select, #task_stream label {
+  display: table-cell;
+  margin: 3px;
+}
+
+#task_stream label {
+    text-align: left;
+}
+
+#task_stream p {
+  display: table-row;
+}
+
+#custom_stat button, #generate_report button, #enter_data button, #create_account button, #task_stream button {
+  margin-top: 20px;
+}
+
+/************************************
+ *  *
+ ***********************************/
