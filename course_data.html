@@ -36,96 +36,119 @@
             </div>
 
             <div id="custom_stat" class="tabcontent" style="display:block;">
-                <form>
-                    <p>Class
-                    <select name="class" class="form-control">
-                        <option value="one">Class 1</option>
-                        <option value="two">Class 2</option>
-                        <option value="three">Class 3</option>
-                        <option value="four">Class 4</option>
-                    </select></p>
+              <form class="class-and-section">
+                <p>
+                  <label>Select a Class</label>
+                  <select name="class" class="form-control">
+                    <option value="one">Class 1</option>
+                    <option value="two">Class 2</option>
+                    <option value="three">Class 3</option>
+                    <option value="four">Class 4</option>
+                  </select>
+                </p>
 
-                    <p>Section
-                    <select name="section" class="form-control">
-                        <option value="sec1">Section 1</option>
-                        <option value="sec2">Section 2</option>
-                        <option value="sec3">Section 3</option>
-                        <option value="sec4">Section 4</option>
-                    </select></p>
+                <p>
+                  <label>Select a Section</label>
+                  <select name="section" class="form-control">
+                    <option value="sec1">Section 1</option>
+                    <option value="sec2">Section 2</option>
+                    <option value="sec3">Section 3</option>
+                    <option value="sec4">Section 4</option>
+                  </select>
+                </p>
 
-                    <button class="btn btn-success">View Course Data</button>
+                <button class="btn btn-success">View Course Data</button>
+              </form>
+              <hr>
+              <form class="class-info">
+                <h4>Class Information:</h4>
+                <p>
+                  <label>Program Name</label>
+                  <select name="program" class="form-control">
+                    <option value="p1">Program 1</option>
+                    <option value="p2">Program 2</option>
+                  </select>
+                </p>
 
-                    <p><b><br>Class Information:</b></p>
-                    <p>Program Name
-                    <select name="program" class="form-control">
-                        <option value="p1">Program 1</option>
-                        <option value="p2">Program 2</option>
-                    </select></p>
+                <p>
+                  <label>Course Name</label>
+                  <select name="course" class="form-control">
+                    <option value="c1">Course 1</option>
+                    <option value="c2">Course 2</option>
+                  </select>
+                </p>
 
-                    <p>Course Name
-                    <select name="course" class="form-control">
-                        <option value="c1">Course 1</option>
-                        <option value="c2">Course 2</option>
-                    </select></p>
+                <p>
+                  <label>Term</label>
+                  <select name="term" class="form-control">
+                    <option value="t1">Term 1</option>
+                    <option value="t2">Term 2</option>
+                  </select>
+                </p>
 
-                    <p>Term
-                    <select name="term" class="form-control">
-                        <option value="t1">Term 1</option>
-                        <option value="t2">Term 2</option>
-                    </select></p>
+                <p>
+                  <label>Over This</label>
+                  <input type="text" class="form-control" placeholder="80%" />
+                </p>
 
-                    <p>Over This
-                    <input type="text" class="form-control" placeholder="80%" /></p>
+                <p>
+                  <label>Expected</label>
+                  <input type="text" class="form-control" placeholder="80%" />
+                </p>
 
-                    <p>Expected
-                    <input type="text" class="form-control" placeholder="80%" /></p>
-
-                    <button class="btn btn-success">Show Statistic</button>
-                </form>
+                <button class="btn btn-success">Show Statistic</button>
+              </form>
             </div>
 
             <div id="generate_report" class="tabcontent">
                 <form>
-                    <p>Class
-                        <select name="class" class="form-control">
-                            <option value="one">Class 1</option>
-                            <option value="two">Class 2</option>
-                            <option value="three">Class 3</option>
-                            <option value="four">Class 4</option>
-                        </select>
+                    <p>
+                      <label>Select a Class</label>
+                      <select name="class" class="form-control">
+                        <option value="one">Class 1</option>
+                        <option value="two">Class 2</option>
+                        <option value="three">Class 3</option>
+                        <option value="four">Class 4</option>
+                      </select>
                     </p>
 
-                    <p>Section
-                        <select name="section" class="form-control">
-                            <option value="sec1">Section 1</option>
-                            <option value="sec2">Section 2</option>
-                            <option value="sec3">Section 3</option>
-                            <option value="sec4">Section 4</option>
-                        </select>
+                    <p>
+                      <label>Select a Section</label>
+                      <select name="section" class="form-control">
+                        <option value="sec1">Section 1</option>
+                        <option value="sec2">Section 2</option>
+                        <option value="sec3">Section 3</option>
+                        <option value="sec4">Section 4</option>
+                      </select>
                     </p>
 
                     <button class="btn btn-success">Add a Class</button>
-
-                    <p><b><br>Class Information:</b></p>
-                    <p>Program Name
-                        <select name="program" class="form-control">
-                            <option value="p1">Program 1</option>
-                            <option value="p2">Program 2</option>
-                        </select>
+                  </form>
+                  <hr>
+                  <form class="class-info">
+                    <h4>Class Information:</h4>
+                    <p>
+                      <label>Program Name</label>
+                      <select name="program" class="form-control">
+                        <option value="p1">Program 1</option>
+                        <option value="p2">Program 2</option>
+                      </select>
                     </p>
 
-                    <p>Course Name
-                        <select name="course" class="form-control">
-                            <option value="c1">Course 1</option>
-                            <option value="c2">Course 2</option>
-                        </select>
+                    <p>
+                      <label>Course Name</label>
+                      <select name="course" class="form-control">
+                        <option value="c1">Course 1</option>
+                        <option value="c2">Course 2</option>
+                      </select>
                     </p>
 
-                    <p>Term
-                        <select name="term" class="form-control">
-                            <option value="t1">Term 1</option>
-                            <option value="t2">Term 2</option>
-                        </select>
+                    <p>
+                      <label>Term</label>
+                      <select name="term" class="form-control">
+                        <option value="t1">Term 1</option>
+                        <option value="t2">Term 2</option>
+                      </select>
                     </p>
 
                     <button class="btn btn-success">Export</button>
@@ -136,29 +159,45 @@
 
             <div id="enter_data" class="tabcontent">
                 <form>
-                    <p>Program Name
-                        <input type="text" class="form-control" /></p>
+                    <p>
+                      <label>Program Name</label>
+                      <input type="text" class="form-control" />
+                    </p>
 
-                    <p>Course Name
-                        <input type="text" class="form-control" /></p>
+                    <p>
+                      <label>Course Name</label>
+                      <input type="text" class="form-control" />
+                    </p>
 
-                    <p>Program Objectives<br>
-                            <textarea class="form-control" rows="4"></textarea></p>
+                    <p>
+                      <label class="textarea-label">Program Objective</label>
+                      <textarea class="form-control" rows="4"></textarea>
+                    </p>
 
-                    <p>Term
-                        <input type="text" class="form-control" /></p>
+                    <p>
+                      <label>Term</label>
+                      <input type="text" class="form-control" />
+                    </p>
 
-                    <p>Over This %
-                        <input type="text" class="form-control" /></p>
+                    <p>
+                      <label>Over This %</label>
+                      <input type="text" class="form-control" />
+                    </p>
 
-                    <p>Expected %
-                        <input type="text" class="form-control" /></p>
+                    <p>
+                      <label>Expected %</label>
+                      <input type="text" class="form-control" />
+                    </p>
 
-                    <p>Scores on CAI
-                        <input type="text" class="form-control" /></p>
+                    <p>
+                      <label>Scores on CAI</label>
+                      <input type="text" class="form-control" />
+                    </p>
 
-                    <p>Course Notes<br>
-                            <textarea class="form-control" rows="4"></textarea></p>
+                    <p>
+                      <label class="textarea-label">Course Notes</label>
+                      <textarea class="form-control" rows="4"></textarea>
+                    </p>
 
                     <button class="btn btn-success">Submit</button>
                 </form>
