@@ -188,21 +188,28 @@ footer {
 }
 
 
-/************************************/
+/************************************
+ *   System Login Form Properties   *
+ ***********************************/
 
 .form-control.log-in {
   width: 100%;
 }
 
-/*.log-in-btn {
-  float: right;
-}*/
+/************************************
+ * Logo and welcome text properties *
+ ***********************************/
 
-/************************************/
-
-#logo {
-  font-size: 50px;
+.logo , #welcome{
+  color: #095517 !important;
+  /*font-weight: bold;*/
 }
+
+.logo {
+  font-family: "Courier New";
+  font-size: 60px;
+}
+
 #welcome {
-  color: #095517;
+  font-weight: bold;
 }
