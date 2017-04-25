@@ -6,9 +6,9 @@ class email{
 	
  private $db;
 
-  public $subject = "the subject is: Report";
-  public $header = "buu";
-  public $msg = "Confirming the competion of you report.";
+ // public $subject = "the subject is: Report";
+//  public $header = "buu";
+ // public $msg = "Confirming the competion of you report.";
 
 
 	/*
@@ -17,15 +17,23 @@ class email{
 	*/
 	public function __construct()
 	{
-		 $this->db = new sqlDatabase("localhost","root","","pascal_database");
+		// $this->db = new sqlDatabase("localhost","root","","pascal_database");
+		  $this->db = new sqlDatabase("localhost","root","","pascal_finito");
 	}
 	
 	/**
 	*	function sends email to confirm completion of evaluation
 	*/	
 	public function sendEmail($username){
+	 $subject = "the subject is: Report";
+	 $header = "buu";
+	 $msg = "Confirming the competion of you report.";
+	 
 		$userEmail= $this->db->selectStmt_ID("select userEmail from program_user where username = '". $username ."'");
-		mail($userEmail, $this->subject, $this->msg, $this->header);
+		//mail($userEmail, $subject, $msg, $header);
+		if(mail($userEmail, $subject, $msg, $header)){
+			echo "Email was sent successfully";
+		}else echo "Email not sent";
 	}
 
 

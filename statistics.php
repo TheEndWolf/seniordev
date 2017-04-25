@@ -12,14 +12,13 @@ class statistics{
 	*/
 	public function __construct()
 	{
-		 $this->db = new sqlDatabase("localhost","root","","pascal_database");
+		 $this->db = new sqlDatabase("127.0.0.1","root","","pascal_finito");
 	}
 	
 	/*
 	*	returns the the average grade and percentage of students that passed this assessment
 	*/
 	public function customizedStatistics_changeOverThis($courseName, $sectionNum, $changeExpectedGrade){
-		$avg =0;
 		$iNum = 0;
 		$courseID = $this->db->selectStmt_ID("select course.course_id from course, section where course_name = '" . $courseName . "' and section_number = ". $sectionNum);
 		$assessments = $this->db->selectStmt_Arr("select assessment_id from assessment where course_id = ". $courseID);
@@ -34,7 +33,6 @@ class statistics{
 					$count = count($scores);
 					if($count !== 0){					
 						for ($i = 0; $i < $count; $i++) {
-							$avg = $avg + $scores[$i];
 							$sco = $scores[$i];
 							if($sco > $changeExpectedGrade){
 								$passed++;
@@ -43,7 +41,7 @@ class statistics{
 					$result = ($passed / $count) * 100;
 					$str = $result . "% of student recieved higher than the expected average grade of " . $changeExpectedGrade . "% on the " . $assname . "<br>";
 					echo $str;
-					}else echo "no results <br>";
+					}else echo "";//echo "no results <br>";
 				}
 	}
 
@@ -52,7 +50,7 @@ class statistics{
 	*	Retrieves data from database, compares expected Percent Achieved with percent achieved
 	*/
 	public function showStatistics(){
-		$result = $this->db->selectStmt_Report("Select expected_percent_achieved, percent_students_achieved from assessment");
+		$result = $this->db->selectStmt_Report("Select expected_percent_achieved, percent_students_achieved_obj from assessment");
 	}
 
 

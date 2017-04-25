@@ -3,27 +3,28 @@
 require_once ("sqlDatabase.php");
 
 class account{
-
+	
  private $db;
 
 	/*
-	*	construct function
+	*	construct function	
 	*	creates connection to a database.
 	*/
 	public function __construct()
 	{
-		 $this->db = new sqlDatabase("localhost","root","","pascal_database");
+		$this->db = new sqlDatabase("localhost","root","","pascal_finito");	
 	}
-
+	
 	/*
 	*	Function to create new accounts
 	*/
 	public function createAccount($username, $pass, $email, $role){
 		$checkUserName= $this->db->selectStmt_Arr("select username from program_user");
 		$count = count($checkUserName);
-		for ($i=0; $i < $count; $i++) {
+		for ($i=0; $i < $count; $i++) { 
 			if($username == $checkUserName[$i]){
-				die("Username already exists!");
+				echo "Username already exists!";
+				return;
 			}
 		}
 		$RoleID = $this->db->selectStmt_ID("select role_id from role where role_name = '". $role ."'");
@@ -38,10 +39,10 @@ class account{
 	*	checks username and password
 	*/
 	public function login($username, $password){
-		$verifyUser = $this->db->selectStmt_ID("select username from program_user where username = '". $username ."' and password = '".$password."'");
-		if($verifyUser = 1){
+		$verifyUser = $this->db->selectStmt_ID("select username from program_user where username = '". $username ."' and user_password = '".$password."'");
+		if($verifyUser){
 			echo "Logged in successfully";
-		}
+		}else echo "not workng";
 	}
 
 

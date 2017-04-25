@@ -23,6 +23,12 @@ header {
   margin-top: 2%;
 }
 
+.as{
+	background-color: blue;
+	margin: 20px;
+	width: 500px;
+}
+
 div.tabPg {
     overflow: hidden;
     border: 1px solid #ccc;

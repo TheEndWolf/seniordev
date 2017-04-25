@@ -1,7 +1,8 @@
 <?php
 
+
 class sqlDatabase{
-	//connection attribute
+	//attribute
 	private $db;
 
 	/*
@@ -27,7 +28,11 @@ class sqlDatabase{
 	*	returns results in a html table
 	*/
 	public function selectStmt_Report($query){
+		try{
 		return $this->viewReport(mysqli_query($this->db, $query));
+		}catch(SQLException $e){
+			print "error: " . $e->getMessage();
+		};
 	}
 
 	/*
@@ -36,6 +41,10 @@ class sqlDatabase{
 	*/
 	public function selectStmt_Assoc($query){
 		return $this->toAssocArray(mysqli_query($this->db, $query));
+	}
+	
+	public function selectStmt_AssocEXPORT($query){
+		return $this->export(mysqli_query($this->db, $query));
 	}
 
 	/*
@@ -72,7 +81,7 @@ class sqlDatabase{
 			while($row = mysqli_fetch_assoc($res)){
 				$temp = array();
 				foreach ($row as $key => $val) {
-					 $temp[$key] = $val;    
+					 $temp[$key] = $val;
 				}
 				array_push($arr, $temp);
 			}
@@ -137,6 +146,29 @@ class sqlDatabase{
 		}
 		echo "</table> ";
 	}
+	
+		/*
+	*	function to output resultset in html
+	*	param: result set of sql query
+	*	Used with showStatistics() method
+	*/
+	public function export($res){
+		if(mysqli_num_rows($res) > 0)
+		{
+		//$no = 1;
+			while($data = mysqli_fetch_assoc($res))
+			{echo '
+		<tr>
+			<<td>'.$no.'</td>
+			<td>'.$data['program_name'].'</td>
+			<td>'.$data['program_objective'].'</td>
+
+		</tr>
+		';
+		//$no++;
+		}
+	}
+	}
 
 
 	/*
@@ -154,6 +186,59 @@ class sqlDatabase{
 		} 
 
 		return $result;
+	}
+	
+		/*
+	*	function to output resultset in html
+	*	param: result set of sql query
+	*	Used with showStatistics() method
+	*/
+	public function viewReport2($res){
+		$arr = array();	
+		echo "<table style='border-collapse: collapse; background-color: #fefbd8; border: 2px solid black'> ";
+		echo "<tr style='border: 2px solid black; background-color: #80ced6; height: 50px'><th style='border: 2px solid black; width: 150'>Program name</th><th style='border: 2px solid black; width: 150'>Course name</th><th style='border: 2px solid black; width: 150'>Term</th></tr>";
+		while($row = mysqli_fetch_assoc($res)){
+   				echo "<tr style='border: 2px solid black'><td style='height: 30px; text-align: center; width: 10px'>".$row['program_name']."</td><td td style='height: 30px; border: 2px solid black; text-align: center; width: 10px'>".$row['course_name']."</td><td style='height: 30px; border: 2px solid black; text-align: center; width: 10px'>".$row['term']."</td></tr>";			
+		}
+		echo "</table> ";
+	}
+	
+			/*
+	*	function to output resultset in html
+	*	param: result set of sql query
+	*	Used with showStatistics() method
+	*/
+	public function viewStandardReport($res){
+		if (($res)||(mysql_errno == 0))
+		{
+		  echo "<table width='100%'><tr>";
+		  if (mysqli_num_rows($res)>0)
+		  {
+				  //loop thru the field names to print the correct headers
+				  $i = 0;
+				  while ($i < mysqli_num_fields($res))
+				  {
+			   echo "<th>". mysqli_fetch_field_direct($res, $i) . "</th>";
+			   $i++;
+			}
+			echo "</tr>";
+
+			//display the data
+			while ($rows = mysqli_fetch_array($res,MYSQL_ASSOC))
+			{
+			  echo "<tr>";
+			  foreach ($rows as $data)
+			  {
+				echo "<td align='center'>". $data . "</td>";
+			  }
+			}
+		  }else{
+			echo "<tr><td colspan='" . ($i+1) . "'>No Results found!</td></tr>";
+		  }
+		  echo "</table>";
+		}else{
+		  echo "Error in running query :". mysql_error();
+		}
 	}
 
 }

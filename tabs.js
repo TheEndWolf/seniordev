@@ -25,6 +25,3 @@ function openTab(evt, dataTab) {
     evt.currentTarget.className += " active";
     
 }
-
-
-

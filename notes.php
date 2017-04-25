@@ -12,7 +12,7 @@ class notes{
 	*/
 	public function __construct()
 	{
-		 $this->db = new sqlDatabase("localhost","root","","pascal_database");
+		$this->db = new sqlDatabase("localhost","root","","pascal_finito");
 	}
 	
 	/*

@@ -6,14 +6,14 @@
     http://www.jqueryscript.net/form/Styling-Your-File-Input-with-jQuery-Inputfile-Plugin-Bootstrap.html -->
   <link rel="stylesheet" type="text/css" href="uploader/jquery.inputfile.css"/>
   <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-  <script src="javascript/ajaxFunc.js"></script>
+  <!--<script src="javascript/ajaxFunc.js"></script>-->
   <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
   <head>
   <title>Home | Pascal</title>
   </head>
   <body>
 <?php
-	//include("saveToDb.php");
+	include("saveToDb.php");
 ?>
     <header>
       <div>
@@ -22,15 +22,15 @@
         <!-- </div> -->
         <ul id="nav">
             <!-- <li><a calss="logo" href="index.html">Pascal</a></li> -->
-            <li><a href="index.html">Home</a></li>
-            <li><a href="course_data.html">Course Data</a>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="course_data2.php">Course Data</a>
 <!--                <ul>
                     <li><a href="custom_stat.html">Custom Statistics</a></li>
                     <li><a href="generate_report.html">Generate Report</a></li>
                     <li><a href="enter_data.html">Enter Data</a></li>
         	</ul>-->
             </li>
-            <li><a href="admin.html">Admin</a>
+            <li><a href="admin.php">Admin</a>
 <!--                <ul>
                     <li><a href="upload_report.html">Upload Report</a></li>
                     <li><a href="create_account.html">Create New Account</a></li>
@@ -52,13 +52,15 @@
             </div>
             
             <div id="upload_report" class="tabcontent" style="display:block;">
-                <form>
+                <form name="uploadForm" method="post">
                     <p>
-                        <input type="file" accept=".xls,.xlsx"/>
+                        <input type="file" name ="upload" accept=".xls,.xlsx"/>
+						<button class="btn btn-success" name="uploadSubmit">upload</button>
                         *Note: Only .xls files are supported.
                     </p>
                 </form>
             </div>
+		
             
             <div id="create_account" class="tabcontent">
                 <form method="post" action="">
@@ -84,30 +86,61 @@
                         <option value="Admin">Admin</option>
                     </select></p>
                     
-                    <button class="btn btn-success" name="createAcc">Create Account</button>
+                    <button class="btn btn-success" name="createAcc" id="createId">Create Account</button>
                 </form>
             </div>
+			
+			<div>
+	</div>
             
             <div id="task_stream" class="tabcontent">
-                <form>
+                <form method="post" action="">
                     <p>Class
-                    <select name="class" class="form-control">
-                        <option value="c1">Class 1</option>
+                    <select name="class_taskstream" id="class_taskstream" class="form-control">
+                        <option value="server">server</option>
                         <option value="c2">Class 2</option>
                     </select></p>
                     
                     <p>Section
-                    <select name="section" class="form-control">
-                        <option value="s1">Section 1</option>
+                    <select name="section_taskstream" id="section_taskstream" class="form-control">
+                        <option value="1">123</option>
                         <option value="s2">Section 2</option>
                     </select></p>
                     
-                    <button class="btn btn-success" id="taskStream" onclick="return getText();">Generate Report</button>
+                    <button class="btn btn-success" name="taskStreamBTN" id="taskStream">Generate Report</button>
                     
                 </form>
-            </div>
-
+            </div>			
+		
+		<?php
+			echo "<div>";
+			if(isset($_POST['taskStreamBTN'])){
+				$course = $_POST['class_taskstream'];
+				$section = $_POST['section_taskstream'];		
+				$dbconn1 = new report();
+				$dbconn1->taskStreamReport($course, $section);
+			}
+			echo "</div>";
+		
+			if(isset($_POST['createAcc'])){
+			$name = $_POST['username'];
+			$mail = $_POST['mail'];	
+			$pass = $_POST['password'];
+			$role = $_POST['role'];	
+			echo $role . "|" . $name . "|" . $pass;
+			$dbconn1 = new account();
+			$dbconn1->createAccount($name, $pass, $mail, $role);		
+			}
+			if(isset($_POST['uploadSubmit'])){
+			$file = $_POST['upload'];
+			$dbconn1 = new report();
+			$dbconn1->uploadReport($file);
+			}
+			?>
+			
         </div>
+
+		
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="uploader/jquery.inputfile.js"></script>
         <script>
@@ -121,6 +154,5 @@
             });
         </script>
       <script src="tabs.js"></script>
-
   </body>
 </html>
