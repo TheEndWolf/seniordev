@@ -14,7 +14,7 @@ function buildHeader($_title)
       <link rel = \"stylesheet\" type = \"text/css\" href = \"./inc/css/jquery.inputfile.css\" />
       <script src = \"./inc/js/bootstrap.min.js\" ></script >
       <link href = \"./inc/css/bootstrap.min.css\" rel = \"stylesheet\" >
-      <script src=\"javascript/ajaxFunc.js\"></script>
+      <script src=\"./inc/js/ajaxFunc.js\"></script>
 
 
       <head >
