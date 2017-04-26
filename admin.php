@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
-<!--  JQuery plugin for file upload taken from: 
-    http://www.jqueryscript.net/form/Styling-Your-File-Input-with-jQuery-Inputfile-Plugin-Bootstrap.html -->
-  <link rel="stylesheet" type="text/css" href="uploader/jquery.inputfile.css"/>
-  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-  <!--<script src="javascript/ajaxFunc.js"></script>-->
-  <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-  <head>
-  <title>Home | Pascal</title>
-  </head>
-  <body>
+
 <?php
-	include("saveToDb.php");
+require './inc/php/lib.inc.php';
+include("./inc/php/saveToDB.php");
+
+buildHeader("Admin | Pascal");
 ?>
     <header>
       <div>
@@ -142,7 +132,7 @@
 
 		
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="uploader/jquery.inputfile.js"></script>
+        <script src="inc/js/jquery.inputfile.js"></script>
         <script>
             $('input[type="file"]').inputfile({
                 uploadText: '<span class="glyphicon glyphicon-upload"></span> Select a file',
@@ -153,6 +143,8 @@
                 removeButtonClass: 'btn btn-default'
             });
         </script>
-      <script src="tabs.js"></script>
+
+<?php buildFooter(); ?>
+
   </body>
 </html>

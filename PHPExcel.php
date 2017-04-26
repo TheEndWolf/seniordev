@@ -1,16 +1,3 @@
-Skip to content
-Features Business Explore Pricing
-This repository
-Search
-Sign in or Sign up
- Watch 704  Star 8,161  Fork 2,727 PHPOffice/PHPExcel
- Code  Issues 462  Pull requests 109  Projects 0  Wiki  Pulse  Graphs
-Branch: 1.8 Find file Copy pathPHPExcel/Classes/PHPExcel.php
-6f43f04  on Dec 6, 2015
-@MarkBaker MarkBaker Minor tweaks
-6 contributors @MarkBaker @dbonsch @maartenba @amironov @nicoder @ddeboer
-RawBlameHistory     
-1154 lines (1035 sloc)  30.8 KB
 <?php
 /** PHPExcel root directory */
 if (!defined('PHPEXCEL_ROOT')) {
@@ -1046,5 +1033,3 @@ class PHPExcel
         return $this->uniqueID;
     }
 }
-Contact GitHub API Training Shop Blog About
-© 2017 GitHub, Inc. Terms Privacy Security Status Help

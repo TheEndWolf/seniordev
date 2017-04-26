@@ -1,15 +1,15 @@
 <?php
 
-require_once ("sqlDatabase.php");
-//include_once ("flags.php");
-include_once ("report.php");
-include_once ("account.php");
-//include_once ("enterData.php");
-include_once ("statistics.php");
-include_once ("email.php");
-//include_once ("notes.php");
-//include_once ("gettingData.php");
-include_once ("printingResultTable.php");
+require_once("./inc/php/sqlDatabase.php");
+//include_once ("./inc/php/flags.php");
+include_once("./inc/php/report.php");
+include_once("./inc/php/account.php");
+//include_once ("./inc/php/enterData.php");
+include_once("./inc/php/statistics.php");
+include_once("./inc/php/email.php");
+//include_once ("./inc/php/notes.php");
+//include_once ("./inc/php/gettingData.php");
+include_once("./inc/php/printingResultTable.php");
 
 //----------------------------------------Testing----------------------------------------------------------------------------
 

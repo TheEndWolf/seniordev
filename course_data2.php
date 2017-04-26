@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  
-  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-   <script src="javascript/ajaxFunc.js"></script>
-  <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
- 
-  
-  <head>
-  <title>Home | Pascal</title>
-  </head>
-  <body>
-  	 <?php
-		include_once("saveToDb.php");
-	 ?>
+
+<?php
+require './inc/php/lib.inc.php';
+include("./inc/php/saveToDB.php");
+
+buildHeader("Data | Pascal");
+?>
+
 	<header>
       <div>
         <!-- <div class = "logo"> -->
@@ -53,8 +45,8 @@
             <div id="custom_stat" class="tabcontent" style="display:block;">
                 <form method="post" action="">
 	<?php 
-		include_once("gettingData.php");
-		include_once("report.php");
+		include_once("./inc/php/gettingData.php");
+		include_once("./inc/php/report.php");
 		$getData = new gettingData();
 		$getData->getClasses();
 	?>
@@ -82,7 +74,7 @@
 	/*		$programName = "";
 			$courseName = "";
 			$term = "";
-	//include "report.php";	
+	//include "./inc/php/report.php";
 	if(isset($_POST['theSubmit'])){
 		$class = $_POST['courseNameee'];
 		$section = $_POST['sectionNummm'];		
@@ -270,10 +262,8 @@
 			
         </div>
 
-      <script src="tabs.js"></script>
-    <footer>
-      <p>Copyright &copy; Team Pascal. All RIghts Reserved.</p>
-    </footer>
+
+<?php buildFooter(); ?>
 
   </body>
 </html>

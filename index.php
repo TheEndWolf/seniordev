@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-  <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <head>
-  <title>Home | Pascal</title>
-  </head>
-  <body>
+
 <?php
-	include("saveToDb.php");
+    require './inc/php/lib.inc.php';
+	include("./inc/php/saveToDB.php");
+
+    buildHeader("Home | Pascal");
 ?>
     <header>
       <div>
@@ -56,9 +51,7 @@
       <div id="clear"></div>
     </div>
 
-    <footer>
-      <p>Copyright &copy; Team Pascal. All RIghts Reserved.</p>
-    </footer>
+<?php buildFooter(); ?>
 
   </body>
 </html>
