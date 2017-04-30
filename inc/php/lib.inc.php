@@ -1,6 +1,7 @@
 <?php
 
 
+session_start();
 /*
  * Builders header information
  * @param - title for page Ex. "Home | Pascal"

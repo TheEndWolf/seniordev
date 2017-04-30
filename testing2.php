@@ -1,17 +1,17 @@
 <?php
 
-require_once("./inc/php/sqlDatabase.php");
-//include_once ("./inc/php/flags.php");
-include_once("./inc/php/report.php");
-include_once("./inc/php/account.php");
-//include_once ("./inc/php/enterData.php");
-include_once("./inc/php/statistics.php");
-include_once("./inc/php/email.php");
-//include_once ("./inc/php/notes.php");
-//include_once ("./inc/php/gettingData.php");
-include_once("./inc/php/printingResultTable.php");
+require_once ("sqlDatabase.php");
+include_once ("./inc/php/flags.php");
+include_once ("report.php");
+include_once ("./inc/php/account.php");
+include_once ("./inc/php/enterData.php");
+include_once ("./inc/php/statistics.php");
+include_once ("./inc/php/email.php");
+include_once ("./inc/php/notes.php");
+include_once ("./inc/php/gettingData.php");
 
 //----------------------------------------Testing----------------------------------------------------------------------------
+
 
 //-----------------FLAG SCRIPT---------------------
 	//$f = new flag();
@@ -20,13 +20,15 @@ include_once("./inc/php/printingResultTable.php");
 	//$f->removeFlag("client", 123);
 
 //-----------------REPORT SCRIPT---------------------works
-	//$r = new report();
+	$r = new report();
 	//$r->generateReport("client", 123);
 	//$r->uploadReport("C:/Users/User/Desktop/prevReports1.csv");
 	//$r->getCourseData("server", 123);
-	//$r->taskStreamReport("server", 123);
+	//$r->taskStreamReport("database connectivity", 123);
 	//$r->getReport();
-	//$r->exportReport("server","IT","1");
+//----------------------------------------EXPORTING	
+	$r->export();
+	//$r->export1("IT", "server", 2);
 	
 //-----------------STATISTCIS SCRIPT---------------------works
 	//$stat = new statistics();
@@ -34,9 +36,9 @@ include_once("./inc/php/printingResultTable.php");
 	//$stat->customizedStatistics_changeOverThis("database connectivity", "123", 65);	
 	
 //-----------------ACCOUNT SCRIPT---------------------works
-	$account = new account();
+	//$account = new account();
 	//$account->createAccount("sime", "simepass", "sime44@gmail.com", "Instructor");	
-	$account->login("sime", "simepass");
+	//$account->login("sime", "simepass");
 	
 //-----------------ENTER DATA SCRIPT---------------------works
 	//$dat = new enterData();
@@ -58,12 +60,6 @@ include_once("./inc/php/printingResultTable.php");
 //--------------------------GETTING DATA--------------------------------------------------	
 	//$getData = new gettingData();
 	//$getData->getClasses();
-	
-//--------------------------printing DATA--------------------------------------------------	
-	//$data = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
-	//$data = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43","ivan"=>"45", "adam"=>"16", "anthony"=>"23", "bill"=>"56", "frane"=>"44");
-	//$print = new printingResultTable();
-	//getTable1($data);
 
 
 
