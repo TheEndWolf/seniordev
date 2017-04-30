@@ -26,11 +26,8 @@
 ?>
     <header>
       <div>
-        <!-- <div class = "logo"> -->
-          <h1 class="logo">Course Assessment System</h1>
-        <!-- </div> -->
+        <h1 class="logo">Course Assessment System</h1>
         <ul id="nav">
-            <!-- <li><a calss="logo" href="index.html">Course Assessment System</a></li> -->
             <li><a href="index.php" class="active">Home</a></li>
             <li><a href="course_data2.php">Course Data</a>
             </li>
