@@ -5,13 +5,14 @@
 
     session_start();
 
+    print_r($_SESSION);
     if(!array_key_exists('loggedIn', $_COOKIE)){
         session_destroy();
     }else{
         $expire = time() + 60 * 10;//10 minutes from now
         //Deployment
         $path = "/";
-        $domain = "team-pascal.ist.rit";
+        $domain = "team-pascal.ist.rit.edu";
         //Testing
 //        $path = "/~speedyman11/srdev2/";
 //        $domain = "172.110.20.237";

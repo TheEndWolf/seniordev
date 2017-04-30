@@ -12,7 +12,7 @@ class statistics{
 	*/
 	public function __construct()
 	{
-		 $this->db = new sqlDatabase("127.0.0.1","root","","pascal_finito");
+		$this->db = new sqlDatabase("localhost","pascal_web","fr1end","Pascal_Finito");
 	}
 	
 	/*

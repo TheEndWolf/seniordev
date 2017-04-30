@@ -23,7 +23,7 @@ if (isset($_SESSION['loggedIn'])) {
 $_GET['REFERER'] = $_SERVER['HTTP_REFERER'];
 if (isset($_POST['username']) & isset($_POST['pass'])) {
 
-    $sqlStatement = "SELECT username,user_password FROM program_user WHERE username = :user";
+    $sqlStatement = "SELECT username,user_password,role_id FROM program_user WHERE username = :user";
     $stmt = $dbh->prepare($sqlStatement);
     $stmt->bindParam(":user", $_POST['username'], PDO::PARAM_STR);
     $stmt->execute() or die(print_r($stmt->errorInfo(), true));
@@ -32,16 +32,17 @@ if (isset($_POST['username']) & isset($_POST['pass'])) {
 
     if ($stmt->rowCount() == 1) {
 
-        $passtocomp = $_POST['user'] . $_POST['password'];
+        $passtocomp = $_POST['username'] . $_POST['pass'];
         $passtocomp = sha1($passtocomp);
         if ($result['0']->user_password == $_POST['pass']) {
             $_SESSION['loggedIn'] = true;
             $_SESSION['username'] = $_POST['username'];
+            $_SESSION['role_id'] = $result['0']->role_id;
 
             $expire = time() + 60 * 10;//10 minutes from now
             //Deployment
             $path = "/";
-            $domain = "team-pascal.ist.rit";
+            $domain = "team-pascal.ist.rit.edu";
             //Testing
 //            $path = "/~speedyman11/srdev2/";
 //            $domain = "172.110.20.237";
@@ -54,7 +55,7 @@ if (isset($_POST['username']) & isset($_POST['pass'])) {
             header("Location: /");
            // header("Location: /~speedyman11/srdev2/");
 
-            print_r($_SESSION);
+
 
 
         }else {
