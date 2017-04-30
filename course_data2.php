@@ -34,19 +34,9 @@ buildHeader("Data | Course Assessment System");
         <ul id="nav">
             <!-- <li><a calss="logo" href="index.html">Course Assessment System</a></li> -->
             <li><a href="index.php">Home</a></li>
-            <li><a href="course_data2.php">Course Data</a>
-<!--                <ul>
-                    <li><a href="custom_stat.html">Custom Statistics</a></li>
-                    <li><a href="generate_report.html">Generate Report</a></li>
-                    <li><a href="enter_data.html">Enter Data</a></li>
-        	</ul>-->
+            <li><a href="course_data2.php" class="active">Course Data</a>
             </li>
             <li><a href="admin.php">Admin</a>
-<!--                <ul>
-                    <li><a href="upload_report.html">Upload Report</a></li>
-                    <li><a href="create_account.html">Create New Account</a></li>
-                    <li><a href="task_stream.html">Task Stream</a></li>
-                </ul>-->
             </li>
             <li style="float:right"><a href="#log">Log Out</a></li>
             <li style="float:right"><a id="welcome" href="#welcome">Welcome, John Smith</a></li>
