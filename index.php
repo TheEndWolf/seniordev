@@ -27,7 +27,7 @@
     <header>
       <div>
         <!-- <div class = "logo"> -->
-          <h1 class="logo">Pascal</h1>
+          <h1 class="logo">Course Assessment System</h1>
         <!-- </div> -->
         <ul id="nav">
             <!-- <li><a calss="logo" href="index.html">Pascal</a></li> -->
