@@ -27,10 +27,10 @@ buildHeader("Admin | Course Assessment System");
     <header>
       <div>
         <!-- <div class = "logo"> -->
-          <h1 class="logo">Pascal</h1>
+          <h1 class="logo">Course Assessment System</h1>
         <!-- </div> -->
         <ul id="nav">
-            <!-- <li><a calss="logo" href="index.html">Pascal</a></li> -->
+            <!-- <li><a calss="logo" href="index.html">Course Assessment System</a></li> -->
             <li><a href="index.php">Home</a></li>
             <li><a href="course_data2.php">Course Data</a>
 <!--                <ul>
