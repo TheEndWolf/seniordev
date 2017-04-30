@@ -22,7 +22,7 @@ if(!array_key_exists('loggedIn', $_COOKIE)){
 }
 
 
-buildHeader("Admin | Pascal");
+buildHeader("Admin | Course Assessment System");
 ?>
     <header>
       <div>
@@ -59,7 +59,7 @@ buildHeader("Admin | Pascal");
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'create_account')">Create New Account</a>
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'task_stream')">Task Stream</a>
             </div>
-            
+
             <div id="upload_report" class="tabcontent" style="display:block;">
                 <form name="uploadForm" method="post">
                     <p>
@@ -69,39 +69,39 @@ buildHeader("Admin | Pascal");
                     </p>
                 </form>
             </div>
-		
-            
+
+
             <div id="create_account" class="tabcontent">
                 <form method="post" action="">
                     <p>Username
                         <input name="username" type="text" class="form-control" id="name" /></p>
-                    
+
                     <p>Email
                         <input name="mail" type="text" class="form-control" id="mail" /></p>
-                    
+
                     <p>Confirm Email
                         <input name="confirmMail" type="text" class="form-control" id="confirmMail" /></p>
-                    
+
                     <p>Password
                         <input name="password" type="text" class="form-control" id="password" /></p>
-                    
+
                     <p>Confirm Password
                         <input name="confirmPassword" type="text" class="form-control" id="confirmPassword" /></p>
-                    
+
                     <p>Role
                         <select name="role" class="form-control" id="role">
                         <option value="Instructor">Instructor</option>
                         <option value="Reporter">Reporter</option>
                         <option value="Admin">Admin</option>
                     </select></p>
-                    
+
                     <button class="btn btn-success" name="createAcc" id="createId">Create Account</button>
                 </form>
             </div>
-			
+
 			<div>
 	</div>
-            
+
             <div id="task_stream" class="tabcontent">
                 <form method="post" action="">
                     <p>Class
@@ -109,36 +109,36 @@ buildHeader("Admin | Pascal");
                         <option value="server">server</option>
                         <option value="c2">Class 2</option>
                     </select></p>
-                    
+
                     <p>Section
                     <select name="section_taskstream" id="section_taskstream" class="form-control">
                         <option value="1">123</option>
                         <option value="s2">Section 2</option>
                     </select></p>
-                    
+
                     <button class="btn btn-success" name="taskStreamBTN" id="taskStream">Generate Report</button>
-                    
+
                 </form>
-            </div>			
-		
+            </div>
+
 		<?php
 			echo "<div>";
 			if(isset($_POST['taskStreamBTN'])){
 				$course = $_POST['class_taskstream'];
-				$section = $_POST['section_taskstream'];		
+				$section = $_POST['section_taskstream'];
 				$dbconn1 = new report();
 				$dbconn1->taskStreamReport($course, $section);
 			}
 			echo "</div>";
-		
+
 			if(isset($_POST['createAcc'])){
 			$name = $_POST['username'];
-			$mail = $_POST['mail'];	
+			$mail = $_POST['mail'];
 			$pass = $_POST['password'];
-			$role = $_POST['role'];	
+			$role = $_POST['role'];
 			echo $role . "|" . $name . "|" . $pass;
 			$dbconn1 = new account();
-			$dbconn1->createAccount($name, $pass, $mail, $role);		
+			$dbconn1->createAccount($name, $pass, $mail, $role);
 			}
 			if(isset($_POST['uploadSubmit'])){
 			$file = $_POST['upload'];
@@ -146,10 +146,10 @@ buildHeader("Admin | Pascal");
 			$dbconn1->uploadReport($file);
 			}
 			?>
-			
+
         </div>
 
-		
+
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="inc/js/jquery.inputfile.js"></script>
         <script>

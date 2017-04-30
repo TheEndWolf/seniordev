@@ -4,14 +4,14 @@
    <script src="inc/js/ajaxFunc.js"></script>
   <script src="inc/js/bootstrap.min.js"></script>
   <link href="inc/css/bootstrap.min.css" rel="stylesheet">
-  
-  
+
+
   <head>
-  <title>Home | Pascal</title>
+  <title>Home | Course Assessment System</title>
   </head>
   <body>
     				 <?php
-					//	include("saveToDb.php");							
+					//	include("saveToDb.php");
 					  ?>
 	<header>
       <div>
@@ -47,17 +47,17 @@
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'generate_report')">Generate Report</a>
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'enter_data')">Enter Data</a>
             </div>
-            
+
             <div id="custom_stat" class="tabcontent" style="display:block;">
                 <form method="post" action="">
-                    <p>Class 
-                    <select name="courseNameee" id="courseNameee" class="form-control"> 
+                    <p>Class
+                    <select name="courseNameee" id="courseNameee" class="form-control">
                         <option value="server">server</option>
                         <option value="two">Class 2</option>
                         <option value="three">Class 3</option>
                         <option value="four">Class 4</option>
-                    </select></p> 
-                    
+                    </select></p>
+
                     <p>Section
                     <select name="sectionNummm" id="sectionNummm" class="form-control">
                         <option value="123">123</option>
@@ -66,50 +66,50 @@
                         <option value="sec4">Section 4</option>
 						 <option value="sec5">Section 5</option>
                     </select></p>
-                    
+
                     <button type="submit" class="btn btn-success" name="theSubmit" id="getInfo">View Course Data</button>
 
 
-										
+
                     <p><b><br>Class Information:</b></p>
                     <p>Program Name
                     <select name="program" class="form-control">
                         <option value="p1">Program 1</option>
                         <option value="p2">Program 2</option>
                     </select></p>
-                    
+
                     <p>Course Name
                     <select name="course" class="form-control">
                         <option value="c1">Course 1</option>
                         <option value="c2">Course 2</option>
                     </select></p>
-                    
+
                     <p>Term
                     <select name="term" class="form-control">
                         <option value="t1">Term 1</option>
                         <option value="t2">Term 2</option>
                     </select></p>
-                    
+
                     <p>Over This
                     <input type="text" class="form-control" value="80%" /></p>
-                    
+
                     <p>Expected
                     <input type="text" class="form-control" value="80%" /></p>
-                    
+
                     <button class="btn btn-success" name="showStats">Show Statistic</button>
                 </form>
             </div>
-            
+
             <div id="generate_report" class="tabcontent">
                 <form>
-                    <p>Class 
-                        <select name="class" class="form-control"> 
+                    <p>Class
+                        <select name="class" class="form-control">
                             <option value="one">Class 1</option>
                             <option value="two">Class 2</option>
                             <option value="three">Class 3</option>
                             <option value="four">Class 4</option>
                         </select>
-                    </p> 
+                    </p>
 
                     <p>Section
                         <select name="section" class="form-control">
@@ -148,7 +148,7 @@
                     <button class="btn btn-success">Export</button>
                 </form>
             </div>
-            
+
             <div id="enter_data" class="tabcontent">
                 <form>
                     <p>Program Name

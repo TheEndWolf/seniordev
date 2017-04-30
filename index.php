@@ -22,7 +22,7 @@
         setcookie("loggedIn", $value, $expire, $path, $domain, $secure);
     }
 
-    buildHeader("Home | Pascal");
+    buildHeader("Home | Course Assessment System");
 ?>
     <header>
       <div>

@@ -23,7 +23,7 @@ if(!array_key_exists('loggedIn', $_COOKIE)){
 }
 
 
-buildHeader("Data | Pascal");
+buildHeader("Data | Course Assessment System");
 ?>
 
 	<header>
@@ -60,25 +60,25 @@ buildHeader("Data | Pascal");
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'generate_report')">Generate Report</a>
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'enter_data')">Enter Data</a>
             </div>
-			
-            
+
+
             <div id="custom_stat" class="tabcontent" style="display:block;">
                 <form method="post" action="">
-	<?php 
+	<?php
 		include_once("./inc/php/gettingData.php");
 		include_once("./inc/php/report.php");
 		$getData = new gettingData();
 		$getData->getClasses();
 	?>
-              <!--     <p>Class 
-                    <select name="courseNameee" class="form-control"> 
+              <!--     <p>Class
+                    <select name="courseNameee" class="form-control">
                         <option value="server">server 1</option>
                         <option value="marketing">marketing</option>
                         <option value="database connectivity">DB conn</option>
                         <option value="four">Class 4</option>
-                    </select></p> 
+                    </select></p>
 
-                    
+
                     <p>Section
                     <select name="sectionNummm" class="form-control">
                         <option value="123"> 1</option>
@@ -89,15 +89,15 @@ buildHeader("Data | Pascal");
                     -->
                     <button type="submit" class="btn btn-success" name="theSubmit">View Course Data</button>
 					</br>
-					
-<?php				
+
+<?php
 	/*		$programName = "";
 			$courseName = "";
 			$term = "";
 	//include "./inc/php/report.php";
 	if(isset($_POST['theSubmit'])){
 		$class = $_POST['courseNameee'];
-		$section = $_POST['sectionNummm'];		
+		$section = $_POST['sectionNummm'];
 		$dbconn = new report();
 		$data = $dbconn->getCourseData($class, $section);
 		if(count($data) < 1){
@@ -109,46 +109,46 @@ buildHeader("Data | Pascal");
 		}
 		//var_dump($data);
 	}*/
-	?>				
+	?>
 
-				
-	
+
+
                     <p><b><br>Class Information:</b></p>
                     <p>Program Name
                     <select name="program" class="form-control">
                         <option value="<?php echo $programName?>"><?php echo $programName?></option>
                     </select></p>
-                    
+
                     <p>Course Name
                     <select name="course" class="form-control">
                         <option value="<?php echo $courseName?>"><?php echo $courseName?></option>
                     </select></p>
-                    
+
                     <p>Term
                     <select name="term" class="form-control">
                         <option value="<?php echo $term?>"><?php echo $term?></option>
                     </select></p>
-                    
+
                     <p>Over This
                     <input type="text" class="form-control" name="changeOverThis" value="0"/></p>
-                    
+
                     <p>Expected
                     <input type="text" class="form-control" name="<?php echo $expected?>" value="<?php echo $expected?>" /></p>
-                    
+
                     <button class="btn btn-success" name="statistics">Show Statistic</button>
                 </form>
             </div>
-				
+
             <div id="generate_report" class="tabcontent">
                 <form method="post">
-                    <p>Class 
-                        <select name="class" class="form-control"> 
+                    <p>Class
+                        <select name="class" class="form-control">
                             <option value="server">server</option>
                             <option value="law101">Law</option>
                             <option value="managment">managment</option>
                             <option value="four">Class 4</option>
                         </select>
-                    </p> 
+                    </p>
 
                     <p>Section
                         <select name="section" class="form-control">
@@ -161,11 +161,11 @@ buildHeader("Data | Pascal");
 
                     <button class="btn btn-success" name="addClass">Add a Class</button>
                     <button class="btn btn-success" name="generateReport">Generate Report</button>
-					
+
 		<p>
-			<?php 
+			<?php
 			//$res="";
-	/*		if(isset($_POST['generateReport'])){	
+	/*		if(isset($_POST['generateReport'])){
 			$dbconn1 = new report();
 			$res = $dbconn1->getReport();
 			//var_dump($res);
@@ -208,7 +208,7 @@ buildHeader("Data | Pascal");
                     <button class="btn btn-success" name="export">Export</button>
                 </form>
             </div>
-            
+
             <div id="enter_data" class="tabcontent">
                 <form method="post">
                     <p>Program Name
@@ -238,8 +238,8 @@ buildHeader("Data | Pascal");
                     <button class="btn btn-success" name="enterDataBTN">Submit</button>
                 </form>
             </div>
-			
-			<?php				
+
+			<?php
 		if(isset($_POST['enterDataBTN'])){
 			$program = $_POST['prog'];
 			$course = $_POST['course'];
@@ -249,20 +249,20 @@ buildHeader("Data | Pascal");
 			$CAI = $_POST['cai'];
 			$overThis = $_POST['over'];
 			$expected = $_POST['exp'];
-			
+
 			$dbconn1 = new enterData();
 			$dbconn1->enterReportData($program, $progObj, $course, $term, $courseNum, $CAI, $overThis, $expected);
 	}
-			
-			if(isset($_POST['statistics'])){	
+
+			if(isset($_POST['statistics'])){
 		$classy = $_POST['course'];
-		$section = $_POST['sectionNummm'];	
+		$section = $_POST['sectionNummm'];
 		$changeOverThis = $_POST['changeOverThis'];
 			$dbconn1 = new statistics();
 			$dbconn1->customizedStatistics_changeOverThis($classy, $section, $changeOverThis);
 	}
-	
-			if(isset($_POST['generateReport'])){	
+
+			if(isset($_POST['generateReport'])){
 			$dbconn1 = new report();
 			$res = $dbconn1->getReport();
 			if(count($res) < 1){
@@ -279,7 +279,7 @@ buildHeader("Data | Pascal");
 	}
 
 	?>
-			
+
         </div>
 
 

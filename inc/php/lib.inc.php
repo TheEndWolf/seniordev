@@ -4,7 +4,7 @@
 session_start();
 /*
  * Builders header information
- * @param - title for page Ex. "Home | Pascal"
+ * @param - title for page Ex. "Home | Course Assessment System"
  */
 function buildHeader($_title)
 {

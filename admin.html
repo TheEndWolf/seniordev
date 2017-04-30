@@ -2,14 +2,14 @@
 <html>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <link rel="stylesheet" type="text/css" href="inc/css/style.css">
-<!--  JQuery plugin for file upload taken from: 
+<!--  JQuery plugin for file upload taken from:
     http://www.jqueryscript.net/form/Styling-Your-File-Input-with-jQuery-Inputfile-Plugin-Bootstrap.html -->
   <link rel="stylesheet" type="text/css" href="inc/css/jquery.inputfile.css"/>
   <script src="inc/js/bootstrap.min.js"></script>
   <script src="inc/js/ajaxFunc.js"></script>
   <link href="inc/css/bootstrap.min.css" rel="stylesheet">
   <head>
-  <title>Home | Pascal</title>
+  <title>Home | Course Assessment System</title>
   </head>
   <body>
 <?php
@@ -50,7 +50,7 @@
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'create_account')">Create New Account</a>
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'task_stream')">Task Stream</a>
             </div>
-            
+
             <div id="upload_report" class="tabcontent" style="display:block;">
                 <form>
                     <p>
@@ -59,35 +59,35 @@
                     </p>
                 </form>
             </div>
-            
+
             <div id="create_account" class="tabcontent">
                 <form method="post" action="">
                     <p>Username
                         <input name="username" type="text" class="form-control" id="name" /></p>
-                    
+
                     <p>Email
                         <input name="mail" type="text" class="form-control" id="mail" /></p>
-                    
+
                     <p>Confirm Email
                         <input name="confirmMail" type="text" class="form-control" id="confirmMail" /></p>
-                    
+
                     <p>Password
                         <input name="password" type="text" class="form-control" id="password" /></p>
-                    
+
                     <p>Confirm Password
                         <input name="confirmPassword" type="text" class="form-control" id="confirmPassword" /></p>
-                    
+
                     <p>Role
                         <select name="role" class="form-control" id="role">
                         <option value="Instructor">Instructor</option>
                         <option value="Reporter">Reporter</option>
                         <option value="Admin">Admin</option>
                     </select></p>
-                    
+
                     <button class="btn btn-success" name="createAcc">Create Account</button>
                 </form>
             </div>
-            
+
             <div id="task_stream" class="tabcontent">
                 <form>
                     <p>Class
@@ -95,15 +95,15 @@
                         <option value="c1">Class 1</option>
                         <option value="c2">Class 2</option>
                     </select></p>
-                    
+
                     <p>Section
                     <select name="section" class="form-control">
                         <option value="s1">Section 1</option>
                         <option value="s2">Section 2</option>
                     </select></p>
-                    
+
                     <button class="btn btn-success" id="taskStream" onclick="return getText();">Generate Report</button>
-                    
+
                 </form>
             </div>
 
