@@ -2,6 +2,11 @@
 
 
 session_start();
+
+define ("DBC",'mysql:dbname=pascal_final_db;host=localhost');
+define ("DBUser",'pascal_web');
+define ("DBPassword",'fr1end');
+
 /*
  * Builders header information
  * @param - title for page Ex. "Home | Course Assessment System"
@@ -78,6 +83,62 @@ function buildNav($_role_id){
         </ul>";
     }
 }
+
+/*
+ * Clean inputs
+ */
+
+function sanitize($StringToClean){
+
+    strip_tags($StringToClean);
+    htmlspecialchars($StringToClean);
+    trim($StringToClean);
+
+    return $StringToClean;
+}
+
+function editItemDiv(){
+
+        $divHTML =  "<div class='box'>";
+        if(!empty($_POST['itemedited'])){
+            $divHTML .= "<h2 style='color:green;'>{$_POST['itemedited']}</h2>";
+        }
+        $divHTML .=  "<form action='admin.php' method='post' enctype='multipart/form-data'>" . editItemSelect() .
+            "<input type='submit' name='edit_accountSelectBtn' value='Select'></form>";
+        $divHTML .= "</div>";
+        echo $divHTML;
+
+
+}
+
+/*
+ * no inputs
+ * list of items currently in products table to select for editing
+ */
+function editItemSelect(){
+    $htmlSelect =  "Choose an item to edit: ";
+
+    try {
+        $dbh = new PDO(DBC, DBUser, DBPassword);
+        $sqlStatement = "SELECT CONCAT(first_name,' ',last_name) as fullname,user_id FROM program_user ORDER BY last_name ASC";
+        $stmt = $dbh->prepare($sqlStatement);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        $allitems = "<select id='item-to-edit' name='edit-select'>";
+
+        foreach($result as $row){
+            $allitems .= "<option value={$row['user_id']}>    {$row["fullname"]}</option>";
+
+        }
+        $allitems .= "</select>";
+        return $htmlSelect.$allitems;
+    } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
+    }
+}
+
 
 
 ?>

@@ -5,9 +5,7 @@
  * Date: 4/30/2017
  * Time: 1:21 PM
  */
-define ("DBC",'mysql:dbname='.DB_DATABASE.';host='.DB_HOST);
-define ("DBUser",DB_USERNAME);
-define ("DBPassword",DB_PASSWORD);
+
 try {
     $dbh = new PDO(DBC, DBUser, DBPassword);
 } catch (PDOException $e) {
