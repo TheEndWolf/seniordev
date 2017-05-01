@@ -27,18 +27,17 @@
     <header>
       <div>
         <h1 class="logo">Course Assessment System</h1>
-        <ul id="nav">
-            <li><a href="index.php" class="active">Home</a></li>
-            <li><a href="course_data2.php">Course Data</a>
-            </li>
-            <li><a href="admin.php">Admin</a>
-            </li>
-            <li style="float:right"><a href="#log">Log Out</a></li>
-            <li style="float:right"><a id="welcome" href="#welcome"><?php echo $username?></a></li>
-            <li id="clear"></li>
-        </ul>
       </div>
     </header>
+
+    <ul id="nav">
+        <li><a href="index.php" class="active">Home</a></li>
+        <li><a href="course_data2.php">Course Data</a></li>
+        <li><a href="admin.php">Admin</a></li>
+        <li style="float:right"><a href="#log">Log Out</a></li>
+        <li style="float:right"><a id="welcome"><?php echo $username?></a></li>
+        <li id="clear"></li>
+    </ul>
 
     <div id="content">
         <?php

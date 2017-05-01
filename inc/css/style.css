@@ -1,11 +1,7 @@
 body, html {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  color: #000;
+  color: #000000;
   margin: 0;
-}
-
-body {
-
 }
 
 header, #content, footer {
@@ -30,27 +26,25 @@ header {
 }
 
 div.tabPg {
+    background-color: #F1f1f1;
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
 }
 
 div.tabPg a {
+    color: black;
+    font-size: 17px;
     float: left;
     display: block;
-    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     transition: 0.3s;
-    font-size: 17px;
 }
 
 div.tabPg a:hover, .tabPg a:focus, .active {
-    background-color: #555555;
-    color: white !important;
-    font-weight: bold;
-    border-radius: 2px;
+    background-color: #AAAAAA;
+    color: #555555 !important;
 }
 
 .tabcontent {
@@ -70,7 +64,6 @@ div.tabPg a:hover, .tabPg a:focus, .active {
 #home-content {
   max-width: 60%;
   float: left;
-  /*border: 1px solid black;*/
   padding: 2px 12px 15px 15px;
   margin-left: 5%;
 }
@@ -86,6 +79,11 @@ footer {
 /************************************
  *         Navigation Menu          *
  ***********************************/
+#nav, #welcome:hover {
+     background: #555555 !important;
+     color: #FFFFFF;
+}
+
 #nav {
     list-style: none;
     padding-left: 0px;
@@ -112,8 +110,8 @@ footer {
 }
 
 #nav li:hover > a {
+    background: #AAAAAA;
     color: #555555;
-    font-weight: bold;
 }
 
 #nav li:hover > ul {
@@ -193,31 +191,12 @@ footer {
     height: 0;
 }
 
-
 /************************************
  *   System Login Form Properties   *
  ***********************************/
 
 .form-control.log-in {
   width: 100%;
-}
-
-/************************************
- * Logo and welcome text properties *
- ***********************************/
-
-.logo , #welcome{
-  color: #FFFFFF !important;
-  /*font-weight: bold;*/
-}
-
-.logo {
-  /*font-family: "Courier New";*/
-  /*font-size: 60px;*/
-}
-
-#welcome {
-  font-weight: bold;
 }
 
 /************************************
@@ -299,4 +278,16 @@ footer {
 #add_course textarea {
   width:  172px; /* Right align textarea tag with input (and select) tag(s) */
   margin-left: 3px; /* Left align textarea tag with input (and select) tag(s) */
+}
+
+/************************************
+ * Logo and welcome text properties *
+ ***********************************/
+
+.logo , #welcome{
+  color: #FFFFFF !important;
+}
+
+#welcome {
+  font-weight: bold;
 }
