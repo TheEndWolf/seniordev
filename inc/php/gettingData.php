@@ -55,25 +55,23 @@ class gettingData{
 	/**
 	*	function places section numbers into select component
 	*/	
-	public function getSections($courseId){
-		/*$getClasses= $this->db->selectStmt_Arr("SELECT course_name FROM course");
+	public function getSections($courseId, $term){
+		$getSectionId= $this->db->selectStmt_Arr("SELECT section_id FROM course_section WHERE course_id = '" .$courseId. "'");
+		$sectionInfo = 'section_id = "'.$getSectionId[0].'"';
+		for($x = 1; $x < count($getSectionId); $x++)
+		{
+			$sectionInfo .= ' OR section_id = "'.$getSectionId[$x].'"';
+		}
+		
+		$getSections= $this->db->selectStmt_Arr('SELECT section_number FROM section WHERE ' .$sectionInfo. 'AND term = "'.$term.'"');
 		$arrCount= count($getClasses);
-		$option = '<p>Class: <select name="courseNameee" class="form-control">';
+		$option = '<p>Class: <select name="sections" class="form-control">';
 		//$option .= '<option value = "''">'Classes'</option>';
 			for($x = 0; $x < $arrCount; $x++) {
-				$option .= '<option value = "'.$getClasses[$x].'">'.$getClasses[$x].'</option>';
+				$option .= '<option value = "'.$getSections[$x].'">'.$getSections[$x].'</option>';
 			}
 			$option.= '</select></p>';
 		echo $option;
-		
-		$getSection= $this->db->selectStmt_Arr("SELECT section_number FROM section");
-		$arrCountsection= count($getSection);
-		$option1 = '<p>Section: <select name="sectionNummm" class="form-control">';
-			for($x = 0; $x < $arrCountsection; $x++) {
-				$option1 .= '<option value = "'.$getSection[$x].'">'.$getSection[$x].'</option>';
-			}
-			$option1.= '</select></p>';
-		echo $option1;*/
 	}
 
 }
