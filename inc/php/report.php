@@ -11,7 +11,7 @@ class report{
 	*/
 	public function __construct()
 	{
-		$this->db = new sqlDatabase("localhost","pascal_web","fr1end","Pascal_Finito");
+		$this->db = new sqlDatabase(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 	}
 
 	/*

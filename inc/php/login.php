@@ -7,7 +7,7 @@
  */
 define ("DBC",'mysql:dbname=Pascal_Finito;host=127.0.0.1');
 define ("DBUser",'pascal_web');
-define("DBPassword",'fr1end');
+define ("DBPassword",'fr1end');
 try {
     $dbh = new PDO(DBC, DBUser, DBPassword);
 } catch (PDOException $e) {

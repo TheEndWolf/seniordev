@@ -1,5 +1,10 @@
 <?php
 
+const DB_HOST = "localhost";
+const DB_USERNAME = "pascal_web";
+const DB_PASSWORD = "fr1end";
+const DB_DATABASE = "pascal_final_db";
+
 
 class sqlDatabase{
 	//attribute
