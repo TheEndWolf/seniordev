@@ -2,6 +2,8 @@
 
 require_once("sqlDatabase.php");
 
+
+
 class gettingData{
 	
  private $db;
@@ -14,20 +16,67 @@ class gettingData{
 	{
 		$this->db = new sqlDatabase(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 	}
-	
+
 	/**
-	*	function places course names into select component
-	*/	
+	 *	function places course names into select component
+	 */
 	public function getClasses(){
-		$getClasses= $this->db->selectStmt_Arr("SELECT course_name FROM course");
-		$getClassId = $this->db->selectStmt_Arr("SELECT course_id FROM course");
+		$getClasses= $this->db->selectStmt_Arr("SELECT course_id,course_name FROM course");
 		$arrCount= count($getClasses);
 		$option = '<p>Class: <select name="courseNameee" class="form-control">';
 		//$option .= '<option value = "''">'Classes'</option>';
-			for($x = 0; $x < $arrCount; $x++) {
-				$option .= '<option value = "'.$getClassId[$x].'">'.$getClasses[$x].'</option>';
+		for($x = 0; $x < $arrCount; $x++) {
+			$option .= '<option value = "'.$getClasses[$x].'">'.$getClasses[$x].'</option>';
+		}
+		$option.= '</select></p>';
+		echo $option;
+	}
+
+	/**
+	 *	Gets class list for Course Data -> Generate Report Section
+	 */
+	public function getRptClasses(){
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+			$sqlStatement = "SELECT course_id,course_name FROM course";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$option = '<p>Class: <select id="rpt_courseName" name="rpt_courseName" class="form-control">';
+			$option .=  "<option value=\"1\">--- Select A Course ---</option>";
+			foreach($result as $course){
+				$option .=  "<option value=\"{$course->course_id}\">" . $course->course_name . "</option>";
 			}
 			$option.= '</select></p>';
+
+			//print_r($result);
+
+		} catch (PDOException $e) {		}
+		echo $option;
+	}
+
+
+
+
+	/**
+	 *	Gets class list for Course Data -> Generate Report Section
+	 */
+	public function getRptSections($_course_id){
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+			$sqlStatement = "SELECT course_id,section_id FROM course_section where course_id = {$_course_id}";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$option = 'Section: <select id="rpt_sections" name="rpt_sections" class="form-control">';
+			foreach($result as $course){
+				$option .=  "<option value=\"{$course->section_id}\">" . $course->section_id . "</option>";
+			}
+			$option.= '</select>';
+
+			//print_r($result);
+
+		} catch (PDOException $e) {		}
 		echo $option;
 	}
 	

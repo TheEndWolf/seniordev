@@ -132,24 +132,25 @@ buildHeader("Data | Course Assessment System");
                 </form>
             </div>
 
+
+
+            <!--********************************************-->
+            <!--            GENERATE REPORT                 -->
+            <!--********************************************-->
+
+
             <div id="generate_report" class="tabcontent">
                 <form method="post">
-                    <p>Class
-                        <select name="class" class="form-control">
-                            <option value="server">server</option>
-                            <option value="law101">Law</option>
-                            <option value="managment">managment</option>
-                            <option value="four">Class 4</option>
-                        </select>
-                    </p>
+                    <?php
+                    $getData->getRptClasses();
+                    //$getData->getRptSections(1);
+                    ?>
 
-                    <p>Section
-                        <select name="section" class="form-control">
-                            <option value="1">Section 1</option>
-                            <option value="2">Section 2</option>
-                            <option value="3">Section 3</option>
-                            <option value="4">Section 4</option>
-                        </select>
+                    <?php
+                    // AJAX CALL FILLS IN THE P TAG BELOW
+                    ?>
+                    <p id="rpt_section">
+
                     </p>
 
                     <button class="btn btn-success" name="addClass">Add a Class</button>
@@ -277,6 +278,25 @@ buildHeader("Data | Course Assessment System");
 
 
 <?php buildFooter(); ?>
+<script>
+    $('#rpt_courseName').change(function() {
+        var courseID = $('#rpt_courseName').val();
+        console.log(courseID);
+        $.ajax({
+            type: "POST",
+            data: {
+                rpt_cid:courseID
+            },
+            url: "./inc/php/dataHandler.php",
+            dataType: "html",
+            success: function(data) {
+                result=data;
+                //console.log(result);
+                $("#rpt_section").html(result);
+            }
+        });
+    })
+</script>
 
   </body>
 </html>
