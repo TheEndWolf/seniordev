@@ -29,7 +29,7 @@ buildHeader("Admin | Course Assessment System");
         <h1 class="logo">Course Assessment System</h1>
       </div>
     </header>
-    
+
     <?php
     if(array_key_exists('role_id',$_SESSION)){
         buildNav($_SESSION['role_id']);

@@ -66,7 +66,7 @@ function buildNav($_role_id){
         <li id=\"clear\"></li>
         </ul>";
     }
-    if($_role_id == 5){
+    if($_role_id == 5 || $_role_id == 2 || $_role_id == 4){
         echo " <ul id=\"nav\">
         <li><a href=\"index.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/index.php' ? ' active' : '') . "\">Home</a></li>";
         if(array_key_exists('username', $_SESSION)){
