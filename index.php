@@ -30,24 +30,29 @@
       </div>
     </header>
 
-    <ul id="nav">
-        <li><a href="index.php" class="active">Home</a></li>
-        <li><a href="course_data2.php">Course Data</a></li>
-        <li><a href="admin.php">Admin</a></li>
-        <li style="float:right"><a href="#log">Log Out</a></li>
-        <li style="float:right"><a id="welcome"><?php echo $username?></a></li>
-        <li id="clear"></li>
-    </ul>
+    <?php
+        if(array_key_exists('role_id',$_SESSION)){
+            buildNav($_SESSION['role_id']);
+        }else{
+            buildNav(5);
+        }
+    ?>
 
     <div id="content">
         <?php
         if(isset($_SESSION['loggedIn'])){
-
+            echo "<div id=\"home-content\">
+                <p>content here</p>
+                </div>";
         }else {
             echo "
       <div id=\"container-login\">
         <h3>System Login</h3>
-        <hr>
+        <hr>";
+        if(array_key_exists('invalidLogin',$_SESSION)){
+            echo $_SESSION['invalidLogin'] . "</hr>";
+        }
+            echo "
      <form method=\"post\" action='./inc/php/login.php'>
             <p>
               <label><b>Username</b></label>
@@ -69,9 +74,6 @@
           }
           //<button class=\"btn btn-success\" name=\"login\">Log in</button>
           ?>
-      <div id="home-content">
-        <p>content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here content here </p>
-      </div>
       <div id="clear"></div>
     </div>
 

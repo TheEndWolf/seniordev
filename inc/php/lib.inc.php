@@ -34,4 +34,50 @@ function buildFooter(){
         </body>
         </html>";
 }
+
+/*
+ * Builds nav based off role id
+ */
+
+function buildNav($_role_id){
+    $serverSelf = $_SERVER['PHP_SELF'];
+    if($_role_id == 1){
+        echo " <ul id=\"nav\">
+        <li><a href=\"index.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/index.php' ? ' active' : '') . "\">Home</a></li>
+        <li><a href=\"course_data2.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/coursedata2.php' ? ' active' : '') . "\">Course Data</a></li>
+        <li><a href=\"admin.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/admin.php' ? ' active' : '') . "\">Admin</a></li>";
+        if(array_key_exists('username', $_SESSION)){
+            echo "<li style=\"float:right\"><a href=\"./inc/php/logout.php\">Log Out</a></li>
+                    <li style=\"float:right\"><a id=\"welcome\" href=\"#welcome\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
+        }
+        echo "
+        <li id=\"clear\"></li>
+        </ul>";
+    }
+    if($_role_id == 3){
+        echo " <ul id=\"nav\">
+        <li><a href=\"index.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/index.php' ? ' active' : '') . "\">Home</a></li>
+        <li><a href=\"course_data2.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/coursedata2.php' ? ' active' : '') . "\">Course Data</a></li>";
+        if(array_key_exists('username', $_SESSION)){
+            echo "<li style=\"float:right\"><a href=\"./inc/php/logout.php\">Log Out</a></li>
+                    <li style=\"float:right\"><a id=\"welcome\" href=\"#welcome\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
+        }
+        echo "
+        <li id=\"clear\"></li>
+        </ul>";
+    }
+    if($_role_id == 5){
+        echo " <ul id=\"nav\">
+        <li><a href=\"index.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/index.php' ? ' active' : '') . "\">Home</a></li>";
+        if(array_key_exists('username', $_SESSION)){
+            echo "<li style=\"float:right\"><a href=\"./inc/php/logout.php\">Log Out</a></li>
+                    <li style=\"float:right\"><a id=\"welcome\" href=\"#welcome\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
+        }
+        echo "
+        <li id=\"clear\"></li>
+        </ul>";
+    }
+}
+
+
 ?>

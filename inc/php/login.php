@@ -61,12 +61,12 @@ if (isset($_POST['username']) & isset($_POST['pass'])) {
 
 
         }else {
-            $_SESSION['invalidLogin'] = "<h3 style='color:red;'>Invalid Login</h3>";
+            $_SESSION['invalidLogin'] = "<h4 style='color:red;'>Invalid Username or Password</h4>";
             header("Location: /");
             //header("Location: /~speedyman11/srdev2/");
         }
     } else {
-        $_SESSION['invalidLogin'] = "<h3 style='color:red;'>Invalid Login</h3>";
+        $_SESSION['invalidLogin'] = "<h4 style='color:red;'>Invalid Username or Password</h4>";
         header("Location: /");
         //header("Location: /~speedyman11/srdev2/");
     }

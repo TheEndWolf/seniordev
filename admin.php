@@ -32,12 +32,14 @@ buildHeader("Admin | Course Assessment System");
 
     <ul id="nav">
         <li><a href="index.php">Home</a></li>
-        <li><a href="course_data2.php">Course Data</a>
-        </li>
-        <li><a href="admin.php" class="active">Admin</a>
-        </li>
-        <li style="float:right"><a href="#log">Log Out</a></li>
-        <li style="float:right"><a id="welcome">Welcome, John Smith</a></li>
+        <li><a href="course_data2.php">Course Data</a></li>
+        <li><a href="admin.php" class="active">Admin</a></li>
+        <?php
+        if(array_key_exists('username', $_SESSION)){
+            echo "<li style=\"float:right\"><a href=\"./inc/php/logout.php\">Log Out</a></li>
+                        <li style=\"float:right\"><a id=\"welcome\" href=\"#welcome\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
+        }
+        ?>
         <li id="clear"></li>
     </ul>
 
