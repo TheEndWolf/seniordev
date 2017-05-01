@@ -28,7 +28,7 @@ function buildHeader($_title)
  */
 function buildFooter(){
     echo "<footer>
-      <p>Copyright &copy; Team Pascal. All Rights Reserved.</p>
+      <p>Copyright &copy; 2017 Team Pascal. All Rights Reserved.</p>
     </footer>
       <script src=\"./inc/js/tabs.js\"></script>
         </body>
