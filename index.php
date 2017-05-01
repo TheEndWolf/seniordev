@@ -60,7 +60,7 @@
             </p>
             <p>
               <label><b>Password</b></label>
-              <input type=\"text\" name=\"pass\" placeholder=\"Password\" class=\"form-control log-in\" />
+              <input type=\"password\" name=\"pass\" placeholder=\"Password\" class=\"form-control log-in\" />
             </p>
 
 
