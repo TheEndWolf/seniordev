@@ -7,7 +7,7 @@ session_start();
 
 if(!array_key_exists('loggedIn', $_COOKIE)){
     session_destroy();
-    header("Location: /");
+    //header("Location: /");
 }else{
     $expire = time() + 60 * 10;//10 minutes from now
     //Deployment
@@ -22,11 +22,7 @@ if(!array_key_exists('loggedIn', $_COOKIE)){
     setcookie("loggedIn", $value, $expire, $path, $domain, $secure);
 
 
-    if(array_key_exists('role_id',$_SESSION)){
-        if($_SESSION['role_id'] != 5){
-            header("Location: /");
-        }
-    }
+
 }
 
 
