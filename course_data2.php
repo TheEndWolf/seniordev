@@ -216,7 +216,7 @@ buildHeader("Data | Course Assessment System");
                     <p>Expected %
                         <input type="text" class="form-control" name="exp" value= "0"/></p>
 
-                    <p>course number
+                    <p>Course Number
                         <input type="text" class="form-control" name="courseNUM"/></p>
 
                     <!-- <p>CAI
