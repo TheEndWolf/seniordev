@@ -219,8 +219,8 @@ buildHeader("Data | Course Assessment System");
                     <p>course number
                         <input type="text" class="form-control" name="courseNUM"/></p>
 
-                    <p>CAI
-						<input type="text" class="form-control" name="cai" value= "0"/></p>
+                    <!-- <p>CAI
+						<input type="text" class="form-control" name="cai" value= "0"/></p> -->
 
                     <button class="btn btn-success" name="enterDataBTN">Submit</button>
                 </form>
