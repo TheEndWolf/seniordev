@@ -224,7 +224,7 @@ footer {
  *      Course Data and Admin       *
  *         Form Properties          *
  ***********************************/
-#custom_stat, #generate_report, #enter_data, #upload_report, #create_account, #task_stream {
+#custom_stat, #generate_report, #add_course, #upload_report, #create_account, #task_stream {
   padding: 2%; /*  */
 }
 
@@ -232,7 +232,7 @@ footer {
 #generate_report .class-info form,*/
 #custom_stat form,
 #generate_report form,
-#enter_data form,
+#add_course form,
 #create_account form,
 #task_stream form {
     display: table;
@@ -242,7 +242,7 @@ footer {
 #generate_report .class-info input, #generate_report select, #generate_report label,*/
 #custom_stat input, #custom_stat select, #custom_stat label,
 #generate_report input, #generate_report select, #generate_report label,
-#enter_data input, #enter_data select, #enter_data label,
+#add_course input, #add_course select, #add_course label,
 #create_account input, #create_account select, #create_account label,
 #task_stream input, #task_stream select, #task_stream label {
   display: table-cell;
@@ -253,14 +253,14 @@ footer {
 #generate_report .class-info label,*/
 #custom_stat label,
 #generate_report label,
-#enter_data label,
+#add_course label,
 #create_account label,
 #task_stream label {
   text-align: left; /* Keep the label tags aligned to the left */
   /*padding-right: 20px; /* Add more spacing between label tags and select/input/textarea tags*/*/
 }
 
-#enter_data label,
+#add_course label,
 #create_account label {
   padding-right: 20px; /* Add more spacing between label tags and select/input/textarea tags*/
 }
@@ -269,7 +269,7 @@ footer {
 #generate_report .class-info p,*/
 #custom_stat p,
 #generate_report p,
-#enter_data p,
+#add_course p,
 #create_account p,
 #task_stream p {
   display: table-row; /* Align items within specified p tags*/
@@ -277,7 +277,7 @@ footer {
 
 #custom_stat button,
 #generate_report button,
-#enter_data button,
+#add_course button,
 #create_account button,
 #task_stream button {
   margin-top: 20px;
@@ -296,7 +296,7 @@ footer {
   vertical-align: middle; /* Center align the label tag with textarea tag */
 }
 
-#enter_data textarea {
+#add_course textarea {
   width:  172px; /* Right align textarea tag with input (and select) tag(s) */
   margin-left: 3px; /* Left align textarea tag with input (and select) tag(s) */
 }

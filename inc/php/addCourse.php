@@ -2,7 +2,7 @@
 
 require_once("sqlDatabase.php");
 
-class enterData{
+class addCourse{ // Renamed from enterData
 
  private $db;
 

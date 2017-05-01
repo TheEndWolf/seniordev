@@ -45,7 +45,7 @@ buildHeader("Data | Course Assessment System");
             <div class="tabPg">
                 <a href="javascript:void(0)" class="tabs active" onclick="openTab(event, 'custom_stat')">Custom Statistics</a>
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'generate_report')">Generate Report</a>
-                <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'enter_data')">Enter Data</a>
+                <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'add_course')">Add Course</a>
             </div>
 
 
@@ -196,7 +196,7 @@ buildHeader("Data | Course Assessment System");
                 </form>
             </div>
 
-            <div id="enter_data" class="tabcontent">
+            <div id="add_course" class="tabcontent">
                 <form method="post">
                     <p>Program Name
                         <input type="text" name="prog" class="form-control" /></p>
@@ -222,12 +222,12 @@ buildHeader("Data | Course Assessment System");
                     <!-- <p>CAI
 						<input type="text" class="form-control" name="cai" value= "0"/></p> -->
 
-                    <button class="btn btn-success" name="enterDataBTN">Submit</button>
+                    <button class="btn btn-success" name="addCourseBTN">Submit</button>
                 </form>
             </div>
 
 			<?php
-		if(isset($_POST['enterDataBTN'])){
+		if(isset($_POST['addCourseBTN'])){ // addCourseBTN is renamed from enterDataBTN
 			$program = $_POST['prog'];
 			$course = $_POST['course'];
 			$progObj = $_POST['progObj'];
@@ -237,7 +237,7 @@ buildHeader("Data | Course Assessment System");
 			$overThis = $_POST['over'];
 			$expected = $_POST['exp'];
 
-			$dbconn1 = new enterData();
+			$dbconn1 = new addCourse();
 			$dbconn1->enterReportData($program, $progObj, $course, $term, $courseNum, $CAI, $overThis, $expected);
 	}
 
