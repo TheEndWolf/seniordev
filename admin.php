@@ -80,9 +80,11 @@ buildHeader("Admin | Course Assessment System");
 
                     <p>Role
                         <select name="role" class="form-control" id="role">
-                        <option value="Instructor">Instructor</option>
-                        <option value="Reporter">Reporter</option>
-                        <option value="Admin">Admin</option>
+                        <option value="5">Professor</option>
+                        <option value="2">Course Coordinator</option>
+                        <option value="4">Program Coordinator</option>
+						<option value="3">Assessment Coordinator</option>
+						<option value="1">Administrator</option>
                     </select></p>
 
                     <button class="btn btn-success" name="createAcc" id="createId">Create Account</button>

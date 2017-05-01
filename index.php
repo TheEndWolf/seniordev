@@ -1,4 +1,3 @@
-
 <?php
     require './inc/php/lib.inc.php';
 	include("./inc/php/saveToDB.php");
