@@ -5,9 +5,9 @@
  * Date: 4/30/2017
  * Time: 1:21 PM
  */
-define ("DBC",'mysql:dbname=pascal_final_db;host=127.0.0.1');
-define ("DBUser",'pascal_web');
-define ("DBPassword",'fr1end');
+define ("DBC",'mysql:dbname='.DB_DATABASE.';host='.DB_HOST);
+define ("DBUser",DB_USERNAME);
+define ("DBPassword",DB_PASSWORD);
 try {
     $dbh = new PDO(DBC, DBUser, DBPassword);
 } catch (PDOException $e) {
