@@ -6,6 +6,8 @@
  * Time: 1:21 PM
  */
 
+require './lib.inc.php';
+
 try {
     $dbh = new PDO(DBC, DBUser, DBPassword);
 } catch (PDOException $e) {
