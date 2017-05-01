@@ -8,6 +8,7 @@ session_start();
 
 if(!array_key_exists('loggedIn', $_COOKIE)){
     session_destroy();
+    header("Location: /");
 }else{
     $expire = time() + 60 * 10;//10 minutes from now
     //Deployment
@@ -20,6 +21,13 @@ if(!array_key_exists('loggedIn', $_COOKIE)){
     $value = date("F j, Y g:i a");
     $value = mt_rand() . mt_rand() . mt_rand();
     setcookie("loggedIn", $value, $expire, $path, $domain, $secure);
+
+    if(array_key_exists('role_id',$_SESSION)){
+      if($_SESSION['role_id'] != 3 || $_SESSION['role_id'] != 5){
+          header("Location: /");
+      }
+    }
+
 }
 
 
@@ -31,6 +39,7 @@ buildHeader("Data | Course Assessment System");
         <h1 class="logo">Course Assessment System</h1>
       </div>
     </header>
+
 
     <?php
     if(array_key_exists('role_id',$_SESSION)){
