@@ -63,25 +63,11 @@ buildHeader("Data | Course Assessment System");
 		$getData = new gettingData();
 		$getData->getClasses();
 	?>
-              <!--     <p>Class
-                    <select name="courseNameee" class="form-control">
-                        <option value="server">server 1</option>
-                        <option value="marketing">marketing</option>
-                        <option value="database connectivity">DB conn</option>
-                        <option value="four">Class 4</option>
-                    </select></p>
-
-
-                    <p>Section
-                    <select name="sectionNummm" class="form-control">
-                        <option value="123"> 1</option>
-                        <option value="sec2">Section 2</option>
-                        <option value="sec3">Section 3</option>
-                        <option value="sec4">Section 4</option>
-                    </select></p>
-                    -->
-                    <button type="submit" class="btn btn-success" name="theSubmit">View Course Data</button>
-					</br>
+                <p>Term
+                    <input type="text" class="form-control" name="terms"/>
+				</p>
+                <button type="submit" class="btn btn-success" name="theSubmit">View Course Data</button>
+				</br>
 
 <?php
 	/*		$programName = "";
