@@ -12,7 +12,12 @@ require_once("lib.inc.php");
 
 session_start();
 
-if(isset($_POST['rpt_courseName']) && isset($_POST['sections'])){
+if(isset($_POST['exportReport'])){
+    $report = new report();
+    $result = $report->export($_POST['rpt_courseName'],$_POST['sections']);
+
+    echo $result;
+}elseif(isset($_POST['rpt_courseName']) && isset($_POST['sections']) && !isset($_POST['exportReport']) ){
     $report = new report();
     $result = $dbconn1->showReport($_POST['rpt_courseName'],$_POST['sections']);
 

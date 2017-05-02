@@ -281,25 +281,11 @@ if (array_key_exists('role_id', $_SESSION)) {
     }
 
 
-    if (isset($_POST['generateReport'])) {
-        $dbconn1 = new report();
-        //$res = $dbconn1->getReport();
-        $res = $dbconn1->showReport($_POST['rpt_courseName'],$_POST['sections']);
+    if (isset($_POST['rptGenerateReport'])) {
+        $report = new report();
+        $result = $report->export($_POST['rpt_courseName'],$_POST['sections']);
 
-//        echo "<pre>";
-//        print_r($res);
-//        echo "</pre>";
-
-        if (count($res) < 1) {
-            echo "No results";
-        }
-        echo "<table class='table'>";
-        echo "<tr><th>Program name<th><th>Program objective<th><th>Course name<th><th>Term<th><th>course_number<th><th>section_number<th><th>assessmentName<th><th>expected_Percent_achieved<th><th>Percent_students_achieved<th><tr>";
-        foreach ($res as $key => $val) {
-            echo "<tr><td>" . $val['program_name'] . "<td><td>" . $val['program_objective'] . "<td><td>" . $val['course_name'] . "<td><td>" . $val['term'] . "<td><td>" . $val['course_number'] . "<td><td>" . $val['section_id'] . "<td><td>" . $val['course_assessment_item'] . "<td><td>" . $val['expected_percent_achieved'] . "<td><td>" .  $val['percent_students_achieved_obj']."<td><tr>";
-        }
-        echo "</table>";
-        //getTable($res);
+        echo $result;
     }
 
     ?>
