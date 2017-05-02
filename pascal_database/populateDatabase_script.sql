@@ -1,5 +1,5 @@
 
-use pascal_db;
+use `pascal_final_db`;
 
 insert into permission(description, permission) values ("Admin", 666);
 insert into permission(description, permission) values ("Reporter", 644);
