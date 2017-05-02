@@ -15,7 +15,44 @@ class addCourse{ // Renamed from enterData
 		// $this->db = new sqlDatabase("localhost","root","","pascal_database");
 		$this->db = new sqlDatabase(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 	}
-
+	
+	/*
+	*	addCourse function
+	*	adds a course to the DB when someone chooses to add one via the course data part of the application
+	*/
+	public function addCourse($program, $course_name, $course_num, $coordinator, $notes){
+		$q = $this->db->queryStmt("INSERT into course(course_name, course_number, course_coOrdinator, program_id)values(".$course_name.", ".$course_num.", ".$coordinator.", ".$program.")");
+		if($q){
+			$courseId = $this->db->selectStmt_ID("Select course_id from course where course_name = '".$course_name."' AND course_number = '".$course_num."' AND course_coOrdinator = '".$coordinator."' AND program_id = '".$program"'");
+			$q2 = $this->db->queryStmt("INSERT into course_Notes(notes, course_id)values(".$notes.", ".$courseId.")");
+			if($q2){
+				echo "Success: Data has been entered into database";
+			}
+		}else{
+			echo "Error: Did not insert data";
+		}
+	}
+	
+	/*
+	*	addSection function
+	*	adds a section of a course to the DB when someone chooses to add one via the course data part of the application
+	*/
+	public function addSection($course, $term, $sectionNum, $program_obj, $notes, $cai, $professor, $over_this, $expected, $assessment_due){
+		$date = date("Y-m-d H:i:s");
+		$q = $this->db->queryStmt("INSERT into section(section_number, term, notes, data_created, user_id)values(".$sectionNum.", ".$term.", ".$notes.", ".$date.", ".$professor.")");
+		if($q){
+			$section = $this->db->selectStmt_ID("Select section_id from section where section_number = '".$sectionNum."' AND term = '".$term."' AND data_created = '".$date."' AND user_id = '".$professor"'");
+			$q2 = $this->db->queryStmt("INSERT into course_section(course_id, course_section)values(".$course.", ".$section.")");
+			$q3 = $this->db->queryStmt("INSERT into assessment(date_data_received, course_assessment_item, expected_percent_achieved, over_this, deadline, section_id)values(".$date.", ".$cai.", ".$expected.", ".$over_this.", ".$assessment_due.", ".$section.")");
+			if($q3){
+				echo "Success: Data has been entered into database";
+			}
+		}
+		else{
+			echo "Error: Did not insert data";
+		}
+	}
+	
 	/*
 	*	method for entering report data
 	*
