@@ -50,6 +50,11 @@ buildHeader("Admin | Course Assessment System");
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'edit_account')">Edit Account</a>
             </div>
 
+
+            <!--********************************************-->
+            <!--               UPLOAD REPORT                -->
+            <!--********************************************-->
+
             <div id="upload_report" class="tabcontent" style="display:block;">
                 <form name="uploadForm" method="post">
                     <p>
@@ -60,6 +65,10 @@ buildHeader("Admin | Course Assessment System");
                 </form>
             </div>
 
+
+            <!--********************************************-->
+            <!--               CREATE ACCOUNT               -->
+            <!--********************************************-->
 
             <div id="create_account" class="tabcontent">
                 <form method="post" action="">
@@ -110,6 +119,12 @@ buildHeader("Admin | Course Assessment System");
 			<div>
 	</div>
 
+
+
+            <!--********************************************-->
+            <!--                EDIT ACCOUNT                -->
+            <!--********************************************-->
+
             <div id="edit_account" class="tabcontent">
 
                 <?php
@@ -128,7 +143,7 @@ buildHeader("Admin | Course Assessment System");
 
                         $result = $stmt->fetch();
 
-                        print_r($result);
+                        //print_r($result);
 
                     } catch (PDOException $e) {
                         echo 'Connection failed: ' . $e->getMessage();

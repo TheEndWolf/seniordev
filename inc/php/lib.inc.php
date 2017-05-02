@@ -104,7 +104,7 @@ function editItemDiv(){
             $divHTML .= "<h2 style='color:green;'>{$_POST['itemedited']}</h2>";
         }
         $divHTML .=  "<form action='admin.php' method='post' enctype='multipart/form-data'>" . editItemSelect() .
-            "<input type='submit' name='edit_accountSelectBtn' value='Select'></form>";
+            "<br/><input type='submit' class='btn btn-success' name='edit_accountSelectBtn' value='Select'></form>";
         $divHTML .= "</div>";
         echo $divHTML;
 
@@ -116,7 +116,7 @@ function editItemDiv(){
  * list of items currently in products table to select for editing
  */
 function editItemSelect(){
-    $htmlSelect =  "Choose an item to edit: ";
+    $htmlSelect =  "Choose an account to edit: ";
 
     try {
         $dbh = new PDO(DBC, DBUser, DBPassword);
@@ -126,7 +126,7 @@ function editItemSelect(){
 
         $result = $stmt->fetchAll();
 
-        $allitems = "<select id='item-to-edit' name='edit-select'>";
+        $allitems = "<select class='form-control' id='item-to-edit' name='edit-select'>";
 
         foreach($result as $row){
             $allitems .= "<option value={$row['user_id']}>    {$row["fullname"]}</option>";
@@ -138,7 +138,6 @@ function editItemSelect(){
         echo 'Connection failed: ' . $e->getMessage();
     }
 }
-
 
 
 ?>
