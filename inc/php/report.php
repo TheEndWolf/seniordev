@@ -46,26 +46,40 @@ class report{
 	 * Function exporting class statistics into csv format
 	 */
 	function export($_courseID,$_SectionNum){
-
-		$file = "exportTest.csv";
-		header("Content-Disposition: attachment; filename=\"$file\"");
-		header("Content-Type: application/vnd.ms-excel");
-		$sqlStatement = "select p.program_name, p.program_objective,c.course_name,c.course_number,cs.section_id, s.term, a.course_assessment_item, a.expected_percent_achieved, a.percent_students_achieved_obj from program p JOIN course c using(program_id) JOIN course_section cs using(course_id) join section s using (section_id) join assessment a using (section_id) Where c.course_id = {$_courseID} and s.section_id = {$_SectionNum}";
-
 		$db = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD);
 		mysqli_select_db($db, DB_DATABASE);
 
+		$courseNum = $db->query("SELECT course_number from course where course_id={$_courseID}");
+		$row = mysqli_fetch_assoc($courseNum);
+		print_r($row);
+		$courseNum = $row['course_number'];
+
+
+
+		$sqlStatement = "select p.program_name, p.program_objective,c.course_name,c.course_number,cs.section_id, s.term, a.course_assessment_item, a.expected_percent_achieved, a.percent_students_achieved_obj,s.section_number from program p JOIN course c using(program_id) JOIN course_section cs using(course_id) join section s using (section_id) join assessment a using (section_id) Where c.course_id = {$_courseID} and s.section_id = {$_SectionNum}";
+
+
 		$data = $db->query($sqlStatement);
+
+		$output = "";
 
 		$flag = false;
 		while ($row = mysqli_fetch_assoc($data)) {
 			if (!$flag) {
-				echo implode(",", array_keys($row)) . "\r\n";
+				$output .= implode(",", array_keys($row)) . "\r\n";
 				$flag = true;
 			}
-			echo implode(",", array_values($row)) . "\r";
+			$output .= implode(",", array_values($row)) . "\r";
+			$sectNum = $row['section_number'];
+			$termNum = $row['term'];
 		}
 
+		$returnValue = date('Y-m-d');
+		$file = "RPT_{$returnValue}_{$termNum}_{$courseNum}_{$sectNum}.csv";
+		header("Content-Disposition: attachment; filename=\"$file\"");
+		header("Content-Type: application/vnd.ms-excel");
+
+		echo $output;
 	}
 
 

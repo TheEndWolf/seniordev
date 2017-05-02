@@ -25,6 +25,14 @@ if (!array_key_exists('loggedIn', $_COOKIE)) {
 }
 
 
+if (isset($_POST['rptGenerateReport'])) {
+    $report = new report();
+    $result = $report->export($_POST['rpt_courseName'],$_POST['sections']);
+
+    return  $result;
+}
+
+
 buildHeader("Data | Course Assessment System");
 
 ?>
@@ -131,36 +139,6 @@ if (array_key_exists('role_id', $_SESSION)) {
 
     <div id="generate_report" class="tabcontent">
         <form method="post">
-            <?php
-            //$getData->getRptClasses();
-            //$getData->getRptSections(1);
-            ?>
-
-            <?php
-            // AJAX CALL FILLS IN THE P TAG BELOW
-            ?>
-            <!--                    <button class="btn btn-success" name="addClass">Add a Class</button>-->
-
-            <p>
-                <?php
-                //$res="";
-                /*		if(isset($_POST['generateReport'])){
-                        $dbconn1 = new report();
-                        $res = $dbconn1->getReport();
-                        //var_dump($res);
-                        if(count($res) < 1){
-                        echo "No results";
-                        }
-                            echo "<table class='table'>";
-                            echo "<tr><th>Program name<th><th>Program objective<th><th>Course name<th><th>Term<th><th>course_number<th><th>section_number<th><th>assessmentName<th><th>expected_Percent_achieved<th><tr>";
-                            foreach($res as $key => $val)
-                            {
-                                echo "<tr><td>". $val['program_name']. "<td><td>". $val['program_objective']. "<td><td>". $val['course_name']. "<td><td>". $val['term']. "<td><td>". $val['course_number']. "<td><td>". $val['section_number']. "<td><td>". $val['assessmentName']. "<td><td>". $val['expected_Percent_achieved']. "<td><tr>";
-                            }
-                            echo "</table>";
-                        }*/
-                ?>
-            </p>
 
             <p><b><br>Class Information:</b></p>
             <p id="rpt_programWrapper">
@@ -263,7 +241,7 @@ if (array_key_exists('role_id', $_SESSION)) {
     </div>
 	
 	<!--********************************************-->
-    <!--               ADD COURSE                   -->
+    <!--               ADD PROGRAM                   -->
     <!--********************************************-->
 
     <div id="add_program" class="tabcontent">
@@ -341,14 +319,6 @@ if (array_key_exists('role_id', $_SESSION)) {
             echo "<tr><td>" . $val['program_name'] . "<td><td>" . $val['program_objective'] . "<td><td>" . $val['course_name'] . "<td><td>" . $val['term'] . "<td><td>" . $val['course_number'] . "<td><td>" . $val['section_id'] . "<td><td>" . $val['course_assessment_item'] . "<td><td>" . $val['expected_percent_achieved'] . "<td><td>" .  $val['percent_students_achieved_obj']."<td><tr>";
         }
         echo "</table>";
-    }
-
-
-    if (isset($_POST['rptGenerateReport'])) {
-        $report = new report();
-        $result = $report->export($_POST['rpt_courseName'],$_POST['sections']);
-
-        echo $result;
     }
 
     ?>

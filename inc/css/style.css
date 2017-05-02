@@ -241,7 +241,7 @@ footer {
 #create_account label,
 #task_stream label {
   text-align: left; /* Keep the label tags aligned to the left */
-  /*padding-right: 20px; /* Add more spacing between label tags and select/input/textarea tags*/*/
+  /*padding-right: 20px; /* Add more spacing between label tags and select/input/textarea tags*/ /**/
 }
 
 #add_course label,
