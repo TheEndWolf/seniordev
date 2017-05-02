@@ -52,6 +52,12 @@ if (array_key_exists('role_id', $_SESSION)) {
     </div>
 
 
+
+
+    <!--********************************************-->
+    <!--             CUSTOM STATISTIC               -->
+    <!--********************************************-->
+
     <div id="custom_stat" class="tabcontent" style="display:block;">
         <form method="post" action="">
             <?php
@@ -178,6 +184,12 @@ if (array_key_exists('role_id', $_SESSION)) {
             </div>
         </form>
     </div>
+
+
+
+    <!--********************************************-->
+    <!--               ADD COURSE                   -->
+    <!--********************************************-->
 
     <div id="add_course" class="tabcontent">
         <form method="post">
