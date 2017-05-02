@@ -58,8 +58,8 @@ class addCourse{ // Renamed from enterData
 	*	addProgram function
 	*	adds a program to the DB when someone chooses to add one via the course data part of the application
 	*/
-	public function programCourse($name, $objective, $coordinator){
-		$q = $this->db->queryStmt("INSERT into program(program_name, program_objective, program_CoOrdinator)values(".$name.", ".$objective.", ".$coordinator.")");
+	public function addProgram($name, $objective, $coordinator){
+		$q = $this->db->queryStmt("INSERT into program(program_name, program_objective, program_CoOrdinator)values('".$name."', '".$objective."', ".$coordinator.")");
 		if($q){
 			echo "Success: Data has been entered into database";
 		}else{

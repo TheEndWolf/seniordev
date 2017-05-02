@@ -50,6 +50,7 @@ if (array_key_exists('role_id', $_SESSION)) {
         <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'generate_report')">Generate Report</a>
         <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'add_course')">Add Course</a>
 		<a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'add_section')">Add Section</a>
+		<a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'add_program')">Add Program</a>
     </div>
 
 
@@ -260,6 +261,28 @@ if (array_key_exists('role_id', $_SESSION)) {
             <button class="btn btn-success" name="addSectionBTN">Submit</button>
         </form>
     </div>
+	
+	<!--********************************************-->
+    <!--               ADD COURSE                   -->
+    <!--********************************************-->
+
+    <div id="add_program" class="tabcontent">
+        <form method="post">
+
+            <p>Program Name:
+                <input type="text" name="programname" class="form-control"/></p>
+
+            <p>Program Objective:
+                <textarea class="form-control" name="progObj" rows="4"></textarea></p>
+				
+			<p>Program Coordinator:
+                <?php
+					$getData->getUsers("program_coordinator","program_coordinator");
+				?></p>
+
+            <button class="btn btn-success" name="addProgramBTN">Submit</button>
+        </form>
+    </div>
 
     <?php
     if (isset($_POST['addCourseBTN'])) {
@@ -287,6 +310,15 @@ if (array_key_exists('role_id', $_SESSION)) {
 		
         $dbconn1 = new addCourse();
         $dbconn1->addSection($course, $term, $sectionNum, $objectives, $notes, $cai, $professor, $overthis, $expected, $duedate);
+    }
+	
+	if (isset($_POST['addProgramBTN'])) {
+        $program = $_POST['programname'];
+        $objective = $_POST['progObj'];
+        $coordinator = $_POST['program_coordinator'];
+
+        $dbconn1 = new addCourse();
+        $dbconn1->addProgram($program, $objective, $coordinator);
     }
 
     if (isset($_POST['statistics'])) {
