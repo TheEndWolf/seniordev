@@ -4,7 +4,6 @@
 
     session_start();
 
-    print_r($_SESSION);
     if(!array_key_exists('loggedIn', $_COOKIE)){
         session_destroy();
     }else{
