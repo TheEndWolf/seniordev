@@ -304,6 +304,9 @@ buildHeader("Admin | Course Assessment System");
                 uploadButtonClass: 'btn btn-success',
                 removeButtonClass: 'btn btn-default'
             });
+
+
+
         </script>
 
 <?php buildFooter(); ?>

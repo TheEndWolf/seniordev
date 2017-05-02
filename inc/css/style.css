@@ -227,7 +227,7 @@ footer {
 #custom_stat input, #custom_stat select, #custom_stat label,
 #generate_report input, #generate_report select, #generate_report label,
 #add_course input, #add_course select, #add_course label,
-#create_account input, #create_account select, #create_account label,
+#create_account label,
 #task_stream input, #task_stream select, #task_stream label {
   display: table-cell;
   margin: 3px;
