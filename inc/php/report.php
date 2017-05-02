@@ -14,13 +14,45 @@ class report{
 		$this->db = new sqlDatabase(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 	}
 
+
+	/*
+	 * Function to show course report
+	 * @courseID and SectionNum input
+	 */
+	public function showReport($_courseID,$_SectionNum){
+		$sqlStatement = "select p.program_name, p.program_objective,c.course_name,c.course_number,cs.section_id, s.term, a.course_assessment_item, a.expected_percent_achieved, a.percent_students_achieved_obj from program p JOIN course c using(program_id) JOIN course_section cs using(course_id) join section s using (section_id) join assessment a using (section_id) Where c.course_id = {$_courseID} and s.section_id = {$_SectionNum}";
+//		$result = $this->db->selectStmt_Assoc($sqlStatement);
+//		$result = mysqli_query($this->db,$sqlStatement);
+//		$data = $result->fetch_assoc();
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//			echo "<pre>";
+//			echo $sqlStatement;
+//			echo "</pre>";
+
+			return $result;
+			//print_r($result);
+
+		} catch (PDOException $e) {		}
+
+
+	}
+
+
+
 	/*
 	*	function to generate report
 	*	Retrieves data from database
 	*/
-	public function generateReport($courseName, $sectionNum){
-		$sectionID = $this->db->selectStmt_ID("select section.section_id from section, course where course_name = '". $courseName ."' and section_number = ". $sectionNum);
-		$result = $this->db->selectStmt_Assoc("select program.program_name, course.course_name, course.term from program, course, section where course_name = '". $courseName ."' and section_id = ". $sectionID);
+	public function generateReport($_courseID, $sectionNum){
+		$sectionID = $this->db->selectStmt_ID("select section.section_id from section, course where course_id = '". $_courseID ."' and section_number = ". $sectionNum);
+		$result = $this->db->selectStmt_Assoc("select program.program_name, course.course_name, section.term from program, course, section where course_id = '". $_courseID ."' and section_id = ". $sectionNum);
+
+		return $result;
 	}
 	
 	/*

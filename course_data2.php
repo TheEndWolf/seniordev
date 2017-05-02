@@ -179,8 +179,8 @@ if (array_key_exists('role_id', $_SESSION)) {
             </p>
 
             <div id="rpt_btn_ctn">
-                <button class="btn btn-success" name="generateReport">Generate Report</button>
-                <button class="btn btn-success" name="export">Export</button>
+                <button class="btn btn-success" id="rptShowStatistics" name="rptShowStatistics">Show Statistic</button>
+                <button class="btn btn-success" id="rptGenerateReport" name="rptGenerateReport">Generate Report / Export</button>
             </div>
         </form>
     </div>
@@ -266,16 +266,37 @@ if (array_key_exists('role_id', $_SESSION)) {
         $dbconn1->customizedStatistics_changeOverThis($classy, $section, $changeOverThis);
     }
 
-    if (isset($_POST['generateReport'])) {
+    if (isset($_POST['rptShowStatistics'])) {
         $dbconn1 = new report();
-        $res = $dbconn1->getReport();
+        $res = $dbconn1->showReport($_POST['rpt_courseName'],$_POST['sections']);
         if (count($res) < 1) {
             echo "No results";
         }
         echo "<table class='table'>";
-        echo "<tr><th>Program name<th><th>Program objective<th><th>Course name<th><th>Term<th><th>course_number<th><th>section_number<th><th>assessmentName<th><th>expected_Percent_achieved<th><tr>";
+        echo "<tr><th>Program name<th><th>Program objective<th><th>Course name<th><th>Term<th><th>course_number<th><th>section_number<th><th>assessmentName<th><th>expected_Percent_achieved<th><th>Percent_students_achieved<th><tr>";
         foreach ($res as $key => $val) {
-            echo "<tr><td>" . $val['program_name'] . "<td><td>" . $val['program_objective'] . "<td><td>" . $val['course_name'] . "<td><td>" . $val['term'] . "<td><td>" . $val['course_number'] . "<td><td>" . $val['section_number'] . "<td><td>" . $val['assessmentName'] . "<td><td>" . $val['expected_Percent_achieved'] . "<td><tr>";
+            echo "<tr><td>" . $val['program_name'] . "<td><td>" . $val['program_objective'] . "<td><td>" . $val['course_name'] . "<td><td>" . $val['term'] . "<td><td>" . $val['course_number'] . "<td><td>" . $val['section_id'] . "<td><td>" . $val['course_assessment_item'] . "<td><td>" . $val['expected_percent_achieved'] . "<td><td>" .  $val['percent_students_achieved_obj']."<td><tr>";
+        }
+        echo "</table>";
+    }
+
+
+    if (isset($_POST['generateReport'])) {
+        $dbconn1 = new report();
+        //$res = $dbconn1->getReport();
+        $res = $dbconn1->showReport($_POST['rpt_courseName'],$_POST['sections']);
+
+//        echo "<pre>";
+//        print_r($res);
+//        echo "</pre>";
+
+        if (count($res) < 1) {
+            echo "No results";
+        }
+        echo "<table class='table'>";
+        echo "<tr><th>Program name<th><th>Program objective<th><th>Course name<th><th>Term<th><th>course_number<th><th>section_number<th><th>assessmentName<th><th>expected_Percent_achieved<th><th>Percent_students_achieved<th><tr>";
+        foreach ($res as $key => $val) {
+            echo "<tr><td>" . $val['program_name'] . "<td><td>" . $val['program_objective'] . "<td><td>" . $val['course_name'] . "<td><td>" . $val['term'] . "<td><td>" . $val['course_number'] . "<td><td>" . $val['section_id'] . "<td><td>" . $val['course_assessment_item'] . "<td><td>" . $val['expected_percent_achieved'] . "<td><td>" .  $val['percent_students_achieved_obj']."<td><tr>";
         }
         echo "</table>";
         //getTable($res);
@@ -291,6 +312,32 @@ if (array_key_exists('role_id', $_SESSION)) {
     $(document).ready(function () {
         $('#rpt_btn_ctn').hide();
     });
+
+    //TODO: Maybe change the show statistic button into an ajax call to not reload page?
+//    $('#rptShowStatistics').click(function(){
+//        ($_POST['rpt_courseName'],$_POST['sections']);
+//
+//        var courseID = $('#rpt_courseName').val();
+//        var sectionID = $('#rpt_courseSections').val();
+//        $.ajax({
+//            type: "POST",
+//            data: {
+//                sections: sectionID,
+//                rpt_courseName: courseID
+//            },
+//            url: "./inc/php/dataHandler.php",
+//            dataType: "html",
+//            success: function (data) {
+//                result = data;
+//                console.log(result);
+//                console.log("termID: ", termID);
+//                $("#rpt_sectionWrapper").html(result);
+//            }
+//        });
+//    });
+
+
+    //TODO: Hide lower level dropdowns if a change is made to upper after initial selections.
     $('#rpt_programName').change(function () {
         var programID = $('#rpt_programName').val();
         console.log(programID);

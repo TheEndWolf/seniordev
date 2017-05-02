@@ -139,7 +139,7 @@ class gettingData{
 		
 		$getSections= $this->db->selectStmt_Arr('SELECT section_number FROM section WHERE ' .$sectionInfo. 'AND term = "'.$term.'"');
 		$arrCount= count($getSections);
-		$option = 'Sections: <select name="sections" class="form-control">';
+		$option = 'Sections: <select name="sections" id="rpt_courseSections" class="form-control">';
 		$option .=  "<option value=\"1\">--- Select A Section ---</option>";
 		//$option .= '<option value = "''">'Classes'</option>';
 			for($x = 0; $x < $arrCount; $x++) {

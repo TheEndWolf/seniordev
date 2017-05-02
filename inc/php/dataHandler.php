@@ -12,8 +12,12 @@ require_once("lib.inc.php");
 
 session_start();
 
+if(isset($_POST['rpt_courseName']) && isset($_POST['sections'])){
+    $report = new report();
+    $result = $dbconn1->showReport($_POST['rpt_courseName'],$_POST['sections']);
 
-if(isset($_POST["rpt_cid"]) && isset($_POST["rpt_tid"])){
+    echo $result;
+}elseif(isset($_POST["rpt_cid"]) && isset($_POST["rpt_tid"])){
     $myData = new gettingData();
     //$result = $myData->getRptSections($_POST["rpt_cid"]);
     $result = $myData->getSections($_POST["rpt_cid"],$_POST["rpt_tid"] );
