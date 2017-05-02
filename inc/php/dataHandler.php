@@ -13,9 +13,21 @@ require_once("lib.inc.php");
 session_start();
 
 
-if(isset($_POST["rpt_cid"])){
+if(isset($_POST["rpt_cid"]) && isset($_POST["rpt_tid"])){
     $myData = new gettingData();
-    $result = $myData->getRptSections($_POST["rpt_cid"]);
+    //$result = $myData->getRptSections($_POST["rpt_cid"]);
+    $result = $myData->getSections($_POST["rpt_cid"],$_POST["rpt_tid"] );
+
+    echo $result;
+}elseif(isset($_POST["rpt_pid"])){
+    $myData = new gettingData();
+    $result = $myData->getRptClasses($_POST["rpt_pid"]);
+
+    echo $result;
+}elseif(isset($_POST["rpt_cid"])){
+    $myData = new gettingData();
+    //$result = $myData->getRptSections($_POST["rpt_cid"]);
+    $result = $myData->getTerms($_POST["rpt_cid"]);
 
     echo $result;
 }

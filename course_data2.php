@@ -128,19 +128,14 @@ buildHeader("Data | Course Assessment System");
             <div id="generate_report" class="tabcontent">
                 <form method="post">
                     <?php
-                    $getData->getRptClasses();
+                    //$getData->getRptClasses();
                     //$getData->getRptSections(1);
                     ?>
 
                     <?php
                     // AJAX CALL FILLS IN THE P TAG BELOW
                     ?>
-                    <p id="rpt_section">
-
-                    </p>
-
-                    <button class="btn btn-success" name="addClass">Add a Class</button>
-                    <button class="btn btn-success" name="generateReport">Generate Report</button>
+<!--                    <button class="btn btn-success" name="addClass">Add a Class</button>-->
 
 		<p>
 			<?php
@@ -164,27 +159,25 @@ buildHeader("Data | Course Assessment System");
 		</p>
 
                     <p><b><br>Class Information:</b></p>
-                    <p>Program Name
-                        <select name="program" class="form-control">
-                            <option value="IT">Program 1</option>
-                            <option value="p2">Program 2</option>
-                        </select>
+                    <p id="rpt_programWrapper">
+                        <?php
+                        $getData->getRptPrograms();
+                        ?>
                     </p>
 
-                    <p>Course Name
-                        <select name="course" class="form-control">
-                            <option value="server">Course 1</option>
-                            <option value="c2">Course 2</option>
-                        </select>
+                    <p id="rpt_courseWrapper">
+
+                   </p>
+
+                    <p id="rpt_termWrapper">
+
+                    </p>
+                    <p id="rpt_sectionWrapper">
+
                     </p>
 
-                    <p>Term
-                        <select name="term" class="form-control">
-                            <option value="1">Term 1</option>
-                            <option value="t2">Term 2</option>
-                        </select>
-                    </p>
 
+                    <button class="btn btn-success" name="generateReport">Generate Report</button>
                     <button class="btn btn-success" name="export">Export</button>
                 </form>
             </div>
@@ -219,69 +212,115 @@ buildHeader("Data | Course Assessment System");
                 </form>
             </div>
 
-			<?php
-		if(isset($_POST['addCourseBTN'])){ // addCourseBTN is renamed from enterDataBTN
-			$program = $_POST['prog'];
-			$course = $_POST['course'];
-			$progObj = $_POST['progObj'];
-			$term = $_POST['term'];
-			$courseNum = $_POST['courseNUM'];
-			$CAI = $_POST['cai'];
-			$overThis = $_POST['over'];
-			$expected = $_POST['exp'];
+            <?php
+                if (isset($_POST['addCourseBTN'])) { // addCourseBTN is renamed from enterDataBTN
+                    $program = $_POST['prog'];
+                    $course = $_POST['course'];
+                    $progObj = $_POST['progObj'];
+                    $term = $_POST['term'];
+                    $courseNum = $_POST['courseNUM'];
+                    $CAI = $_POST['cai'];
+                    $overThis = $_POST['over'];
+                    $expected = $_POST['exp'];
 
-			$dbconn1 = new addCourse();
-			$dbconn1->enterReportData($program, $progObj, $course, $term, $courseNum, $CAI, $overThis, $expected);
-	}
+                    $dbconn1 = new addCourse();
+                    $dbconn1->enterReportData($program, $progObj, $course, $term, $courseNum, $CAI, $overThis, $expected);
+                }
 
-			if(isset($_POST['statistics'])){
-		$classy = $_POST['course'];
-		$section = $_POST['sectionNummm'];
-		$changeOverThis = $_POST['changeOverThis'];
-			$dbconn1 = new statistics();
-			$dbconn1->customizedStatistics_changeOverThis($classy, $section, $changeOverThis);
-	}
+                if (isset($_POST['statistics'])) {
+                    $classy = $_POST['course'];
+                    $section = $_POST['sectionNummm'];
+                    $changeOverThis = $_POST['changeOverThis'];
+                    $dbconn1 = new statistics();
+                    $dbconn1->customizedStatistics_changeOverThis($classy, $section, $changeOverThis);
+                }
 
-			if(isset($_POST['generateReport'])){
-			$dbconn1 = new report();
-			$res = $dbconn1->getReport();
-			if(count($res) < 1){
-			echo "No results";
-			}
-				echo "<table class='table'>";
-				echo "<tr><th>Program name<th><th>Program objective<th><th>Course name<th><th>Term<th><th>course_number<th><th>section_number<th><th>assessmentName<th><th>expected_Percent_achieved<th><tr>";
-				foreach($res as $key => $val)
-				{
-					echo "<tr><td>". $val['program_name']. "<td><td>". $val['program_objective']. "<td><td>". $val['course_name']. "<td><td>". $val['term']. "<td><td>". $val['course_number']. "<td><td>". $val['section_number']. "<td><td>". $val['assessmentName']. "<td><td>". $val['expected_Percent_achieved']. "<td><tr>";
-				}
-				echo "</table>";
-			//getTable($res);
-	}
+                if (isset($_POST['generateReport'])) {
+                    $dbconn1 = new report();
+                    $res = $dbconn1->getReport();
+                    if (count($res) < 1) {
+                        echo "No results";
+                    }
+                    echo "<table class='table'>";
+                    echo "<tr><th>Program name<th><th>Program objective<th><th>Course name<th><th>Term<th><th>course_number<th><th>section_number<th><th>assessmentName<th><th>expected_Percent_achieved<th><tr>";
+                    foreach ($res as $key => $val) {
+                        echo "<tr><td>" . $val['program_name'] . "<td><td>" . $val['program_objective'] . "<td><td>" . $val['course_name'] . "<td><td>" . $val['term'] . "<td><td>" . $val['course_number'] . "<td><td>" . $val['section_number'] . "<td><td>" . $val['assessmentName'] . "<td><td>" . $val['expected_Percent_achieved'] . "<td><tr>";
+                    }
+                    echo "</table>";
+                    //getTable($res);
+                }
 
-	?>
+            ?>
 
         </div>
 
 
 <?php buildFooter(); ?>
 <script>
-    $('#rpt_courseName').change(function() {
-        var courseID = $('#rpt_courseName').val();
-        console.log(courseID);
+    $('#rpt_programName').change(function() {
+        var programID = $('#rpt_programName').val();
+        console.log(programID);
         $.ajax({
             type: "POST",
             data: {
-                rpt_cid:courseID
+                rpt_pid:programID
             },
             url: "./inc/php/dataHandler.php",
             dataType: "html",
             success: function(data) {
                 result=data;
-                //console.log(result);
-                $("#rpt_section").html(result);
+                console.log(result);
+                console.log("programID: ",programID);
+                $("#rpt_courseWrapper").html(result);
+
+                $('#rpt_courseName').change(function() {
+                    var courseID = $('#rpt_courseName').val();
+                    console.log(courseID);
+                    $.ajax({
+                        type: "POST",
+                        data: {
+                            rpt_cid:courseID
+                        },
+                        url: "./inc/php/dataHandler.php",
+                        dataType: "html",
+                        success: function(data) {
+                            result=data;
+                            console.log(result);
+                            console.log("CourseID: ",courseID);
+                            $("#rpt_termWrapper").html(result);
+
+
+                            $('#rpt_terms').change(function() {
+                                var termID = $('#rpt_terms').val();
+                                console.log(termID);
+                                $.ajax({
+                                    type: "POST",
+                                    data: {
+                                        rpt_tid:termID,
+                                        rpt_cid:courseID
+                                    },
+                                    url: "./inc/php/dataHandler.php",
+                                    dataType: "html",
+                                    success: function(data) {
+                                        result=data;
+                                        console.log(result);
+                                        console.log("termID: ",termID);
+                                        $("#rpt_sectionWrapper").html(result);
+                                    }
+                                });
+                            });
+
+
+                        }
+                    });
+                });
+
+
             }
         });
-    })
+    });
+
+
 </script>
 
   </body>

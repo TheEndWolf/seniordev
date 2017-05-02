@@ -34,21 +34,44 @@ class gettingData{
 	}
 
 	/**
-	 *	Gets class list for Course Data -> Generate Report Section
+	 *	Gets program list for Course Data -> Generate Report Section
 	 */
-	public function getRptClasses(){
+	public function getRptPrograms(){
 		try {
 			$dbh = new PDO(DBC, DBUser, DBPassword);
-			$sqlStatement = "SELECT course_id,course_name FROM course";
+			$sqlStatement = "SELECT program_id,program_name FROM program";
 			$stmt = $dbh->prepare($sqlStatement);
 			$stmt->execute();
 			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
-			$option = '<p>Class: <select id="rpt_courseName" name="rpt_courseName" class="form-control">';
+			$option = 'Program: <select id="rpt_programName" name="rpt_programName" class="form-control">';
+			$option .=  "<option value=\"1\">--- Select A Program ---</option>";
+			foreach($result as $program){
+				$option .=  "<option value=\"{$program->program_id}\">" . $program->program_name . "</option>";
+			}
+			$option.= '</select>';
+
+			//print_r($result);
+
+		} catch (PDOException $e) {		}
+		echo $option;
+	}
+
+	/**
+	 *	Gets class list for Course Data -> Generate Report Section
+	 */
+	public function getRptClasses($_programid){
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+			$sqlStatement = "SELECT course_id,course_name FROM course where program_id = {$_programid}";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$option = 'Class: <select id="rpt_courseName" name="rpt_courseName" class="form-control">';
 			$option .=  "<option value=\"1\">--- Select A Course ---</option>";
 			foreach($result as $course){
 				$option .=  "<option value=\"{$course->course_id}\">" . $course->course_name . "</option>";
 			}
-			$option.= '</select></p>';
+			$option.= '</select>';
 
 			//print_r($result);
 
@@ -62,7 +85,7 @@ class gettingData{
 	/**
 	 *	Gets class list for Course Data -> Generate Report Section
 	 */
-	public function getRptSections($_course_id){
+	public function getRptSections($_course_id, $term){
 		try {
 			$dbh = new PDO(DBC, DBUser, DBPassword);
 			$sqlStatement = "SELECT course_id,section_id FROM course_section where course_id = {$_course_id}";
@@ -91,9 +114,10 @@ class gettingData{
 		{
 			$termInfo .= ' OR section_id = "'.$getSections[$x].'"';
 		}
-		$getTerms= $this->db->selectStmt_Arr("SELECT term FROM section ".$termInfo);
+		$getTerms= $this->db->selectStmt_Arr("SELECT DISTINCT term FROM section ".$termInfo);
 		$arrCount= count($getTerms);
-		$option = '<p>Terms: <select name="terms" class="form-control">';
+		$option = '<p>Terms: <select id="rpt_terms" name="terms" class="form-control">';
+		$option .=  "<option value=\"1\">--- Select A Term ---</option>";
 		//$option .= '<option value = "''">'Classes'</option>';
 			for($x = 0; $x < $arrCount; $x++) {
 				$option .= '<option value = "'.$getTerms[$x].'">'.$getTerms[$x].'</option>';
@@ -114,13 +138,14 @@ class gettingData{
 		}
 		
 		$getSections= $this->db->selectStmt_Arr('SELECT section_number FROM section WHERE ' .$sectionInfo. 'AND term = "'.$term.'"');
-		$arrCount= count($getClasses);
-		$option = '<p>Class: <select name="sections" class="form-control">';
+		$arrCount= count($getSections);
+		$option = 'Sections: <select name="sections" class="form-control">';
+		$option .=  "<option value=\"1\">--- Select A Section ---</option>";
 		//$option .= '<option value = "''">'Classes'</option>';
 			for($x = 0; $x < $arrCount; $x++) {
 				$option .= '<option value = "'.$getSections[$x].'">'.$getSections[$x].'</option>';
 			}
-			$option.= '</select></p>';
+			$option.= '</select>';
 		echo $option;
 	}
 
