@@ -63,10 +63,10 @@ insert into grade(charGrade, grade) values ('D', 60);
 insert into grade(charGrade, grade) values ('F', 59);
 
 
-insert into course_notes(notes, noteWrittenBy, course_id) values ("this is the first comment", "niksa", 1);
-insert into course_notes(notes, noteWrittenBy, course_id) values ("this is the secone comment", "ben", 2);
-insert into course_notes(notes, noteWrittenBy, course_id) values ("this is the third comment", "john", 3);
-insert into course_notes(notes, noteWrittenBy, course_id) values ("this is the fourth comment", "mario", 4);
+insert into course_Notes(notes, noteWrittenBy, course_id) values ("this is the first comment", "niksa", 1);
+insert into course_Notes(notes, noteWrittenBy, course_id) values ("this is the secone comment", "ben", 2);
+insert into course_Notes(notes, noteWrittenBy, course_id) values ("this is the third comment", "john", 3);
+insert into course_Notes(notes, noteWrittenBy, course_id) values ("this is the fourth comment", "mario", 4);
 
 insert into course_section(course_id, section_id) values (1,1);
 insert into course_section(course_id, section_id) values (2,2);
