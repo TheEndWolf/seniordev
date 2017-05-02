@@ -21,12 +21,13 @@ class gettingData{
 	 *	function places course names into select component
 	 */
 	public function getClasses(){
-		$getClasses= $this->db->selectStmt_Arr("SELECT course_id,course_name FROM course");
+		$getClasses= $this->db->selectStmt_Arr("SELECT course_name FROM course");
+		$getClassId= $this->db->selectStmt_Arr("SELECT course_id FROM course");
 		$arrCount= count($getClasses);
 		$option = '<p>Class: <select name="courseNameee" class="form-control">';
 		//$option .= '<option value = "''">'Classes'</option>';
 		for($x = 0; $x < $arrCount; $x++) {
-			$option .= '<option value = "'.$getClasses[$x].'">'.$getClasses[$x].'</option>';
+			$option .= '<option value = "'.$getClassId[$x].'">'.$getClasses[$x].'</option>';
 		}
 		$option.= '</select></p>';
 		echo $option;
