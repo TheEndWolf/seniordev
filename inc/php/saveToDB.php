@@ -22,6 +22,7 @@ session_start();
 
 //---------------------php file----------------------------
 
+	include "gettingData.php";
     include "report.php";
 	include "account.php";
 	include "addCourse.php"; // Renamed from enterData.php

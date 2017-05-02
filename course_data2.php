@@ -32,6 +32,8 @@ if (isset($_POST['rptGenerateReport'])) {
     return  $result;
 }
 
+$getData = new gettingData();
+
 
 buildHeader("Data | Course Assessment System");
 
@@ -70,67 +72,120 @@ if (array_key_exists('role_id', $_SESSION)) {
 
     <div id="custom_stat" class="tabcontent" style="display:block;">
         <form method="post" action="">
-            <?php
-            include_once("./inc/php/gettingData.php");
-            include_once("./inc/php/report.php");
-            $getData = new gettingData();
-            $getData->getClasses();
-            ?>
-            <p>Term
-                <input type="text" class="form-control" name="terms"/>
-            </p>
-            <button type="submit" class="btn btn-success" name="theSubmit">View Course Data</button>
-            </br>
-
-            <?php
-            /*		$programName = "";
-                    $courseName = "";
-                    $term = "";
-            //include "./inc/php/report.php";
-            if(isset($_POST['theSubmit'])){
-                $class = $_POST['courseNameee'];
-                $section = $_POST['sectionNummm'];
-                $dbconn = new report();
-                $data = $dbconn->getCourseData($class, $section);
-                if(count($data) < 1){
-                    echo "No results";
-                }else{
-                    $programName = $data[0];
-                    $courseName = $data[1];
-                    $term = $data[2];
-                }
-                //var_dump($data);
-            }*/
-            ?>
-
 
             <p><b><br>Class Information:</b></p>
-            <p>Program Name
-                <select name="program" class="form-control">
-                    <option value="<?php echo $programName ?>"><?php echo $programName ?></option>
-                </select></p>
-
-            <p>Course Name
-                <select name="course" class="form-control">
-                    <option value="<?php echo $courseName ?>"><?php echo $courseName ?></option>
-                </select></p>
-
-            <p>Term
-                <select name="term" class="form-control">
-                    <option value="<?php echo $term ?>"><?php echo $term ?></option>
-                </select></p>
-
-            <p>Over This
-                <input type="text" class="form-control" name="changeOverThis" value="0"/></p>
-
-            <p>Expected
-                <input type="text" class="form-control" name="<?php echo $expected ?>" value="<?php echo $expected ?>"/>
+            <p id="stat_programWrapper">
+                <?php
+                $getData->getStatPrograms();
+                ?>
             </p>
 
-            <button class="btn btn-success" name="statistics">Show Statistic</button>
+            <p id="stat_courseWrapper">
+
+            </p>
+
+            <p id="stat_termWrapper">
+
+            </p>
+            <p id="stat_sectionWrapper">
+
+            </p>
+            <div id="stat_btn_ctn">
+                <p>Over This
+                    <input type="text" class="form-control" name="changeOverThis" id="stat_changeOverThis" value="0"/>
+
+                <p>Expected
+                    <input type="text" class="form-control" name="changeExpected" id="stat_changeExpected" value="0""/>
+                </p>
+
+                <button class="btn btn-success" name="stat_showStat" id="stat_showStat">Show Statistic</button>
+            </div>
+
+
+
+
+
+
+
         </form>
     </div>
 
+<script>
+
+    $(document).ready(function () {
+        $('#stat_btn_ctn').hide();
+    });
+    //TODO: Hide lower level dropdowns if a change is made to upper after initial selections.
+    $('#stat_programName').change(function () {
+        var programID = $('#stat_programName').val();
+        console.log(programID);
+        $.ajax({
+            type: "POST",
+            data: {
+                stat_pid: programID
+            },
+            url: "./inc/php/dataHandler.php",
+            dataType: "html",
+            success: function (data) {
+                result = data;
+                console.log(result);
+                console.log("programID: ", programID);
+                $("#stat_courseWrapper").html(result);
+
+                $('#stat_courseName').change(function () {
+                    var courseID = $('#stat_courseName').val();
+                    console.log(courseID);
+                    $.ajax({
+                        type: "POST",
+                        data: {
+                            stat_cid: courseID
+                        },
+                        url: "./inc/php/dataHandler.php",
+                        dataType: "html",
+                        success: function (data) {
+                            result = data;
+                            console.log(result);
+                            console.log("CourseID: ", courseID);
+                            $("#stat_termWrapper").html(result);
+
+
+                            $('#stat_terms').change(function () {
+                                var termID = $('#stat_terms').val();
+                                console.log(termID);
+                                $.ajax({
+                                    type: "POST",
+                                    data: {
+                                        stat_tid: termID,
+                                        stat_cid: courseID
+                                    },
+                                    url: "./inc/php/dataHandler.php",
+                                    dataType: "html",
+                                    success: function (data) {
+                                        result = data;
+                                        console.log(result);
+                                        console.log("termID: ", termID);
+                                        $("#stat_sectionWrapper").html(result);
+
+
+                                        $('#stat_sectionWrapper').change(function () {
+
+                                            $('#stat_btn_ctn').show();
+
+                                        });
+                                    }
+                                });
+                            });
+
+
+                        }
+                    });
+                });
+
+
+            }
+        });
+    });
+</script>
 
     <!--********************************************-->
     <!--            GENERATE REPORT                 -->
@@ -299,9 +354,9 @@ if (array_key_exists('role_id', $_SESSION)) {
         $dbconn1->addProgram($program, $objective, $coordinator);
     }
 
-    if (isset($_POST['statistics'])) {
-        $classy = $_POST['course'];
-        $section = $_POST['sectionNummm'];
+    if (isset($_POST['stat_showStat'])) {
+        $classy = $_POST['stat_showStat'];
+        $section = $_POST['stat_sections'];
         $changeOverThis = $_POST['changeOverThis'];
         $dbconn1 = new statistics();
         $dbconn1->customizedStatistics_changeOverThis($classy, $section, $changeOverThis);

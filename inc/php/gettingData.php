@@ -34,6 +34,29 @@ class gettingData{
 	}
 
 	/**
+	 *	Gets program list for Course Data -> Statistics
+	 */
+	public function getStatPrograms(){
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+			$sqlStatement = "SELECT program_id,program_name FROM program";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$option = 'Program: <select id="stat_programName" name="stat_programName" class="form-control">';
+			$option .=  "<option value=\"0\">--- Select A Program ---</option>";
+			foreach($result as $program){
+				$option .=  "<option value=\"{$program->program_id}\">" . $program->program_name . "</option>";
+			}
+			$option.= '</select>';
+
+			//print_r($result);
+
+		} catch (PDOException $e) {		}
+		echo $option;
+	}
+
+	/**
 	 *	Gets program list for Course Data -> Generate Report Section
 	 */
 	public function getRptPrograms(){
@@ -79,6 +102,29 @@ class gettingData{
 		echo $option;
 	}
 
+	/**
+	 *	Gets class list for Course Data -> Statistics
+	 */
+	public function getStatClasses($_programid){
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+			$sqlStatement = "SELECT course_id,course_name FROM course where program_id = {$_programid}";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$option = 'Class: <select id="stat_courseName" name="stat_courseName" class="form-control">';
+			$option .=  "<option value=\"1\">--- Select A Course ---</option>";
+			foreach($result as $course){
+				$option .=  "<option value=\"{$course->course_id}\">" . $course->course_name . "</option>";
+			}
+			$option.= '</select>';
+
+			//print_r($result);
+
+		} catch (PDOException $e) {		}
+		echo $option;
+	}
+
 
 
 
@@ -103,10 +149,10 @@ class gettingData{
 		} catch (PDOException $e) {		}
 		echo $option;
 	}
-	
+
 	/**
-	*	function places term numbers into select component
-	*/	
+	 *	function places term numbers into select component
+	 */
 	public function getTerms($courseId){
 		$getSections= $this->db->selectStmt_Arr("SELECT section_id FROM course_section WHERE course_id = '" .$courseId. "'");
 		$termInfo = 'WHERE section_id = "'.$getSections[0].'"';
@@ -119,16 +165,38 @@ class gettingData{
 		$option = '<p>Terms: <select id="rpt_terms" name="terms" class="form-control">';
 		$option .=  "<option value=\"1\">--- Select A Term ---</option>";
 		//$option .= '<option value = "''">'Classes'</option>';
-			for($x = 0; $x < $arrCount; $x++) {
-				$option .= '<option value = "'.$getTerms[$x].'">'.$getTerms[$x].'</option>';
-			}
-			$option.= '</select></p>';
+		for($x = 0; $x < $arrCount; $x++) {
+			$option .= '<option value = "'.$getTerms[$x].'">'.$getTerms[$x].'</option>';
+		}
+		$option.= '</select></p>';
 		echo $option;
 	}
-	
+
 	/**
-	*	function places section numbers into select component
-	*/	
+	 *	function places term numbers into select component for Course Data->Statistics
+	 */
+	public function getStatTerms($courseId){
+		$getSections= $this->db->selectStmt_Arr("SELECT section_id FROM course_section WHERE course_id = '" .$courseId. "'");
+		$termInfo = 'WHERE section_id = "'.$getSections[0].'"';
+		for($x = 1; $x < count($getSections); $x++)
+		{
+			$termInfo .= ' OR section_id = "'.$getSections[$x].'"';
+		}
+		$getTerms= $this->db->selectStmt_Arr("SELECT DISTINCT term FROM section ".$termInfo);
+		$arrCount= count($getTerms);
+		$option = '<p>Terms: <select id="stat_terms" name="stat_terms" class="form-control">';
+		$option .=  "<option value=\"1\">--- Select A Term ---</option>";
+		//$option .= '<option value = "''">'Classes'</option>';
+		for($x = 0; $x < $arrCount; $x++) {
+			$option .= '<option value = "'.$getTerms[$x].'">'.$getTerms[$x].'</option>';
+		}
+		$option.= '</select></p>';
+		echo $option;
+	}
+
+	/**
+	 *	function places section numbers into select component
+	 */
 	public function getSections($courseId, $term){
 		$getSectionId= $this->db->selectStmt_Arr("SELECT section_id FROM course_section WHERE course_id = '" .$courseId. "'");
 		$sectionInfo = 'section_id = "'.$getSectionId[0].'"';
@@ -136,16 +204,39 @@ class gettingData{
 		{
 			$sectionInfo .= ' OR section_id = "'.$getSectionId[$x].'"';
 		}
-		
+
 		$getSections= $this->db->selectStmt_Arr('SELECT section_number FROM section WHERE ' .$sectionInfo. 'AND term = "'.$term.'"');
 		$arrCount= count($getSections);
 		$option = 'Sections: <select name="sections" id="rpt_courseSections" class="form-control">';
 		$option .=  "<option value=\"1\">--- Select A Section ---</option>";
 		//$option .= '<option value = "''">'Classes'</option>';
-			for($x = 0; $x < $arrCount; $x++) {
-				$option .= '<option value = "'.$getSections[$x].'">'.$getSections[$x].'</option>';
-			}
-			$option.= '</select>';
+		for($x = 0; $x < $arrCount; $x++) {
+			$option .= '<option value = "'.$getSections[$x].'">'.$getSections[$x].'</option>';
+		}
+		$option.= '</select>';
+		echo $option;
+	}
+
+	/**
+	 *	CourseData->Statistics
+	 */
+	public function getStatSections($courseId, $term){
+		$getSectionId= $this->db->selectStmt_Arr("SELECT section_id FROM course_section WHERE course_id = '" .$courseId. "'");
+		$sectionInfo = 'section_id = "'.$getSectionId[0].'"';
+		for($x = 1; $x < count($getSectionId); $x++)
+		{
+			$sectionInfo .= ' OR section_id = "'.$getSectionId[$x].'"';
+		}
+
+		$getSections= $this->db->selectStmt_Arr('SELECT section_number FROM section WHERE ' .$sectionInfo. 'AND term = "'.$term.'"');
+		$arrCount= count($getSections);
+		$option = 'Sections: <select name="stat_sections" id="stat_courseSections" class="form-control">';
+		$option .=  "<option value=\"1\">--- Select A Section ---</option>";
+		//$option .= '<option value = "''">'Classes'</option>';
+		for($x = 0; $x < $arrCount; $x++) {
+			$option .= '<option value = "'.$getSections[$x].'">'.$getSections[$x].'</option>';
+		}
+		$option.= '</select>';
 		echo $option;
 	}
 

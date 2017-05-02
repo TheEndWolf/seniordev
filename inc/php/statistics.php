@@ -17,12 +17,12 @@ class statistics{
 	
 	/*
 	*	returns the the average grade and percentage of students that passed this assessment
+	 * //TODO: Update Queries for the new database
 	*/
-	public function customizedStatistics_changeOverThis($courseName, $sectionNum, $changeExpectedGrade){
+	public function customizedStatistics_changeOverThis($courseID, $sectionID, $changeExpectedGrade){
 		$iNum = 0;
-		$courseID = $this->db->selectStmt_ID("select course.course_id from course, section where course_name = '" . $courseName . "' and section_number = ". $sectionNum);
 		$assessments = $this->db->selectStmt_Arr("select assessment_id from assessment where course_id = ". $courseID);
-		$assessmentsCOUNT = $this->db->selectStmt_ID("select count(assessment_id) from assessment where course_id = ". $courseID);
+		$assessmentsCOUNT = $this->db->selectStmt_ID("select count(grade_id) from section_grade where section_id = ". $sectionID);
 				for($x = 0; $x < $assessmentsCOUNT; $x++) {
 					$passed=0;
 					$assID = $assessments[$iNum];
