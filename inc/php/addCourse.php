@@ -39,25 +39,9 @@ class addCourse{ // Renamed from enterData
 		}
 				$q4 = $this->db->queryStmt("INSERT into assessment(course_assessment_item, over_this, expected_percent_achieved, course_id)values($overThis, $expected_per_achieved, $courseID)");
 				if($q4){
-					echo "success: inserted data";
+					echo "Success: Data has been entered into database";
 				}else{
-					echo "error: did not insert data";
-				}
-	}
-
-	/*
-	*	method for entering scores
-	*
-	*/
-	public function enterScore($first_name, $lastName, $course_name, $courseNum, $assessmentName, $score){
-		$studentID = $this->db->selectStmt_ID("Select student_id from student where first_name = '".$first_name."' and last_name = '". $lastName."'");
-		$courseID = $this->db->selectStmt_ID("Select course_id from course where course_name = '".$course_name."' and course_number = ".$courseNum);
-		$assessmentID = $this->db->selectStmt_ID("Select assessment_id from assessment where course_assessment_item = '".$assessmentName."' and course_id = ".$courseID);
-		$q1 = $this->db->queryStmt("INSERT into score(score, assessment_id, student_id)values($score, $assessmentID, $studentID)");
-				if($q1){
-					echo "success: inserted scores";
-				}else{
-					echo "error: did not insert grades";
+					echo "Error: Did not insert data";
 				}
 	}
 

@@ -233,7 +233,7 @@ if (array_key_exists('role_id', $_SESSION)) {
         $expected = $_POST['exp'];
 
         $dbconn1 = new addCourse();
-        $dbconn1->enterReportData($program, $progObj, $course, $term, $courseNum, $CAI, $overThis, $expected);
+        $dbconn1->enterReportData($program, $progObj, $course, $term, $courseNum, $overThis, $expected);
     }
 
     if (isset($_POST['statistics'])) {
