@@ -199,25 +199,47 @@ if (array_key_exists('role_id', $_SESSION)) {
             <p>Course Name
                 <input type="text" name="course" class="form-control"/></p>
 
-            <p>Program Objectives<br>
-                <textarea class="form-control" name="progObj" rows="4"></textarea></p>
-
-            <p>Term
-                <input type="text" class="form-control" name="term"/></p>
-
-            <p>Over This %
-                <input type="text" class="form-control" name="over" value="0"/></p>
-
-            <p>Expected %
-                <input type="text" class="form-control" name="exp" value="0"/></p>
-
             <p>Course Number
                 <input type="text" class="form-control" name="courseNUM"/></p>
-
-            <!-- <p>CAI
-                <input type="text" class="form-control" name="cai" value= "0"/></p> -->
+				
+			<p>Course Coordinator
+                <input type="text" class="form-control" name="courseCoordinator"/></p>
 
             <button class="btn btn-success" name="addCourseBTN">Submit</button>
+        </form>
+    </div>
+	
+	<!--********************************************-->
+    <!--               ADD SECTION                  -->
+    <!--********************************************-->
+
+    <div id="add_section" class="tabcontent">
+        <form method="post">
+            <p>Course Name
+                <input type="text" name="progSection" class="form-control"/></p>
+
+            <p>Term
+                <input type="text" name="termSection" class="form-control"/></p>
+
+            <p>Program Objectives Supported<br>
+                <textarea class="form-control" name="progObjSection" rows="4"></textarea></p>
+				
+			<p>Notes<br>
+                <textarea class="form-control" name="notesSection" rows="4"></textarea></p>
+			
+			<p>CAI
+                <input type="text" class="form-control" name="caiSection" value= "0"/></p>
+
+            <p>Professor
+                <input type="text" class="form-control" name="professorSection"/></p>
+
+            <p>Over This %
+                <input type="text" class="form-control" name="overSection" value="0"/></p>
+
+            <p>Expected %
+                <input type="text" class="form-control" name="expSection" value="0"/></p>
+
+            <button class="btn btn-success" name="addSectionBTN">Submit</button>
         </form>
     </div>
 
