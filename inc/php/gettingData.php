@@ -44,7 +44,7 @@ class gettingData{
 			$stmt->execute();
 			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
 			$option = 'Program: <select id="rpt_programName" name="rpt_programName" class="form-control">';
-			$option .=  "<option value=\"1\">--- Select A Program ---</option>";
+			$option .=  "<option value=\"0\">--- Select A Program ---</option>";
 			foreach($result as $program){
 				$option .=  "<option value=\"{$program->program_id}\">" . $program->program_name . "</option>";
 			}
@@ -149,6 +149,74 @@ class gettingData{
 		echo $option;
 	}
 
+	/**
+	 *	Gets program list for Course Data -> Generate Report Section
+	 */
+	public function getCoursePrograms(){
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+			$sqlStatement = "SELECT program_id,program_name FROM program";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$option = 'Program: <select id="course_program" name="course_program" class="form-control">';
+			$option .=  "<option value=\"0\">--- Select A Program ---</option>";
+			foreach($result as $program){
+				$option .=  "<option value=\"{$program->program_id}\">" . $program->program_name . "</option>";
+			}
+			$option.= '</select>';
+
+			//print_r($result);
+
+		} catch (PDOException $e) {		}
+		echo $option;
+	}
+	
+	/**
+	 *	Gets list of people in system for adding as coordinators or professors to a course, section, or program
+	 */
+	public function getUsers($id, $name){
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+			$sqlStatement = "SELECT user_id,first_name,last_name FROM program_user";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$option = '<select id="'.$id.'" name="'.$name.'" class="form-control">';
+			$option .=  "<option value=\"0\">--- Select A User ---</option>";
+			foreach($result as $user){
+				$option .=  "<option value=\"{$user->user_id}\">" . $user->first_name . " " . $user->last_name . "</option>";
+			}
+			$option.= '</select>';
+
+			//print_r($result);
+
+		} catch (PDOException $e) {		}
+		echo $option;
+	}
+	
+	/**
+	 *	Gets list of courses in system
+	 */
+	public function getCourses($id, $name){
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+			$sqlStatement = "SELECT course_id,course_name FROM course";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+			$option = '<select id="'.$id.'" name="'.$name.'" class="form-control">';
+			$option .=  "<option value=\"0\">--- Select A Course ---</option>";
+			foreach($result as $course){
+				$option .=  "<option value=\"{$course->course_id}\">" . $course->course_name . "</option>";
+			}
+			$option.= '</select>';
+
+			//print_r($result);
+
+		} catch (PDOException $e) {		}
+		echo $option;
+	}
 }
 
 

@@ -49,6 +49,7 @@ if (array_key_exists('role_id', $_SESSION)) {
         <a href="javascript:void(0)" class="tabs active" onclick="openTab(event, 'custom_stat')">Custom Statistics</a>
         <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'generate_report')">Generate Report</a>
         <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'add_course')">Add Course</a>
+		<a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'add_section')">Add Section</a>
     </div>
 
 
@@ -193,17 +194,24 @@ if (array_key_exists('role_id', $_SESSION)) {
 
     <div id="add_course" class="tabcontent">
         <form method="post">
-            <p>Program Name
-                <input type="text" name="prog" class="form-control"/></p>
+            <p>
+                <?php
+					$getData->getCoursePrograms();
+				?></p>
 
-            <p>Course Name
+            <p>Course Name:
                 <input type="text" name="course" class="form-control"/></p>
 
-            <p>Course Number
+            <p>Course Number:
                 <input type="text" class="form-control" name="courseNUM"/></p>
 				
-			<p>Course Coordinator
-                <input type="text" class="form-control" name="courseCoordinator"/></p>
+			<p>Course Coordinator:
+                <?php
+					$getData->getUsers("course_coordinator","course_coordinator");
+				?></p>
+			
+			<p>Notes<br>
+                <textarea class="form-control" name="notesCourse" rows="4"></textarea></p>
 
             <button class="btn btn-success" name="addCourseBTN">Submit</button>
         </form>
@@ -215,47 +223,70 @@ if (array_key_exists('role_id', $_SESSION)) {
 
     <div id="add_section" class="tabcontent">
         <form method="post">
-            <p>Course Name
-                <input type="text" name="progSection" class="form-control"/></p>
+            <p>Course Name:
+                <?php
+					$getData->getCourses("courseSection","courseSection");
+				?></p>
 
-            <p>Term
+            <p>Term Number(####):
                 <input type="text" name="termSection" class="form-control"/></p>
+				
+			<p>Section Number:
+                <input type="text" name="numberSection" class="form-control"/></p>
 
-            <p>Program Objectives Supported<br>
+            <p>Program Objectives Supported:
                 <textarea class="form-control" name="progObjSection" rows="4"></textarea></p>
 				
-			<p>Notes<br>
+			<p>Notes:
                 <textarea class="form-control" name="notesSection" rows="4"></textarea></p>
 			
-			<p>CAI
-                <input type="text" class="form-control" name="caiSection" value= "0"/></p>
+			<p>CAI:
+                <input type="text" class="form-control" name="caiSection"/></p>
 
-            <p>Professor
-                <input type="text" class="form-control" name="professorSection"/></p>
+            <p>Professor:
+                <?php
+					$getData->getUsers("professorSection","professorSection");
+				?></p>
 
-            <p>Over This %
+            <p>Over This %:
                 <input type="text" class="form-control" name="overSection" value="0"/></p>
 
-            <p>Expected %
+            <p>Expected %:
                 <input type="text" class="form-control" name="expSection" value="0"/></p>
+			
+			<p>Assessment Due Date(YYYY-MM-DD):
+                <input type="text" class="form-control" name="dueDateSection"/></p>
 
             <button class="btn btn-success" name="addSectionBTN">Submit</button>
         </form>
     </div>
 
     <?php
-    if (isset($_POST['addCourseBTN'])) { // addCourseBTN is renamed from enterDataBTN
-        $program = $_POST['prog'];
+    if (isset($_POST['addCourseBTN'])) {
+        $program = $_POST['course_program'];
         $course = $_POST['course'];
-        $progObj = $_POST['progObj'];
-        $term = $_POST['term'];
         $courseNum = $_POST['courseNUM'];
-        $CAI = $_POST['cai'];
-        $overThis = $_POST['over'];
-        $expected = $_POST['exp'];
+        $coordinator = $_POST['course_coordinator'];
+		$notes = $_POST['notesCourse'];
 
         $dbconn1 = new addCourse();
-        $dbconn1->enterReportData($program, $progObj, $course, $term, $courseNum, $overThis, $expected);
+        $dbconn1->addCourse($program, $course, $courseNum, $coordinator, $notes);
+    }
+	
+	if (isset($_POST['addSectionBTN'])) {
+        $course = $_POST['courseSection'];
+        $term = $_POST['termSection'];
+        $sectionNum = $_POST['numberSection'];
+		$objectives = $_POST['progObjSection'];
+		$notes = $_POST['notesSection'];
+		$cai = $_POST['caiSection'];
+        $professor = $_POST['professorSection'];
+		$overthis = $_POST['overSection'];
+		$expected = $_POST['expSection'];
+		$duedate= $_POST['dueDateSection'];
+		
+        $dbconn1 = new addCourse();
+        $dbconn1->addSection($course, $term, $sectionNum, $objectives, $notes, $cai, $professor, $overthis, $expected, $duedate);
     }
 
     if (isset($_POST['statistics'])) {

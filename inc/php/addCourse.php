@@ -21,10 +21,10 @@ class addCourse{ // Renamed from enterData
 	*	adds a course to the DB when someone chooses to add one via the course data part of the application
 	*/
 	public function addCourse($program, $course_name, $course_num, $coordinator, $notes){
-		$q = $this->db->queryStmt("INSERT into course(course_name, course_number, course_coOrdinator, program_id)values(".$course_name.", ".$course_num.", ".$coordinator.", ".$program.")");
+		$q = $this->db->queryStmt("INSERT INTO course(course_name, course_number, course_coOrdinator, program_id)values('".$course_name."', ".$course_num.", ".$coordinator.", ".$program.")");
 		if($q){
-			$courseId = $this->db->selectStmt_ID("Select course_id from course where course_name = '".$course_name."' AND course_number = '".$course_num."' AND course_coOrdinator = '".$coordinator."' AND program_id = '".$program."'");
-			$q2 = $this->db->queryStmt("INSERT into course_Notes(notes, course_id)values(".$notes.", ".$courseId.")");
+			$courseId = $this->db->selectStmt_ID("Select course_id from course where course_name = '".$course_name."' AND course_number = ".$course_num." AND course_coOrdinator = ".$coordinator." AND program_id = ".$program);
+			$q2 = $this->db->queryStmt("INSERT into course_Notes(notes, course_id)values('".$notes."', ".$courseId.")");
 			if($q2){
 				echo "Success: Data has been entered into database";
 			}
@@ -39,11 +39,12 @@ class addCourse{ // Renamed from enterData
 	*/
 	public function addSection($course, $term, $sectionNum, $program_obj, $notes, $cai, $professor, $over_this, $expected, $assessment_due){
 		$date = date("Y-m-d H:i:s");
-		$q = $this->db->queryStmt("INSERT into section(section_number, term, notes, data_created, user_id)values(".$sectionNum.", ".$term.", ".$notes.", ".$date.", ".$professor.")");
+		$q = $this->db->queryStmt("INSERT INTO section(section_number, term, notes, date_created, user_id)values(".$sectionNum.", '".$term."', '".$notes."', '".$date."', ".$professor.")");
 		if($q){
-			$section = $this->db->selectStmt_ID("Select section_id from section where section_number = '".$sectionNum."' AND term = '".$term."' AND data_created = '".$date."' AND user_id = '".$professor."'");
-			$q2 = $this->db->queryStmt("INSERT into course_section(course_id, course_section)values(".$course.", ".$section.")");
-			$q3 = $this->db->queryStmt("INSERT into assessment(date_data_received, course_assessment_item, expected_percent_achieved, over_this, deadline, section_id)values(".$date.", ".$cai.", ".$expected.", ".$over_this.", ".$assessment_due.", ".$section.")");
+			$section = $this->db->selectStmt_ID("SELECT section_id FROM section WHERE section_number = ".$sectionNum." AND term = '".$term."' AND date_created = '".$date."' AND user_id = ".$professor);
+			$q2 = $this->db->queryStmt("INSERT INTO course_section(course_id, section_id)values(".$course.", ".$section.")");
+			$q3 = $this->db->queryStmt("INSERT INTO assessment(date_data_recieved, course_assessment_item, expected_percent_achieved, over_this, deadline, section_id)values('".$date."', '".$cai."', ".$expected.", ".$over_this.", '".$assessment_due."', ".$section.")");
+			echo "INSERT INTO assessment(date_data_recieved, course_assessment_item, expected_percent_achieved, over_this, deadline, section_id)values('".$date."', '".$cai."', ".$expected.", ".$over_this.", '".$assessment_due."', ".$section.")";
 			if($q3){
 				echo "Success: Data has been entered into database";
 			}
@@ -57,7 +58,7 @@ class addCourse{ // Renamed from enterData
 	*	addProgram function
 	*	adds a program to the DB when someone chooses to add one via the course data part of the application
 	*/
-	public function addCourse($name, $objective, $coordinator){
+	public function programCourse($name, $objective, $coordinator){
 		$q = $this->db->queryStmt("INSERT into program(program_name, program_objective, program_CoOrdinator)values(".$name.", ".$objective.", ".$coordinator.")");
 		if($q){
 			echo "Success: Data has been entered into database";
