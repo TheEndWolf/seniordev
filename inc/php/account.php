@@ -28,7 +28,7 @@ class account{
 			}
 		}
 		//$RoleID = $this->db->selectStmt_ID("select role_id from role where role_name = '". $role ."'");
-		$createAccount = $this->db->queryStmt("INSERT into program_user(username, user_password, userEmail, role_id,first_name,last_name)values({$username}, {$pass}, {$email}, {$role}, {$fname}, {$lname})");
+		$createAccount = $this->db->queryStmt("INSERT into program_user(username, user_password, userEmail, role_id,first_name,last_name)values('{$username}', '{$pass}', '{$email}', {$role}, '{$fname}', '{$lname}')");
 		if($createAccount){
 			echo "Created new account successfully";
 			$_POST = array();
