@@ -1,33 +1,33 @@
 body, html {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  color: #000000;
-  margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #000000;
+    margin: 0;
 }
 
 header, #content, footer {
-  padding: 2% 3%;
+    padding: 2% 3%;
 }
 
 header {
-  background-color: #F36E21;
-  color: #FFF;
+    background-color: #F36E21;
+    color: #FFF;
 }
 
-label{
+label {
     clear: left;
     float: left;
 }
 
 #content {
-  border-top: 1px solid #555555;
-  border-bottom: 1px solid #555555;
-  margin-top: 2%;
+    border-top: 1px solid #555555;
+    border-bottom: 1px solid #555555;
+    margin-top: 2%;
 }
 
-.as{
-	background-color: blue;
-	margin: 20px;
-	width: 500px;
+.as {
+    background-color: blue;
+    margin: 20px;
+    width: 500px;
 }
 
 div.tabPg {
@@ -67,10 +67,10 @@ div.tabPg a:hover, .tabPg a:focus, .active {
 }
 
 #home-content {
-  max-width: 60%;
-  float: left;
-  padding: 2px 12px 15px 15px;
-  margin-left: 5%;
+    max-width: 60%;
+    float: left;
+    padding: 2px 12px 15px 15px;
+    margin-left: 5%;
 }
 
 #clear {
@@ -81,20 +81,27 @@ footer {
 
 }
 
-.entergrades{
-  float: left;
-  border-style: solid;
-  border-width: 5px;
-  border-color: black;
-  position: relative;
+.entergrades {
+    float: left;
+    border-style: solid;
+    border-width: 5px;
+    border-color: black;
+    position: relative;
+    margin: 5px;
+}
+
+.courseBoxes {
+    border: black 2px solid;
+    float: left;
+    margin: 10px;
 }
 
 /************************************
  *         Navigation Menu          *
  ***********************************/
 #nav, #welcome:hover {
-     background: #555555 !important;
-     color: #FFFFFF;
+    background: #555555 !important;
+    color: #FFFFFF;
 }
 
 #nav {
@@ -209,7 +216,7 @@ footer {
  ***********************************/
 
 .form-control.log-in {
-  width: 100%;
+    width: 100%;
 }
 
 /************************************
@@ -217,7 +224,7 @@ footer {
  *         Form Properties          *
  ***********************************/
 #custom_stat, #generate_report, #add_course, #upload_report, #create_account, #task_stream {
-  padding: 2%; /*  */
+    padding: 2%; /*  */
 }
 
 /*#custom_stat .class-info form,
@@ -237,8 +244,8 @@ footer {
 #add_course input, #add_course select, #add_course label,
 #create_account label,
 #task_stream input, #task_stream select, #task_stream label {
-  display: table-cell;
-  margin: 3px;
+    display: table-cell;
+    margin: 3px;
 }
 
 /*#custom_stat .class-info label,
@@ -248,13 +255,13 @@ footer {
 #add_course label,
 #create_account label,
 #task_stream label {
-  text-align: left; /* Keep the label tags aligned to the left */
-  /*padding-right: 20px; /* Add more spacing between label tags and select/input/textarea tags*/ /**/
+    text-align: left; /* Keep the label tags aligned to the left */
+    /*padding-right: 20px; /* Add more spacing between label tags and select/input/textarea tags*/ /**/
 }
 
 #add_course label,
 #create_account label {
-  padding-right: 20px; /* Add more spacing between label tags and select/input/textarea tags*/
+    padding-right: 20px; /* Add more spacing between label tags and select/input/textarea tags*/
 }
 
 /*#custom_stat .class-info p,
@@ -264,7 +271,7 @@ footer {
 #add_course p,
 #create_account p,
 #task_stream p {
-  display: table-row; /* Align items within specified p tags*/
+    display: table-row; /* Align items within specified p tags*/
 }
 
 #custom_stat button,
@@ -272,35 +279,35 @@ footer {
 #add_course button,
 #create_account button,
 #task_stream button {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 #generate_report button {
-  margin-right: 15px;
+    margin-right: 15px;
 }
 
 #custom_stat .class-info h4,
 #generate_report .class-info h4 {
-  margin-bottom: 20px; /* Add more spacing between the h4 tag and form items */
+    margin-bottom: 20px; /* Add more spacing between the h4 tag and form items */
 }
 
 .textarea-label {
-  vertical-align: middle; /* Center align the label tag with textarea tag */
+    vertical-align: middle; /* Center align the label tag with textarea tag */
 }
 
 #add_course textarea {
-  width:  172px; /* Right align textarea tag with input (and select) tag(s) */
-  margin-left: 3px; /* Left align textarea tag with input (and select) tag(s) */
+    width: 172px; /* Right align textarea tag with input (and select) tag(s) */
+    margin-left: 3px; /* Left align textarea tag with input (and select) tag(s) */
 }
 
 /************************************
  * Logo and welcome text properties *
  ***********************************/
 
-.logo , #welcome{
-  color: #FFFFFF !important;
+.logo, #welcome {
+    color: #FFFFFF !important;
 }
 
 #welcome {
-  font-weight: bold;
+    font-weight: bold;
 }

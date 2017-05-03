@@ -365,7 +365,7 @@ class gettingData{
                     } else {
                         $passed = "NO";
                     }
-                    echo "<div style=\"border: black 2px solid;float: left;    margin: 10px;\">
+                    echo "<div class=\"courseBoxes\">
 						<h4>{$courseAssessment['course_name']}</h4>
 						<hr>
 						<p>
@@ -435,7 +435,7 @@ class gettingData{
                 } else {
                     $passed = "NO";
                 }
-                echo "<div style=\"border: black 2px solid;float: left;    margin: 10px;\">
+                echo "<div class=\"courseBoxes\">
 						<h4>{$courseAssessment['course_name']}</h4>
 						<hr>
 						<p>
@@ -506,7 +506,7 @@ class gettingData{
                 } else {
                     $passed = "NO";
                 }
-                echo "<div style=\"border: black 2px solid;float: left;    margin: 10px;\">
+                echo "<div class=\"courseBoxes\">
 						<h4>{$courseAssessment['course_name']}</h4>
 						<hr>
 						<p>
