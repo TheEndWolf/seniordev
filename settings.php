@@ -6,10 +6,8 @@ session_start();
 
 if (!array_key_exists('loggedIn', $_COOKIE)) {
     session_destroy();
-    //header("Location: /");
 } else {
     $expire = time() + 60 * 10;//10 minutes from now
-    //Deployment
     $path = "/";
     $domain = "team-pascal.ist.rit.edu";
     $secure = false;
