@@ -90,10 +90,10 @@ if (array_key_exists('role_id', $_SESSION)) {
             </p>
 
             <div id="stat_btn_ctn">
-                <p>Over This
+                <p>Student %
                     <input type="text" class="form-control" name="changeOverThis" id="stat_changeOverThis" value="0"/>
 
-                <p>Expected
+                <p>Grade % Expected
                     <input type="text" class="form-control" name="changeExpected" id="stat_changeExpected" value="0""/>
                 </p>
 
@@ -348,12 +348,12 @@ if (array_key_exists('role_id', $_SESSION)) {
     }
 
     if (isset($_POST['stat_showStat'])) {
-        $classy = $_POST['stat_showStat'];
+        $classy = $_POST['stat_courseName'];
         $section = $_POST['stat_sections'];
         $percStudent = $_POST['changeOverThis'];
         $newExpected = $_POST['changeExpected'];
         $dbconn1 = new statistics();
-        $dbconn1->customizedStatistics_changeOverThis($classy, $section, $newExpected, $percStudent);
+        $dbconn1->viewStatistics($classy, $section, $newExpected, $percStudent);
 
     }
 
