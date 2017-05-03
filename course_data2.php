@@ -364,7 +364,7 @@ if (array_key_exists('role_id', $_SESSION)) {
             echo "No results";
         }
         echo "<table class='table'>";
-        echo "<tr><th>Program name<th><th>Program objective<th><th>Course name<th><th>Term<th><th>course_number<th><th>section_number<th><th>assessmentName<th><th>expected_Percent_achieved<th><th>Percent_students_achieved<th><tr>";
+        echo "<tr><th>Program Name<th><th>Program Objective<th><th>Course Nameame<th><th>Term<th><th>Course Number<th><th>Section Number<th><th>Course Assessment Item<th><th>Expected Percent of Students Achieved<th><th>Actual Percent Students Achieved<th><tr>";
         foreach ($res as $key => $val) {
             echo "<tr><td>" . $val['program_name'] . "<td><td>" . $val['program_objective'] . "<td><td>" . $val['course_name'] . "<td><td>" . $val['term'] . "<td><td>" . $val['course_number'] . "<td><td>" . $val['section_id'] . "<td><td>" . $val['course_assessment_item'] . "<td><td>" . $val['expected_percent_achieved'] . "<td><td>" .  $val['percent_students_achieved_obj']."<td><tr>";
         }
