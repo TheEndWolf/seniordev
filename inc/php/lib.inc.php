@@ -7,7 +7,7 @@ define ("DBC",'mysql:dbname=pascal_final_db;host=localhost');
 define ("DBUser",'pascal_web');
 define ("DBPassword",'fr1end');
 
-$currentTerm = 2165;
+define ("currentTerm",2165);
 
 /*
  * Builders header information
@@ -55,7 +55,7 @@ function buildNav($_role_id){
         <li><a href=\"admin.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/admin.php' ? ' active' : '') . "\">Admin</a></li>";
         if(array_key_exists('username', $_SESSION)){
             echo "<li style=\"float:right\"><a href=\"./inc/php/logout.php\">Log Out</a></li>
-                    <li style=\"float:right\"><a id=\"welcome\" href=\"#welcome\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
+                    <li style=\"float:right\"><a id=\"welcome\"  href=\"settings.php\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
         }
         echo "
         <li id=\"clear\"></li>
@@ -67,7 +67,7 @@ function buildNav($_role_id){
         <li><a href=\"course_data2.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/course_data2.php' ? ' active' : '') . "\">Course Data</a></li>";
         if(array_key_exists('username', $_SESSION)){
             echo "<li style=\"float:right\"><a href=\"./inc/php/logout.php\">Log Out</a></li>
-                    <li style=\"float:right\"><a id=\"welcome\" href=\"#welcome\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
+                    <li style=\"float:right\"><a id=\"welcome\" href=\"settings.php\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
         }
         echo "
         <li id=\"clear\"></li>
@@ -78,7 +78,7 @@ function buildNav($_role_id){
         <li><a href=\"index.php\" class=\"" . ($_SERVER['PHP_SELF'] == '/index.php' ? ' active' : '') . "\">Home</a></li>";
         if(array_key_exists('username', $_SESSION)){
             echo "<li style=\"float:right\"><a href=\"./inc/php/logout.php\">Log Out</a></li>
-                    <li style=\"float:right\"><a id=\"welcome\" href=\"#welcome\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
+                    <li style=\"float:right\"><a id=\"welcome\"  href=\"settings.php\">{$_SESSION['first_name']} {$_SESSION['last_name']}</a></li>";
         }
         echo "
         <li id=\"clear\"></li>
