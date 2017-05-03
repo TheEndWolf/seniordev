@@ -36,6 +36,15 @@ if (array_key_exists('role_id', $_SESSION)) {
 }
 ?>
 
+<?php
+	if (isset($_POST['gradesBTN'])) {
+		$courseInfo = $_POST['courseID'];
+        $grades = $_POST['grades'];
+        $dbconn1 = new addCourse();
+        $dbconn1->enterGrade($courseInfo, $_SESSION['user_id'], $currentTerm, $grades);
+    }
+?>
+
 <div id="content">
     <?php
     if (isset($_SESSION['loggedIn'])) {
@@ -75,13 +84,6 @@ if (array_key_exists('role_id', $_SESSION)) {
     ?>
     <div id="clear"></div>
 </div>
-
-<?php
-	//if (isset($_POST['gradesBTN'])) {
-        //$dbconn1 = new addCourse();
-        //$dbconn1->enterGrade();
-    //}
-?>
 
 <?php buildFooter(); ?>
 

@@ -309,93 +309,230 @@ class gettingData{
 
 
 
-	function getViews($_roleID){
-		try {
-			$dbh = new PDO(DBC, DBUser, DBPassword);
-		} catch (PDOException $e) {
-			echo 'Connection failed: ' . $e->getMessage();
-		}
-		$role = $_roleID;
+	function getViews($_roleID)
+    {
+        try {
+            $dbh = new PDO(DBC, DBUser, DBPassword);
+        } catch (PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
+        }
+        $role = $_roleID;
 
-		// Assessment Coordinator
-		//
-		//
-		if ($role == 3) {
+        // Assessment Coordinator or Admin
+        if ($role == 3 || $role == 1) {
 
-			$sqlStatement = "SELECT program_id, program_CoOrdinator from program where program_CoOrdinator = {$_SESSION['user_id']}";
-			$stmt = $dbh->prepare($sqlStatement);
-			$stmt->execute();
-			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $sqlStatement = "SELECT program_id, program_CoOrdinator,program_name from program";
+            $stmt = $dbh->prepare($sqlStatement);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-			$programID =$result[0]['program_id'];
-			echo "Program ID: {$programID}";
-
-			$sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id from course where program_id = {$programID}";
-			$stmt = $dbh->prepare($sqlStatement);
-			$stmt->execute();
-			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-			echo "<pre>";
-			print_r($result);
-			echo "</pre>";
+            foreach ($result as $programResult) {
+                $programID = $programResult['program_id'];
+                $programName = $programResult['program_name'];
+                $programNameID = str_replace(' ','_',$programName);
+//                echo "Program ID: {$programID}";
+//                echo "Program Name: {$programName}";
 
 
+                $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
+                $stmt = $dbh->prepare($sqlStatement);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-			$sqlStatement2 = "select section_id from section_grade join section using(section_id) join program_user using(user_id) where user_id = :userid";
-			$stmt2 = $dbh->prepare($sqlStatement2);
-			$stmt2->bindParam(":userid", $_SESSION['user_id'], PDO::PARAM_STR);
-			$stmt2->execute() or die(print_r($stmt2->errorInfo(), true));
-			$count = $stmt2->rowCount();
-			$courses = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
-			foreach ($courses as $c) {
-
-				$sectionID = $c['section_id'];
-				$sqlStatement = "select count(section_id), course_name from assessment join section using(section_id) join program_user using(user_id) join course_section using(section_id) join course using(course_id) where user_id = :userid and section_id=" . $sectionID;
-				$stmt = $dbh->prepare($sqlStatement);
-				$stmt->bindParam(":userid", $_SESSION['user_id'], PDO::PARAM_STR);
-				$stmt->execute() or die(print_r($stmt->errorInfo(), true));
-				$gradesEntered = $stmt->rowCount();
-				$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-				echo "<div id='viewContent'>";
-				echo "<h2>SECTIONS</h2>";
-				echo "<div id=\"view_section\">";
-				foreach ($result as $key) {
-					$countArr = $key['count(section_id)'];
-					echo "<div id=\"sectionInfo\">;
-				<hr>
-			<h3>Course: " . $key['course_name'] . "</h3>
-							<p>grades entered: </br>" . $countArr . "</p>";
-				}
+//			echo "<pre>";
+//			print_r($result);
+//			echo "</pre>";
 
 
-				$sqlStatement1 = "select expected_percent_achieved, percent_students_achieved_obj from assessment join section using(section_id) join program_user using(user_id) where user_id = :userID and section_id =" . $sectionID;
-				$passed = '';
-				$stmt1 = $dbh->prepare($sqlStatement1);
-				$stmt1->bindParam(":userID", $_SESSION['user_id'], PDO::PARAM_STR);
-				$stmt1->execute() or die(print_r($stmt1->errorInfo(), true));
-				$stmt1->rowCount();
+                echo "<a href=\"#{$programNameID}{$programID}\" data-toggle=\"collapse\"><h3>{$programName}</h3></a>";
+                echo "<div id=\"{$programNameID}{$programID}\" class=\"collapse\">";
+                foreach ($result as $courseAssessment) {
+                    $compeleted = "";
+                    $compBool = false;
+                    $passed = "";
 
-				$res = $stmt1->fetchAll(PDO::FETCH_ASSOC);
-				foreach ($res as $key) {
 
-					if (($key['percent_students_achieved_obj']) > ($key['expected_percent_achieved'])) {
-						$passed = "yes";
-						echo "<p>Hit Goal %: </br>" . $passed . "</p>
-							  </div>";
-					} else {
-						$passed = "no";
-						echo "<p>Hit Goal %: </br>" . $passed . "</p></div>";
-					}
-				}
+                    if ($courseAssessment['complete'] == 0) {
+                        $compeleted = "NO";
+                        $compBool = false;
+                    } else {
+                        $compeleted = "yes";
+                        $compBool = true;
+                    }
 
-				//foreach from 160
-				echo " </div>";
-				echo "</div>";
-			}//foreach courses
-		}
-	}
+                    if (($courseAssessment['percent_students_achieved_obj']) > ($courseAssessment['expected_percent_achieved'])) {
+                        $passed = "YES";
+                    } else {
+                        $passed = "NO";
+                    }
+                    echo "<div style=\"border: black 2px solid;float: left;    margin: 10px;\">
+						<h4>{$courseAssessment['course_name']}</h4>
+						<hr>
+						<p>
+							Item: {$courseAssessment['course_assessment_item']} <br/>
+							Term: {$courseAssessment['term']} <br/>
+							Course Number: {$courseAssessment['course_number']} <br/>
+							Section: {$courseAssessment['section_number']} <br/>
+							Complete: {$compeleted} <br/>";
+                    if ($compBool) {
+                        echo "Reached Goal of {$courseAssessment['expected_percent_achieved']}%: {$passed} <br/>";
+                    } else {
+                        echo "Deadline of: {$courseAssessment['deadline']}";
+                    }
+                    echo "
+						</p>
+					  </div>";
+
+                }
+                echo "</div><div style='clear:both;'></div>";
+            }
+
+            echo "<div style='clear:both;'></div>";
+
+        }
+
+        //Program Coordinator
+        //
+        if ($role == 4) {
+            $sqlStatement = "SELECT program_id, program_CoOrdinator,program_name from program where program_CoOrdinator = {$_SESSION['user_id']}";
+            $stmt = $dbh->prepare($sqlStatement);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+            $programID = $result[0]['program_id'];
+            $programName = $result[0]['program_name'];
+
+
+            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
+            $stmt = $dbh->prepare($sqlStatement);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//			echo "<pre>";
+//			print_r($result);
+//			echo "</pre>";
+
+
+            echo "<a href=\"#{$programName}{$programID}\" data-toggle=\"collapse\"><h3>{$programName}</h3></a>";
+            echo "<div id=\"{$programName}{$programID}\" class=\"collapse\">";
+            foreach ($result as $courseAssessment) {
+                $compeleted = "";
+                $compBool = false;
+                $passed = "";
+
+
+                if ($courseAssessment['complete'] == 0) {
+                    $compeleted = "NO";
+                    $compBool = false;
+                } else {
+                    $compeleted = "yes";
+                    $compBool = true;
+                }
+
+                if (($courseAssessment['percent_students_achieved_obj']) > ($courseAssessment['expected_percent_achieved'])) {
+                    $passed = "YES";
+                } else {
+                    $passed = "NO";
+                }
+                echo "<div style=\"border: black 2px solid;float: left;    margin: 10px;\">
+						<h4>{$courseAssessment['course_name']}</h4>
+						<hr>
+						<p>
+							Item: {$courseAssessment['course_assessment_item']} <br/>
+							Term: {$courseAssessment['term']} <br/>
+							Course Number: {$courseAssessment['course_number']} <br/>
+							Section: {$courseAssessment['section_number']} <br/>
+							Complete: {$compeleted} <br/>";
+                if ($compBool) {
+                    echo "Reached Goal of {$courseAssessment['expected_percent_achieved']}%: {$passed} <br/>";
+                } else {
+                    echo "Deadline of: {$courseAssessment['deadline']}";
+                }
+                echo "
+						</p>
+					  </div>";
+
+            }
+            echo "</div><div style='clear:both;'></div>";
+
+
+            echo "<div style='clear:both;'></div>";
+
+        }
+
+        //Course Coordinator
+        //
+        if ($role == 2) {
+            $sqlStatement = "SELECT course_id, course_CoOrdinator,course_name from course where course_CoOrdinator = {$_SESSION['user_id']}";
+            $stmt = $dbh->prepare($sqlStatement);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+            $courseID = $result[0]['course_id'];
+            $courseName = $result[0]['course_name'];
+            $courseNameID = str_replace(' ','_',$courseName);
+
+
+            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where course_id = {$courseID} and term = " . currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
+            $stmt = $dbh->prepare($sqlStatement);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+//			echo "<pre>";
+//			print_r($result);
+//			echo "</pre>";
+
+
+            echo "<a href=\"#{$courseNameID}{$courseID}\" data-toggle=\"collapse\"><h3>{$courseName}</h3></a>";
+            echo "<div id=\"{$courseNameID}{$courseID}\" class=\"collapse\">";
+            foreach ($result as $courseAssessment) {
+                $compeleted = "";
+                $compBool = false;
+                $passed = "";
+
+
+                if ($courseAssessment['complete'] == 0) {
+                    $compeleted = "NO";
+                    $compBool = false;
+                } else {
+                    $compeleted = "yes";
+                    $compBool = true;
+                }
+
+                if (($courseAssessment['percent_students_achieved_obj']) > ($courseAssessment['expected_percent_achieved'])) {
+                    $passed = "YES";
+                } else {
+                    $passed = "NO";
+                }
+                echo "<div style=\"border: black 2px solid;float: left;    margin: 10px;\">
+						<h4>{$courseAssessment['course_name']}</h4>
+						<hr>
+						<p>
+							Item: {$courseAssessment['course_assessment_item']} <br/>
+							Term: {$courseAssessment['term']} <br/>
+							Course Number: {$courseAssessment['course_number']} <br/>
+							Section: {$courseAssessment['section_number']} <br/>
+							Complete: {$compeleted} <br/>";
+                if ($compBool) {
+                    echo "Reached Goal of {$courseAssessment['expected_percent_achieved']}%: {$passed} <br/>";
+                } else {
+                    echo "Deadline of: {$courseAssessment['deadline']}";
+                }
+                echo "
+						</p>
+					  </div>";
+
+            }
+            echo "</div><div style='clear:both;'></div>";
+
+
+            echo "<div style='clear:both;'></div>";
+
+        }
+    }
+	
 
 	/**
 	 *	displayCourseAssessment method
@@ -407,28 +544,26 @@ class gettingData{
 		$arrCount= count($getSections);
 		for($x = 0; $x < $arrCount; $x++) {
 			$getCourseId = $this->db->selectStmt_Arr("SELECT course_id FROM course_section WHERE section_id = ".$getSections[$x]);
+			$getSectionNumber = $this->db->selectStmt_Arr("SELECT section_number FROM section WHERE section_id = ".$getSections[$x]);
 			$getCourseName = $this->db->selectStmt_Arr("SELECT course_name FROM course WHERE course_id = ".$getCourseId[0]);
+			$getCourseNumber = $this->db->selectStmt_Arr("SELECT course_number FROM course WHERE course_id = ".$getCourseId[0]);
 			$getAssessment = $this->db->selectStmt_Arr("SELECT complete FROM assessment WHERE section_id = ".$getSections[$x]);
 			if($getAssessment[0] == 0)
 			{
 				//Assessment has not been completed, enter grades
-				echo "<div class='entergrades'><p><strong>Course:</strong> ".$getCourseName[0]."</p><p><strong>Grades Entered:</strong> <span style='color:red'>No</span></p>";
+				echo "<div class='entergrades'><p><strong>Course:</strong> ".$getCourseName[0]."</p><p><strong>Course Number-Section:</strong> ".$getCourseNumber[0]."-0".$getSectionNumber[0]."</p><p><strong>Grades Entered:</strong> <span style='color:red'>No</span></p>";
 				echo "<button class='btn btn-success' data-toggle='collapse' data-target='#enter".$getSections[$x]."'>Enter Grades</button>";
-				echo "<div id='enter".$getSections[$x]."' class='collapse'><p>Please put a new line after each grade:</p>";
-				echo "<form method='post'><textarea class='form-control' name='grades' rows='20'></textarea><button class='btn btn-success' name='gradesBTN'>Submit Grades</button></form>";
+				echo "<div id='enter".$getSections[$x]."' class='collapse'>";
+				echo "<form method='post'><p>Section ID:<input type='text' class='form-control' name='courseID' value='".$getSections[$x]."' readonly/></p><p>Please put a space after each grade:</p><textarea class='form-control' name='grades' rows='4'></textarea><button class='btn btn-success' name='gradesBTN'>Submit Grades</button></form>";
 				echo "</div></div>";
 			}
 			else
 			{
-				//Assessment has previously been completed, edit grades
-				echo "<div class='entergrades'><p><strong>Course:</strong> ".$getCourseName[0]."</p><p><strong>Grades Entered:</strong> <span style='color:green'>Yes</span></p>";
-				echo "<button class='btn btn-success' name='addProgramBTN'>Edit Grades</button></div>";
+				//Assessment has previously been completed
+				echo "<div class='entergrades'><p><strong>Course:</strong> ".$getCourseName[0]."</p><p><strong>Course Number-Section:</strong> ".$getCourseNumber[0]."-0".$getSectionNumber[0]."</p><p><strong>Grades Entered:</strong> <span style='color:green'>Yes</span></p></div>";
 			}
 		}
 	}
-
-
-
 }
 
 

@@ -45,24 +45,8 @@ buildHeader("Admin | Course Assessment System");
 
     <div id="content">
             <div class="tabPg">
-                <a href="javascript:void(0)" class="tabs active" onclick="openTab(event, 'upload_report')">Upload Report</a>
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'create_account')">Create New Account</a>
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'edit_account')">Edit Account</a>
-            </div>
-
-
-            <!--********************************************-->
-            <!--               UPLOAD REPORT                -->
-            <!--********************************************-->
-
-            <div id="upload_report" class="tabcontent" style="display:block;">
-                <form name="uploadForm" method="post">
-                    <p>
-                        <input type="file" name ="upload" accept=".xls,.xlsx"/>
-						<button class="btn btn-success" name="uploadSubmit">upload</button>
-                        *Note: Only .xls files are supported.
-                    </p>
-                </form>
             </div>
 
 

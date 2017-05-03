@@ -65,52 +65,65 @@ class addCourse{ // Renamed from enterData
 			echo "Error: Did not insert data";
 		}
 	}
-	
-	/*
-	*	method for entering report data
-	*
-	*/
-	public function enterReportData($program_name, $prog_objective, $course_name, $term, $course_num, $overThis, $expected_per_achieved){
-		$programID = $this->db->selectStmt_ID("Select program_id from program where program_name = '".$program_name."'");
-		$hasProgram = $this->db->selectStmt_ID("Select count(program_id) from program where program_name = '".$program_name."'");
-		if($hasProgram == 1){
-			$q1 = $this->db->queryStmt("UPDATE program set program_objective = '". $prog_objective."' where program_id = ". $programID);
-		}else{
-			$q3 = $this->db->queryStmt("INSERT into program(program_name, program_objective)values('$program_name', '$prog_objective')");
-			$programID = $this->db->selectStmt_ID("Select program_id from program where program_name = '".$program_name."'");
-		}
-		$hasCourse = $this->db->selectStmt_ID("Select count(course_id) from course where course_name = '".$course_name."' and course_number = ". $course_num . " and term = ".$term);
-		if($hasCourse == 1){
-			$courseID = $this->db->selectStmt_ID("Select course_id from course where course_name = '".$course_name."'");
-			$q11 = $this->db->queryStmt("UPDATE course set course_name = '". $course_name."', course_number = ". $course_num .", term = ". $term ." where course_id = ". $courseID);
-		}else{
-		$q2 = $this->db->queryStmt("INSERT into course(course_name, term, course_number, program_id)values('$course_name', $term, $course_num, $programID)");
-		$courseID = $this->db->selectStmt_ID("Select course_id from course where course_name = '".$course_name."'");
-		}
-				$q4 = $this->db->queryStmt("INSERT into assessment(course_assessment_item, over_this, expected_percent_achieved, course_id)values($overThis, $expected_per_achieved, $courseID)");
-				if($q4){
-					echo "Success: Data has been entered into database";
-				}else{
-					echo "Error: Did not insert data";
-				}
-	}
 
 	/*
-	*	method for entering grades
-	*
+	*	enterGrade function
+	*	adds grades to the database when a professor enters them, then updates the course assessment
 	*/
-	public function enterGrade($first_name, $last_name, $course_name, $sectionNum, $charGrade, $grade){
-		$studentID = $this->db->selectStmt_ID("Select student_id from student where first_name = '".$first_name."' and last_name = '". $last_name."'");
-		$courseID = $this->db->selectStmt_ID("Select course_id from course join course_section using(course_id) join section using(section_id) where course_name = '".$course_name."' and section_number = ".$sectionNum);
-		$q2 = $this->db->queryStmt("INSERT into grade(charGrade, grade)values('$charGrade', $grade)");
-		$gradeID = $this->db->selectStmt_ID("select grade_id from grade order by grade_id DESC LIMIT 1");
-		$q3 = $this->db->queryStmt("INSERT into grade_student(grade_id, student_id)values($gradeID, $studentID)");
-				if($q2 && $q3){
-					echo "success: inserted grade";
-				}else{
-					echo "error: did not insert grade";
+	public function enterGrade($courseInfo, $userId, $term, $grade){
+		//break apart grade string
+		$grades = explode(" ", $grade);
+		for($x = 0; $x < count($grades); $x++)
+		{
+			if(!ctype_digit($grades[$x]))
+			{
+				return;
+			}
+			if(((int)$grades[$x]) < 0 || ((int)$grades[$x]) > 100)
+			{
+				return;
+			}
+		}
+		$overThis = $this->db->selectStmt_Arr("SELECT over_this FROM assessment WHERE section_id = ".$courseInfo);
+		$numOver = 0;
+		for($x = 0; $x < count($grades); $x++)
+		{
+			//grades are correct integers between 0 and 100
+			$letter = "A";
+			if((int)$grades[$x] < 90)
+			{
+				$letter = "B";
+			}
+			if((int)$grades[$x] < 80)
+			{
+				$letter = "C";
+			}
+			if((int)$grades[$x] < 70)
+			{
+				$letter = "D";
+			}
+			if((int)$grades[$x] < 60)
+			{
+				$letter = "F";
+			}
+			$gradeId = $this->db->selectStmt_Arr("SELECT grade_id FROM grade ORDER BY grade_id DESC LIMIT 1");
+			$gradeId[0]++;
+			$q = $this->db->queryStmt("INSERT INTO grade(grade_id, charGrade, grade)values(".$gradeId[0].", '".$letter."', ".(int)$grades[$x].")");
+			if($q){
+				$q2 = $this->db->queryStmt("INSERT INTO section_grade(section_id, grade_id)values(".$courseInfo.", ".$gradeId[0].")");
+				if((int)$grades[$x] > $overThis[0])
+				{
+					$numOver++;
 				}
-
+			}
+		}
+		$achieved = round(($numOver/count($grades))*100);
+		$q3 = $this->db->queryStmt("UPDATE assessment SET percent_students_achieved_obj = ".$achieved.", complete = 1 WHERE section_id = ".$courseInfo);
+		if($q3){
+			echo "Success: Data has been entered into database";
+		}else{
+			echo "Error: Did not insert data";
+		}
 	}
 
 }
