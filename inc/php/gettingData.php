@@ -399,8 +399,14 @@ class gettingData{
 		}
 	}
 
-
-
+	/**
+	 *	displayCourseAssessment method
+	 *  Displays all course assessments that are assigned to a certain user to fill out, usually for professors
+	 */
+	function displayCourseAssessment($userId)
+	{
+		
+	}
 
 
 
