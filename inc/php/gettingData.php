@@ -424,23 +424,23 @@ class gettingData{
 
 
                 if ($courseAssessment['complete'] == 0) {
-                    $compeleted = "NO";
+                    $compeleted = "<span style='color:red'>NO</span>";
                     $compBool = false;
                 } else {
-                    $compeleted = "yes";
+                    $compeleted = "<span style='color:green'>YES</span>";
                     $compBool = true;
                 }
 
                 if (($courseAssessment['percent_students_achieved_obj']) > ($courseAssessment['expected_percent_achieved'])) {
-                    $passed = "YES";
+                    $passed = "<span style='color:green'>YES</span>";
                 } else {
-                    $passed = "NO";
+                    $passed = "<span style='color:red'>NO</span>";
                 }
                 echo "<div class=\"courseBoxes\">
 						<h4>{$courseAssessment['course_name']}</h4>
 						<hr>
 						<p>
-							Item: {$courseAssessment['course_assessment_item']} <br/>
+							Course Assessment Item: {$courseAssessment['course_assessment_item']} <br/>
 							Term: {$courseAssessment['term']} <br/>
 							Course Number: {$courseAssessment['course_number']} <br/>
 							Section: {$courseAssessment['section_number']} <br/>
@@ -495,23 +495,23 @@ class gettingData{
 
 
                 if ($courseAssessment['complete'] == 0) {
-                    $compeleted = "NO";
+                    $compeleted = "<span style='color:red'>NO</span>";
                     $compBool = false;
                 } else {
-                    $compeleted = "yes";
+                    $compeleted = "<span style='color:green'>YES</span>";
                     $compBool = true;
                 }
 
                 if (($courseAssessment['percent_students_achieved_obj']) > ($courseAssessment['expected_percent_achieved'])) {
-                    $passed = "YES";
+                    $passed = "<span style='color:green'>YES</span>";
                 } else {
-                    $passed = "NO";
+                    $passed = "<span style='color:red'>NO</span>";
                 }
                 echo "<div class=\"courseBoxes\">
 						<h4>{$courseAssessment['course_name']}</h4>
 						<hr>
 						<p>
-							Item: {$courseAssessment['course_assessment_item']} <br/>
+							Course Assessment Item: {$courseAssessment['course_assessment_item']} <br/>
 							Term: {$courseAssessment['term']} <br/>
 							Course Number: {$courseAssessment['course_number']} <br/>
 							Section: {$courseAssessment['section_number']} <br/>
