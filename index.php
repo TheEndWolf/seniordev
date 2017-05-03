@@ -42,9 +42,7 @@ if (array_key_exists('role_id', $_SESSION)) {
         $getData = new gettingData();
 		$getData->displayCourseAssessment($_SESSION['user_id'], $currentTerm);
         $getData->getViews($_SESSION['role_id']);
-        echo "<div id=\"home-content\">
-                <p>content here</p>
-                </div>";
+        echo "<div id=\"home-content\"></div>";
     } else {
         echo "
       <div id=\"container-login\">
@@ -77,6 +75,13 @@ if (array_key_exists('role_id', $_SESSION)) {
     ?>
     <div id="clear"></div>
 </div>
+
+<?php
+	//if (isset($_POST['gradesBTN'])) {
+        //$dbconn1 = new addCourse();
+        //$dbconn1->enterGrade();
+    //}
+?>
 
 <?php buildFooter(); ?>
 

@@ -2,8 +2,6 @@
 
 require_once("sqlDatabase.php");
 
-
-
 class gettingData{
 	
  private $db;
@@ -405,10 +403,27 @@ class gettingData{
 	 */
 	function displayCourseAssessment($userId, $term)
 	{
-		$getCourses= $this->db->selectStmt_Arr("SELECT section_id FROM section WHERE user_id = ".$userId." AND term = '".$term."'");
-		$arrCount= count($getCourses);
+		$getSections= $this->db->selectStmt_Arr("SELECT section_id FROM section WHERE user_id = ".$userId." AND term = '".$term."'");
+		$arrCount= count($getSections);
 		for($x = 0; $x < $arrCount; $x++) {
-			echo $getCourses[$x];
+			$getCourseId = $this->db->selectStmt_Arr("SELECT course_id FROM course_section WHERE section_id = ".$getSections[$x]);
+			$getCourseName = $this->db->selectStmt_Arr("SELECT course_name FROM course WHERE course_id = ".$getCourseId[0]);
+			$getAssessment = $this->db->selectStmt_Arr("SELECT complete FROM assessment WHERE section_id = ".$getSections[$x]);
+			if($getAssessment[0] == 0)
+			{
+				//Assessment has not been completed, enter grades
+				echo "<div class='entergrades'><p><strong>Course:</strong> ".$getCourseName[0]."</p><p><strong>Grades Entered:</strong> <span style='color:red'>No</span></p>";
+				echo "<button class='btn btn-success' data-toggle='collapse' data-target='#enter".$getSections[$x]."'>Enter Grades</button>";
+				echo "<div id='enter".$getSections[$x]."' class='collapse'><p>Please put a new line after each grade:</p>";
+				echo "<form method='post'><textarea class='form-control' name='grades' rows='20'></textarea><button class='btn btn-success' name='gradesBTN'>Submit Grades</button></form>";
+				echo "</div></div>";
+			}
+			else
+			{
+				//Assessment has previously been completed, edit grades
+				echo "<div class='entergrades'><p><strong>Course:</strong> ".$getCourseName[0]."</p><p><strong>Grades Entered:</strong> <span style='color:green'>Yes</span></p>";
+				echo "<button class='btn btn-success' name='addProgramBTN'>Edit Grades</button></div>";
+			}
 		}
 	}
 
