@@ -23,7 +23,7 @@ if (isset($_SESSION['loggedIn'])) {
 $_GET['REFERER'] = $_SERVER['HTTP_REFERER'];
 if (isset($_POST['username']) & isset($_POST['pass'])) {
 
-    $sqlStatement = "SELECT username,user_password,role_id,first_name,last_name FROM program_user WHERE username = :user";
+    $sqlStatement = "SELECT username,user_password,role_id,first_name,last_name,user_id FROM program_user WHERE username = :user";
     $stmt = $dbh->prepare($sqlStatement);
     $stmt->bindParam(":user", $_POST['username'], PDO::PARAM_STR);
     $stmt->execute() or die(print_r($stmt->errorInfo(), true));
@@ -38,6 +38,7 @@ if (isset($_POST['username']) & isset($_POST['pass'])) {
             $_SESSION['loggedIn'] = true;
             $_SESSION['username'] = $_POST['username'];
             $_SESSION['role_id'] = $result['0']->role_id;
+            $_SESSION['user_id'] = $result['0']->user_id;
             $_SESSION['first_name'] = $result['0']->first_name;
             $_SESSION['last_name'] = $result['0']->last_name;
 

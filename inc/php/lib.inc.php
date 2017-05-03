@@ -7,6 +7,8 @@ define ("DBC",'mysql:dbname=pascal_final_db;host=localhost');
 define ("DBUser",'pascal_web');
 define ("DBPassword",'fr1end');
 
+$currentTerm = 2165;
+
 /*
  * Builders header information
  * @param - title for page Ex. "Home | Course Assessment System"

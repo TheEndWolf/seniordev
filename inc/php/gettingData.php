@@ -308,6 +308,214 @@ class gettingData{
 		} catch (PDOException $e) {		}
 		echo $option;
 	}
+
+
+
+	function getViews($_roleID){
+		try {
+			$dbh = new PDO(DBC, DBUser, DBPassword);
+		} catch (PDOException $e) {
+			echo 'Connection failed: ' . $e->getMessage();
+		}
+		$role = $_roleID;
+		//--------------ASSESSMENT CO-ORDINATOR------------------------------
+		if ($role == 1) {
+			$sqlStatement1 = "select expected_percent_achieved, percent_students_achieved_obj from assessment join section using(section_id) join program_user using(user_id) where user_id = ':user';";
+			$passed = '';
+			$userName = "jamesUser";//$_SESSION['jamesUser'];
+			$stmt = $dbh->prepare($sqlStatement1);
+			$stmt->bindParam(":user", $_SESSION['user_id'], PDO::PARAM_STR);
+			$stmt->execute() or die(print_r($stmt->errorInfo(), true));
+			$stmt->rowCount();
+			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($result as $key) {
+				if (($key['percent_students_achieved_obj']) > ($key['expected_percent_achieved'])) {
+					$passed = "passed";
+				} else  $passed = "passed";
+			}
+
+
+			$sqlStatement = "select program_name, count(section_id) from grade join section_grade using(grade_id) join section using(section_id) join course_section using(section_id) join course using(course_id) join program using(program_id) group by program_name";
+			$stmt = $dbh->prepare($sqlStatement);
+			// $stmt->bindParam(":user", $_POST['username'], PDO::PARAM_STR);
+			$stmt->execute() or die(print_r($stmt->errorInfo(), true));
+			$stmt->rowCount();
+			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			echo "<div id='viewContent'>";
+			echo "<h2>PROGRAMS</h2>";
+			echo "<div id=\"view_program\">";
+			foreach ($result as $key) {
+				echo "<div id=\"programInfo\">;
+						 	 <hr>
+							<h3>Program: " . $key['program_name'] . "</h3>
+										<p>Number of grades entered: </br>" . $key['count(section_id)'] . "</p>
+										<p>Number that hit Goal %: </br>77%</p>
+						  </div>";
+			}
+			echo "</div>";
+			echo "<hr>";
+			$sqlStatement = "select course_name, count(section_id) from grade join section_grade using(grade_id) join section using(section_id) join course_section using(section_id) join course using(course_id) join program using(program_id)";
+			$stmt = $dbh->prepare($sqlStatement);
+			// $stmt->bindParam(":user", $_POST['username'], PDO::PARAM_STR);
+			$stmt->execute() or die(print_r($stmt->errorInfo(), true));
+			$stmt->rowCount();
+			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			//echo "<div id='viewContent'>";
+			echo "<h2>COURSES</h2>";
+			echo "<div id=\"view_course\">";
+			foreach ($result as $key) {
+				echo "<div id=\"courseInfo\">;
+			<hr>
+		<h3>Course: " . $key['course_name'] . "</h3>
+						<p>Number of grades entered: </br>" . $key['count(section_id)'] . "</p>
+						<p>Number that hit Goal %: </br>77%</p>
+						  </div>";
+			}
+			echo "</div>";
+			echo "<hr>";
+
+			$sqlStatement = "select course_name, count(section_id) from grade join section_grade using(grade_id) join section using(section_id) join course_section using(section_id) join course using(course_id) join program using(program_id)";
+			$stmt = $dbh->prepare($sqlStatement);
+			// $stmt->bindParam(":user", $_POST['username'], PDO::PARAM_STR);
+			$stmt->execute() or die(print_r($stmt->errorInfo(), true));
+			$stmt->rowCount();
+			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			echo "<h2>SECTIONS</h2>";
+			echo "<div id=\"view_section\">";
+			foreach ($result as $key) {
+				echo "<div id=\"sectionInfo\">;
+			<hr>
+		<h3>Course: " . $key['course_name'] . "</h3>
+						<p>Number of grades entered: </br>" . $key['count(section_id)'] . "</p>
+						<p>Number that hit Goal %: </br>77%</p>
+						  </div>";
+			}
+			echo " </div>";
+			echo "</div>";
+
+		}//----------------------------PROGRAM CO-ORDINATOR------------------------------------------------------------------------------------------------------
+		else if ($role == 2) {
+
+			$u = "jamesUser";
+			$sqlStatement2 = "select course_id from course join program_user using(course_coOrdinator) where username = :user_name";
+			$stmt2 = $dbh->prepare($sqlStatement2);
+			$stmt2->bindParam(":user_name", $u, PDO::PARAM_STR);
+			$stmt2->execute() or die(print_r($stmt2->errorInfo(), true));
+			$count = $stmt2->rowCount();
+			$courses = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($courses as $c) {
+
+				$courseID = $c['course_id'];
+				$section_id = 1;
+				$userName = "jamesUser";
+				$sqlStatement = "select count(section_id), course_name from assessment join section using(section_id) join program_user using(user_id) join course_section using(section_id) join course using(course_id) where username = :Nameuser and course_id=" . $courseID;
+				$stmt = $dbh->prepare($sqlStatement);
+				$stmt->bindParam(":Nameuser", $userName, PDO::PARAM_STR);
+				$stmt->execute() or die(print_r($stmt->errorInfo(), true));
+				$gradesEntered = $stmt->rowCount();
+				$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+				echo "<div id='viewContent'>";
+				echo "<h2>COURSES</h2>";
+				echo "<div id=\"view_program\">";
+				foreach ($result as $key) {
+					$countArr = $key['count(section_id)'];
+					echo "<div id=\"programInfo\">;
+				<hr>
+			<h3>Course: " . $key['course_name'] . "</h3>
+							<p>grades entered: </br>" . $countArr . "</p>";
+				}
+
+
+				$sqlStatement1 = "select expected_percent_achieved, percent_students_achieved_obj from assessment join section using(section_id) join program_user using(user_id) where username = :user and course_id =" . $courseID;
+				$passed = '';
+				$uName = "jamesUser";//$_SESSION['username'];
+				$stmt1 = $dbh->prepare($sqlStatement1);
+				$stmt1->bindParam(":user", $uName, PDO::PARAM_STR);
+				$stmt1->execute() or die(print_r($stmt1->errorInfo(), true));
+				$stmt1->rowCount();
+
+				$res = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+				foreach ($res as $key) {
+
+					if (($key['percent_students_achieved_obj']) > ($key['expected_percent_achieved'])) {
+						$passed = "yes";
+						echo "<p>Hit Goal %: </br>" . $passed . "</p>
+							  </div>";
+					} else {
+						$passed = "no";
+						echo "<p>Hit Goal %: </br>" . $passed . "</p></div>";
+					}
+				}
+
+				//foreach from 160
+				echo " </div>";
+				echo "</div>";
+			}//foreach courses
+		} //--------------------------------------------------------COURSE CO-ORDINATOR------------------------------------------------------------------------------------------DONE
+		else if ($role == 3) {
+
+			$sqlStatement2 = "select section_id from section_grade join section using(section_id) join program_user using(user_id) where user_id = :userid";
+			$stmt2 = $dbh->prepare($sqlStatement2);
+			$stmt2->bindParam(":userid", $_SESSION['user_id'], PDO::PARAM_STR);
+			$stmt2->execute() or die(print_r($stmt2->errorInfo(), true));
+			$count = $stmt2->rowCount();
+			$courses = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+			print_r($courses);
+			foreach ($courses as $c) {
+
+				$sectionID = $c['section_id'];
+				$sqlStatement = "select count(section_id), course_name from assessment join section using(section_id) join program_user using(user_id) join course_section using(section_id) join course using(course_id) where user_id = :userid and section_id=" . $sectionID;
+				$stmt = $dbh->prepare($sqlStatement);
+				$stmt->bindParam(":userid", $_SESSION['user_id'], PDO::PARAM_STR);
+				$stmt->execute() or die(print_r($stmt->errorInfo(), true));
+				$gradesEntered = $stmt->rowCount();
+				$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+				echo "<div id='viewContent'>";
+				echo "<h2>SECTIONS</h2>";
+				echo "<div id=\"view_section\">";
+				foreach ($result as $key) {
+					$countArr = $key['count(section_id)'];
+					echo "<div id=\"sectionInfo\">;
+				<hr>
+			<h3>Course: " . $key['course_name'] . "</h3>
+							<p>grades entered: </br>" . $countArr . "</p>";
+				}
+
+
+				$sqlStatement1 = "select expected_percent_achieved, percent_students_achieved_obj from assessment join section using(section_id) join program_user using(user_id) where user_id = :userID and section_id =" . $sectionID;
+				$passed = '';
+				$stmt1 = $dbh->prepare($sqlStatement1);
+				$stmt1->bindParam(":userID", $_SESSION['user_id'], PDO::PARAM_STR);
+				$stmt1->execute() or die(print_r($stmt1->errorInfo(), true));
+				$stmt1->rowCount();
+
+				$res = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+				foreach ($res as $key) {
+
+					if (($key['percent_students_achieved_obj']) > ($key['expected_percent_achieved'])) {
+						$passed = "yes";
+						echo "<p>Hit Goal %: </br>" . $passed . "</p>
+							  </div>";
+					} else {
+						$passed = "no";
+						echo "<p>Hit Goal %: </br>" . $passed . "</p></div>";
+					}
+				}
+
+				//foreach from 160
+				echo " </div>";
+				echo "</div>";
+			}//foreach courses
+		}
+	}
+
+
+
+
+
+
 }
 
 
