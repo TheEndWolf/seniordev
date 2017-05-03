@@ -46,7 +46,7 @@ class account{
 		$verifyUser = $this->db->selectStmt_ID("select username from program_user where username = '". $username ."' and user_password = '".$password."'");
 		if($verifyUser){
 			echo "Logged in successfully";
-		}else echo "not workng";
+		}else echo "not working";
 	}
 
 
