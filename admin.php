@@ -248,8 +248,6 @@ buildHeader("Admin | Course Assessment System");
                         $userRole = sanitize($_POST["edit_role"]);
                     }
 
-                    echo $_POST["edit-uid"]."|".$username."|".$password."|".$first_name."|".$last_name."|".$userEmail."|".$userRole."|";
-
                     try{
                         $dbh = new PDO(DBC, DBUser, DBPassword);
 
@@ -270,20 +268,13 @@ buildHeader("Admin | Course Assessment System");
                         $stmt->execute();
                         echo "Executing Update";
                         //$_POST['itemedited'] = $trackName . " has successfully been updated.";
-//        $stmt->execute() or die(print_r($stmt->errorInfo(), true));
+						//        $stmt->execute() or die(print_r($stmt->errorInfo(), true));
 
                     }catch(PDOEXception $e){
                         echo $e->getMessage();
                     }
-                    echo "editing?";
                 }
             }
-
-			if(isset($_POST['uploadSubmit'])){
-			$file = $_POST['upload'];
-			$dbconn1 = new report();
-			$dbconn1->uploadReport($file);
-			}
 			?>
 
         </div>
