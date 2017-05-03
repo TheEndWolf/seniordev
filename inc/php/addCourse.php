@@ -44,7 +44,6 @@ class addCourse{ // Renamed from enterData
 			$section = $this->db->selectStmt_ID("SELECT section_id FROM section WHERE section_number = ".$sectionNum." AND term = '".$term."' AND date_created = '".$date."' AND user_id = ".$professor);
 			$q2 = $this->db->queryStmt("INSERT INTO course_section(course_id, section_id)values(".$course.", ".$section.")");
 			$q3 = $this->db->queryStmt("INSERT INTO assessment(date_data_recieved, course_assessment_item, expected_percent_achieved, over_this, deadline, section_id)values('".$date."', '".$cai."', ".$expected.", ".$over_this.", '".$assessment_due."', ".$section.")");
-			echo "INSERT INTO assessment(date_data_recieved, course_assessment_item, expected_percent_achieved, over_this, deadline, section_id)values('".$date."', '".$cai."', ".$expected.", ".$over_this.", '".$assessment_due."', ".$section.")";
 			if($q3){
 				echo "Success: Data has been entered into database";
 			}

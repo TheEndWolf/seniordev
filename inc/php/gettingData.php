@@ -403,9 +403,13 @@ class gettingData{
 	 *	displayCourseAssessment method
 	 *  Displays all course assessments that are assigned to a certain user to fill out, usually for professors
 	 */
-	function displayCourseAssessment($userId)
+	function displayCourseAssessment($userId, $term)
 	{
-		
+		$getCourses= $this->db->selectStmt_Arr("SELECT section_id FROM section WHERE user_id = ".$userId." AND term = '".$term."'");
+		$arrCount= count($getCourses);
+		for($x = 0; $x < $arrCount; $x++) {
+			echo $getCourses[$x];
+		}
 	}
 
 
