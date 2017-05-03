@@ -18,6 +18,10 @@ label {
     float: left;
 }
 
+hr {
+	border-width: 5px;
+}
+
 #content {
     border-top: 1px solid #555555;
     border-bottom: 1px solid #555555;

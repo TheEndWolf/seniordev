@@ -541,9 +541,15 @@ class gettingData{
 	 */
 	function displayCourseAssessment($userId, $term)
 	{
-		echo "<h3>The courses that you are teaching this semester:</h3>";
 		$getSections= $this->db->selectStmt_Arr("SELECT section_id FROM section WHERE user_id = ".$userId." AND term = '".$term."'");
 		$arrCount= count($getSections);
+		if($arrCount == 0)
+		{
+			echo "<h3>You are not teaching any courses this semester</h3>";
+			echo "<hr>";
+			return;
+		}
+		echo "<h3>The courses that you are teaching this semester:</h3>";
 		for($x = 0; $x < $arrCount; $x++) {
 			$getCourseId = $this->db->selectStmt_Arr("SELECT course_id FROM course_section WHERE section_id = ".$getSections[$x]);
 			$getSectionNumber = $this->db->selectStmt_Arr("SELECT section_number FROM section WHERE section_id = ".$getSections[$x]);
