@@ -210,7 +210,6 @@ buildHeader("Admin | Course Assessment System");
                 $role = $_POST['create_role'];
                 $fname = $_POST['create_firstName'];
                 $lname = $_POST['create_lastName'];
-			echo $role . "|" . $name . "|" . $pass;
                 if ((strcmp($mail, $_POST['create_confirmMail']) == 0) && (strcmp($pass, $_POST['create_confirmPassword']) == 0) ) {
                     $dbconn1 = new account();
                     $dbconn1->createAccount($name, $pass, $mail, $role, $fname, $lname);
