@@ -327,6 +327,8 @@ class gettingData{
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+
             foreach ($result as $programResult) {
                 $programID = $programResult['program_id'];
                 $programName = $programResult['program_name'];
@@ -335,7 +337,9 @@ class gettingData{
 //                echo "Program Name: {$programName}";
 
 
-                $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . $currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
+
+
+                $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number,s.user_id as uid from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . $currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
                 $stmt = $dbh->prepare($sqlStatement);
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -351,6 +355,12 @@ class gettingData{
                     $compeleted = "";
                     $compBool = false;
                     $passed = "";
+
+                    $sqlStatement = "SELECT first_name,last_name from program_user where user_id = {$courseAssessment['uid']}";
+                    $stmt = $dbh->prepare($sqlStatement);
+                    $stmt->execute();
+                    $person = $stmt->fetch(PDO::FETCH_ASSOC);
+                    //print_r($person);
 
 
                     if ($courseAssessment['complete'] == 0) {
@@ -374,6 +384,7 @@ class gettingData{
 							Term: {$courseAssessment['term']} <br/>
 							Course Number: {$courseAssessment['course_number']} <br/>
 							Section: {$courseAssessment['section_number']} <br/>
+							Professor: {$person['first_name']} {$person['last_name']} <br/>
 							Complete: {$compeleted} <br/>";
                     if ($compBool) {
                         echo "Reached Goal of {$courseAssessment['expected_percent_achieved']}%: {$passed} <br/>";
@@ -405,7 +416,7 @@ class gettingData{
             $programName = $result[0]['program_name'];
 
 
-            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . $currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
+            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number,s.user_id as uid from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . $currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
             $stmt = $dbh->prepare($sqlStatement);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -422,6 +433,10 @@ class gettingData{
                 $compBool = false;
                 $passed = "";
 
+                $sqlStatement = "SELECT first_name,last_name from program_user where user_id = {$courseAssessment['uid']}";
+                $stmt = $dbh->prepare($sqlStatement);
+                $stmt->execute();
+                $person = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($courseAssessment['complete'] == 0) {
                     $compeleted = "NO";
@@ -444,6 +459,7 @@ class gettingData{
 							Term: {$courseAssessment['term']} <br/>
 							Course Number: {$courseAssessment['course_number']} <br/>
 							Section: {$courseAssessment['section_number']} <br/>
+							Professor: {$person['first_name']} {$person['last_name']} <br/>
 							Complete: {$compeleted} <br/>";
                 if ($compBool) {
                     echo "Reached Goal of {$courseAssessment['expected_percent_achieved']}%: {$passed} <br/>";
@@ -476,7 +492,7 @@ class gettingData{
             $courseNameID = str_replace(' ','_',$courseName);
 
 
-            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where course_id = {$courseID} and term = " . $currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
+            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number,s.user_id as uid from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where course_id = {$courseID} and term = " . $currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
             $stmt = $dbh->prepare($sqlStatement);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -493,6 +509,10 @@ class gettingData{
                 $compBool = false;
                 $passed = "";
 
+                $sqlStatement = "SELECT first_name,last_name from program_user where user_id = {$courseAssessment['uid']}";
+                $stmt = $dbh->prepare($sqlStatement);
+                $stmt->execute();
+                $person = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($courseAssessment['complete'] == 0) {
                     $compeleted = "NO";
@@ -515,6 +535,7 @@ class gettingData{
 							Term: {$courseAssessment['term']} <br/>
 							Course Number: {$courseAssessment['course_number']} <br/>
 							Section: {$courseAssessment['section_number']} <br/>
+							Professor: {$person['first_name']} {$person['last_name']} <br/>
 							Complete: {$compeleted} <br/>";
                 if ($compBool) {
                     echo "Reached Goal of {$courseAssessment['expected_percent_achieved']}%: {$passed} <br/>";

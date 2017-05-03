@@ -12,9 +12,6 @@ if (!array_key_exists('loggedIn', $_COOKIE)) {
     //Deployment
     $path = "/";
     $domain = "team-pascal.ist.rit.edu";
-    //Testing
-//        $path = "/~speedyman11/srdev2/";
-//        $domain = "172.110.20.237";
     $secure = false;
     $value = date("F j, Y g:i a");
     $value = mt_rand() . mt_rand() . mt_rand();
@@ -81,11 +78,10 @@ if (array_key_exists('role_id', $_SESSION)) {
         }
 
 
-        if(isset($_SESSION['PasswordChanged'])){
+        if (isset($_SESSION['PasswordChanged'])) {
             echo "<h2>Password Changed</h2>";
             unset($_SESSION['PasswordChanged']);
         }
-
 
 
         unset($_SESSION['PasswordChanged']);

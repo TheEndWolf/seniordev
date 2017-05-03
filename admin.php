@@ -7,15 +7,12 @@ session_start();
 
 if(!array_key_exists('loggedIn', $_COOKIE)){
     session_destroy();
-    //header("Location: /");
+    header("Location: /");
 }else{
     $expire = time() + 60 * 10;//10 minutes from now
     //Deployment
     $path = "/";
     $domain = "team-pascal.ist.rit.edu";
-    //Testing
-//        $path = "/~speedyman11/srdev2/";
-//        $domain = "172.110.20.237";
     $secure = false;
     $value = date("F j, Y g:i a");
     $value = mt_rand() . mt_rand() . mt_rand();
