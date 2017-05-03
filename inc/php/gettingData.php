@@ -311,6 +311,7 @@ class gettingData{
 
 	function getViews($_roleID)
     {
+        $currentTerm = 2165;
         try {
             $dbh = new PDO(DBC, DBUser, DBPassword);
         } catch (PDOException $e) {
@@ -320,7 +321,7 @@ class gettingData{
 
         // Assessment Coordinator or Admin
         if ($role == 3 || $role == 1) {
-
+			echo "<h3>The courses that are being taught this semester:</h3>";
             $sqlStatement = "SELECT program_id, program_CoOrdinator,program_name from program";
             $stmt = $dbh->prepare($sqlStatement);
             $stmt->execute();
@@ -334,7 +335,7 @@ class gettingData{
 //                echo "Program Name: {$programName}";
 
 
-                $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
+                $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . $currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
                 $stmt = $dbh->prepare($sqlStatement);
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -353,23 +354,23 @@ class gettingData{
 
 
                     if ($courseAssessment['complete'] == 0) {
-                        $compeleted = "NO";
+                        $compeleted = "<span style='color:red'>NO</span>";
                         $compBool = false;
                     } else {
-                        $compeleted = "yes";
+                        $compeleted = "<span style='color:green'>YES</span>";
                         $compBool = true;
                     }
 
                     if (($courseAssessment['percent_students_achieved_obj']) > ($courseAssessment['expected_percent_achieved'])) {
-                        $passed = "YES";
+                        $passed = "<span style='color:green'>YES</span>";
                     } else {
-                        $passed = "NO";
+                        $passed = "<span style='color:red'>NO</span>";
                     }
                     echo "<div class=\"courseBoxes\">
 						<h4>{$courseAssessment['course_name']}</h4>
 						<hr>
 						<p>
-							Item: {$courseAssessment['course_assessment_item']} <br/>
+							Course Assessment Item: {$courseAssessment['course_assessment_item']} <br/>
 							Term: {$courseAssessment['term']} <br/>
 							Course Number: {$courseAssessment['course_number']} <br/>
 							Section: {$courseAssessment['section_number']} <br/>
@@ -404,7 +405,7 @@ class gettingData{
             $programName = $result[0]['program_name'];
 
 
-            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
+            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where program_id = {$programID} and term = " . $currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
             $stmt = $dbh->prepare($sqlStatement);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -475,7 +476,7 @@ class gettingData{
             $courseNameID = str_replace(' ','_',$courseName);
 
 
-            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where course_id = {$courseID} and term = " . currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
+            $sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id,term, a.*,s.section_number from course join course_section using(course_id) join assessment a using(section_id) join section s using(section_id) where course_id = {$courseID} and term = " . $currentTerm . " order by course_number asc, assessment_id asc,s.section_number asc";
             $stmt = $dbh->prepare($sqlStatement);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -540,6 +541,7 @@ class gettingData{
 	 */
 	function displayCourseAssessment($userId, $term)
 	{
+		echo "<h3>The courses that you are teaching this semester:</h3>";
 		$getSections= $this->db->selectStmt_Arr("SELECT section_id FROM section WHERE user_id = ".$userId." AND term = '".$term."'");
 		$arrCount= count($getSections);
 		for($x = 0; $x < $arrCount; $x++) {
@@ -564,6 +566,7 @@ class gettingData{
 			}
 		}
         echo "<div style='clear:both;'></div>";
+		echo "<hr>";
 	}
 }
 

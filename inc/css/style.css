@@ -93,8 +93,9 @@ footer {
 }
 
 .courseBoxes {
-    border: black 2px solid;
+    border: black 5px solid;
     float: left;
+	padding: 15px;
     margin: 10px;
 }
 
