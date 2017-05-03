@@ -439,23 +439,23 @@ class gettingData{
                 $person = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($courseAssessment['complete'] == 0) {
-                    $compeleted = "NO";
+                    $compeleted = "<span style='color:red'>NO</span>";
                     $compBool = false;
                 } else {
-                    $compeleted = "yes";
+                    $compeleted = "<span style='color:green'>YES</span>";
                     $compBool = true;
                 }
 
                 if (($courseAssessment['percent_students_achieved_obj']) > ($courseAssessment['expected_percent_achieved'])) {
-                    $passed = "YES";
+                    $passed = "<span style='color:green'>YES</span>";
                 } else {
-                    $passed = "NO";
+                    $passed = "<span style='color:red'>NO</span>";
                 }
                 echo "<div class=\"courseBoxes\">
 						<h4>{$courseAssessment['course_name']}</h4>
 						<hr>
 						<p>
-							Item: {$courseAssessment['course_assessment_item']} <br/>
+							Course Assessment Item: {$courseAssessment['course_assessment_item']} <br/>
 							Term: {$courseAssessment['term']} <br/>
 							Course Number: {$courseAssessment['course_number']} <br/>
 							Section: {$courseAssessment['section_number']} <br/>
@@ -515,23 +515,23 @@ class gettingData{
                 $person = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($courseAssessment['complete'] == 0) {
-                    $compeleted = "NO";
+                    $compeleted = "<span style='color:red'>NO</span>";
                     $compBool = false;
                 } else {
-                    $compeleted = "yes";
+                    $compeleted = "<span style='color:green'>YES</span>";
                     $compBool = true;
                 }
 
                 if (($courseAssessment['percent_students_achieved_obj']) > ($courseAssessment['expected_percent_achieved'])) {
-                    $passed = "YES";
+                    $passed = "<span style='color:green'>YES</span>";
                 } else {
-                    $passed = "NO";
+                    $passed = "<span style='color:red'>NO</span>";
                 }
                 echo "<div class=\"courseBoxes\">
 						<h4>{$courseAssessment['course_name']}</h4>
 						<hr>
 						<p>
-							Item: {$courseAssessment['course_assessment_item']} <br/>
+							Course Assessment Item: {$courseAssessment['course_assessment_item']} <br/>
 							Term: {$courseAssessment['term']} <br/>
 							Course Number: {$courseAssessment['course_number']} <br/>
 							Section: {$courseAssessment['section_number']} <br/>
@@ -562,9 +562,15 @@ class gettingData{
 	 */
 	function displayCourseAssessment($userId, $term)
 	{
-		echo "<h3>The courses that you are teaching this semester:</h3>";
 		$getSections= $this->db->selectStmt_Arr("SELECT section_id FROM section WHERE user_id = ".$userId." AND term = '".$term."'");
 		$arrCount= count($getSections);
+		if($arrCount == 0)
+		{
+			echo "<h3>You are not teaching any courses this semester</h3>";
+			echo "<hr>";
+			return;
+		}
+		echo "<h3>The courses that you are teaching this semester:</h3>";
 		for($x = 0; $x < $arrCount; $x++) {
 			$getCourseId = $this->db->selectStmt_Arr("SELECT course_id FROM course_section WHERE section_id = ".$getSections[$x]);
 			$getSectionNumber = $this->db->selectStmt_Arr("SELECT section_number FROM section WHERE section_id = ".$getSections[$x]);
