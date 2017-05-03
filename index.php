@@ -40,6 +40,7 @@ if (array_key_exists('role_id', $_SESSION)) {
     <?php
     if (isset($_SESSION['loggedIn'])) {
         $getData = new gettingData();
+		$getData->displayCourseAssessment($_SESSION['user_id']);
         $getData->getViews($_SESSION['role_id']);
         echo "<div id=\"home-content\">
                 <p>content here</p>
