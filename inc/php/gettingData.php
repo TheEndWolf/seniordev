@@ -563,6 +563,7 @@ class gettingData{
 				echo "<div class='entergrades'><p><strong>Course:</strong> ".$getCourseName[0]."</p><p><strong>Course Number-Section:</strong> ".$getCourseNumber[0]."-0".$getSectionNumber[0]."</p><p><strong>Grades Entered:</strong> <span style='color:green'>Yes</span></p></div>";
 			}
 		}
+        echo "<div style='clear:both;'></div>";
 	}
 }
 

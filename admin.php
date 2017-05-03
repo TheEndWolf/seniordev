@@ -45,7 +45,7 @@ buildHeader("Admin | Course Assessment System");
 
     <div id="content">
             <div class="tabPg">
-                <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'create_account')">Create New Account</a>
+                <a href="javascript:void(0)" class="tabs active" onclick="openTab(event, 'create_account')">Create New Account</a>
                 <a href="javascript:void(0)" class="tabs" onclick="openTab(event, 'edit_account')">Edit Account</a>
             </div>
 
@@ -295,14 +295,19 @@ buildHeader("Admin | Course Assessment System");
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="inc/js/jquery.inputfile.js"></script>
         <script>
-            $('input[type="file"]').inputfile({
-                uploadText: '<span class="glyphicon glyphicon-upload"></span> Select a file',
-                removeText: '<span class="glyphicon glyphicon-trash"></span>',
-                restoreText: '<span class="glyphicon glyphicon-remove"></span>',
-
-                uploadButtonClass: 'btn btn-success',
-                removeButtonClass: 'btn btn-default'
+            $( document ).ready(function() {
+                openTab(event, 'create_account');
+                $('.tabPg').find('a').first().addClass('active');
             });
+//
+//            $('input[type="file"]').inputfile({
+//                uploadText: '<span class="glyphicon glyphicon-upload"></span> Select a file',
+//                removeText: '<span class="glyphicon glyphicon-trash"></span>',
+//                restoreText: '<span class="glyphicon glyphicon-remove"></span>',
+//
+//                uploadButtonClass: 'btn btn-success',
+//                removeButtonClass: 'btn btn-default'
+//            });
 
 
 
