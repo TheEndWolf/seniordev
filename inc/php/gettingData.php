@@ -318,7 +318,30 @@ class gettingData{
 			echo 'Connection failed: ' . $e->getMessage();
 		}
 		$role = $_roleID;
+
+		// Assessment Coordinator
+		//
+		//
 		if ($role == 3) {
+
+			$sqlStatement = "SELECT program_id, program_CoOrdinator from program where program_CoOrdinator = {$_SESSION['user_id']}";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			$programID =$result[0]['program_id'];
+			echo "Program ID: {$programID}";
+
+			$sqlStatement = "SELECT course_id, course_name, course_number, flag, course_coOrdinator, program_id from course where program_id = {$programID}";
+			$stmt = $dbh->prepare($sqlStatement);
+			$stmt->execute();
+			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			echo "<pre>";
+			print_r($result);
+			echo "</pre>";
+
+
 
 			$sqlStatement2 = "select section_id from section_grade join section using(section_id) join program_user using(user_id) where user_id = :userid";
 			$stmt2 = $dbh->prepare($sqlStatement2);
@@ -326,7 +349,7 @@ class gettingData{
 			$stmt2->execute() or die(print_r($stmt2->errorInfo(), true));
 			$count = $stmt2->rowCount();
 			$courses = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-			print_r($courses);
+
 			foreach ($courses as $c) {
 
 				$sectionID = $c['section_id'];
