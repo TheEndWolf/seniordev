@@ -88,6 +88,8 @@ footer {
     border-color: black;
     position: relative;
     margin: 5px;
+	padding: 15px;
+    margin: 15px;
 }
 
 .courseBoxes {
